@@ -1,0 +1,21 @@
+#leaderboard-hud {
+  display: none;
+  flex-direction: column;
+  align-self: flex-end;
+  background-color: rgba(40, 40, 40, 0.6);
+  padding: 10px;
+  margin-top: 5px;
+  margin-right: 3px;
+  pointer-events: none;
+  touch-action: none;
+  user-select: none;
+
+  .slot {
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 16px;
+    max-width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

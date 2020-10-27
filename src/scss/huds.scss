@@ -1,0 +1,93 @@
+@import 'huds/zoom-buttons';
+@import 'huds/joystick';
+@import 'huds/d-pad';
+@import 'huds/menu-warning';
+@import 'huds/leaderboard';
+@import 'huds/minimap';
+
+#huds {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+
+  .top-left {
+    position: fixed;
+    top: 12px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    transform-origin: top left;
+    
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+
+      button {
+        background-color: #333333;
+        color: #ffffff;
+        border: none;
+        outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        margin: 2px;
+        border-radius: 50%;
+        font-size: 18px;
+        outline: none;
+        user-select: none;
+        padding: 0px;
+
+        i {
+          width: 100%;
+        }
+
+        span {
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 12px; 
+          width: 100%;               
+        }
+      }
+    }
+  }
+
+  .top-right {
+    position: fixed;
+    top: 12px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    transform-origin: top right;
+
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+      button {
+        background-color: #333333;
+        color: #ffffff;
+        border: none;
+        outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        margin: 2px;
+        border-radius: 50%;
+        font-size: 18px;
+        outline: none;
+        user-select: none;
+        padding: 0px;
+
+        i {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,127 @@
+#server-menu {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #222222;
+  display: none;
+  flex-direction: column;
+  user-select: none;
+
+  .header {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px;
+    background-color: #222222;
+    color: #aaaaaa;
+    text-align: center;
+    box-shadow: 0px 0px 6px #000;
+    z-index: 2;
+
+    #server-menu-close {
+      display: flex;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: 46px;
+      height: 46px;
+      font-size: 26px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  
+  @media screen and (min-height: 1024px) {
+    .header {
+      font-size: 28px;
+  
+      #server-menu-close {
+        width: 56px;
+        height: 56px;
+        font-size: 32px;
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow: auto;
+
+    .nav-bar {
+      display: flex;
+      flex-direction: column;
+      background-color: #333333;
+      box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.6);
+      z-index: 1;
+
+      .region {
+        color: #ffffff;
+        width: 54px;
+        height: 54px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .region.active {
+        background-color: #e66acb;
+        color: #ffffff;
+      }
+    }
+  
+    @media screen and (min-height: 1024px) {
+      .nav-bar {
+        .region {
+          width: 68px;
+          height: 68px;
+          font-size: 32px;
+        }
+      }
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      overflow: scroll;
+      flex-grow: 1;
+      user-select: none;
+
+      .item-row {
+        display: flex;
+        flex-direction: row;
+        color: #ffffff;
+        font-size: 18px;
+        flex-shrink: 0;
+
+        .cell {
+          flex-grow: 1;
+          flex-basis: 0;
+          text-align: center;
+          padding: 10px;
+        }
+      }
+
+      @media screen and (min-height: 1024px) {
+        .item-row {
+          font-size: 24px;
+        }
+      }
+      .item-row.title {
+        background: #333333;
+        font-weight: 600;
+        color: #bbbbbb;
+      }
+
+      .item-row.active {
+        background: #e66acb;
+        font-weight: 600;
+        color: #ffffff;
+      }
+    }
+  }
+}

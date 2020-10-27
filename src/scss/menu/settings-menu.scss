@@ -1,0 +1,298 @@
+#settings-menu {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: #222222;
+  display: none;
+  flex-direction: column;
+  user-select: none;
+
+  .header {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 10px;
+    background-color: #222222;
+    color: #aaaaaa;
+    text-align: center;
+    box-shadow: 0px 0px 6px #000;
+    z-index: 2;
+
+    #settings-menu-close {
+      display: flex;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      width: 46px;
+      height: 46px;
+      font-size: 26px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  
+  @media screen and (min-height: 1024px) {
+    .header {
+      font-size: 28px;
+  
+      #settings-menu-close {
+        width: 56px;
+        height: 56px;
+        font-size: 32px;
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    flex-grow: 1;
+
+    .nav-bar {
+      display: flex;
+      flex-direction: column;
+      background-color: #333333;
+      box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.6);
+      z-index: 1;
+
+      .category {
+        color: #ffffff;
+        width: 54px;
+        height: 54px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .category.active {
+        background-color: #e66acb;
+        color: #ffffff;
+      }
+    }
+  
+    @media screen and (min-height: 1024px) {
+      .nav-bar {
+        .category {
+          width: 68px;
+          height: 68px;
+          font-size: 32px;
+        }
+      }
+    }
+
+    .setting-items {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      flex-grow: 1;
+
+      .item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 20px;
+
+        .title {
+          color: #aaaaaa;
+          flex-grow: 1;
+          font-size: 20px;
+        }
+
+        @media screen and (min-height: 1024px) {
+          .title {
+            font-size: 26px;
+          }
+        }
+      }
+
+      .toggle {
+        .toggle-box {
+          width: 60px;
+          height: 26px;
+          padding: 3px;
+          background-color: #444444;
+          box-sizing: border-box;
+          border-radius: 13px;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+
+          .toggle-ball {
+            width: 20px;
+            height: 20px;
+            background-color: #222222;
+            border-radius: 50%;
+          }
+        }
+
+        @media screen and (min-height: 1024px) {
+          .toggle-box {
+            transform-origin: center right;
+            transform: scale(1.25);
+          }
+        }
+      }
+
+      .toggle.active {
+        .toggle-box {
+          background-color: #e66acb;
+          justify-content: flex-end;
+
+          .toggle-ball {
+            background-color: #ffffff;
+          }
+        }
+      }
+
+      .colorpicker {
+        .combo-box {
+          display: flex;
+          flex-direction: row;
+
+          .reset-btn {
+            color: #888888;
+            background-color: #333333;
+            padding: 6px 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+          }
+
+          .jscolor {
+            outline: none;
+            border: none;
+            box-shadow: 0px 0px 3px #000000;
+            padding: 6px;
+            width: 60px;
+            font-size: 14px;
+            border-radius: 1px;
+          }
+        }
+
+        @media screen and (min-height: 1024px) {
+          .combo-box {
+            transform-origin: center right;
+            transform: scale(1.25);
+          }
+        }
+      }
+
+      .choice-box {
+        .choices {
+          display: flex;
+          flex-direction: row;
+          background-color: #333333;
+          border-radius: 2px;
+
+          .choice {
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 2px;
+            font-weight: 500;
+          }
+
+          .choice.active {
+            background-color: #e66acb;
+          }
+        }
+
+        @media screen and (min-height: 1024px) {
+          .choices {
+            transform-origin: center right;
+            transform: scale(1.25);
+          }
+        }
+      }
+
+      .range-bar {
+        flex-direction: column;
+
+        .title {
+          width: 100%;
+        }
+
+        .range-box {
+          position: relative;
+          width: 100%;
+
+          .progress-bar {
+            margin-top: 7px;
+            margin-bottom: 6px;
+            background-color: #555555;
+            width: 100%;
+            height: 8px;
+            position: absolute;
+            z-index: -1;
+          
+
+            .fill-out {
+              border-left: 10px solid #e66acb;
+              border-right: 10px solid transparent;
+              width: 100%;
+              height: 100%;
+              box-sizing: border-box;
+
+              .fill-in {
+                width: 40%;
+                height: 100%;
+                background-color: #e66acb;
+              }
+            }
+          }
+
+          input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            margin: 6px 0;
+            background-color: transparent;
+          }
+          input[type=range]:focus {
+            outline: none;
+          }
+          input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: transparent;
+            border-radius: 4px;
+          }
+          input[type=range]::-webkit-slider-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 10px;
+            background: #ffffff;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -6px;
+          }
+          input[type=range]:focus::-webkit-slider-runnable-track {
+            background: #3f3f3f;
+          }
+          input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: transparent;
+            border-radius: 4px;
+          }
+          input[type=range]::-moz-range-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 10px;
+            background: #ffffff;
+            cursor: pointer;
+          }
+        }
+
+        @media screen and (min-height: 1024px) {
+          
+        }
+      }
+    }
+  }
+}

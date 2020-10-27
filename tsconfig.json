@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "es5",
+    "downlevelIteration": true,
+    "sourceMap": true,
+    "noImplicitReturns": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}

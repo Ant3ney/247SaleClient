@@ -1,0 +1,57 @@
+#splash-screen {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #111111;
+  opacity: 1;
+  transition: opacity 1s;
+
+  .senpaio-logo {
+    width: 280px;
+  }
+
+  .hage-logo {
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    width: 100px;
+  }
+
+  @media screen and (min-width: 768px) and (min-height: 360px) {
+    .senpaio-logo {
+      width: 330px;
+    }
+
+    .hage-logo {
+      width: 120px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) and (min-height: 768px) {
+    .senpaio-logo {
+      width: 400px;
+    }
+
+    .hage-logo {
+      width: 180px;
+    }
+  }
+
+  #network-error {
+    color: #ef6d6d;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 40px;
+    display: none;
+
+    i {
+      margin-right: 5px;
+    }
+  }
+}

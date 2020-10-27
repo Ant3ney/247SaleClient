@@ -1,0 +1,90 @@
+#d-pad {
+  position: fixed;
+  width: 140px;
+  height: 140px;
+  bottom: 20px;
+  user-select: none;
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    button {
+      border-radius: 50%;
+      border: 2px solid rgba(80, 80, 80, 0.5);
+      background-color: rgba(40, 40, 40, 0.5);
+      outline: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px;
+    }
+
+    button.a > img,
+    button.d > img {
+      pointer-events: none;
+      width: 100%;
+      transform: scale(1);
+    }
+
+    button.b > img,
+    button.c > img {
+      pointer-events: none;
+      width: 100%;
+      transform: scale(1.2);
+    }
+
+    button > span {
+      pointer-events: none;
+      color: #a7a7a7;
+      font-size: 18px;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    button.a {
+      width: 44px;
+      height: 44px;
+      margin: 13px;
+      font-size: 20px;
+    }
+
+    button.b {
+      width: 70px;
+      height: 70px;
+      font-size: 30px;
+    }
+
+    button.c {
+      width: 70px;
+      height: 70px;
+      font-size: 30px;
+    }
+
+    button.d {
+      width: 44px;
+      height: 44px;
+      margin: 13px;
+      font-size: 20px;
+    }
+  }
+}
+
+#d-pad[position=right] {
+  right: 20px;
+  transform-origin: bottom right;
+}
+
+#d-pad[position=left] {
+  left: 20px;
+  transform-origin: bottom left;
+
+  .buttons {
+    transform: scaleX(-1);
+
+    button {
+      transform: scaleX(-1);
+    }
+  }
+}

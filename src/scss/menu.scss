@@ -1,0 +1,195 @@
+@import 'menu/server-menu';
+@import 'menu/settings-menu';
+
+#menu {
+   position: fixed;
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   height: 100%;
+   background-color: #111;
+   user-select: none;
+
+   #server-info {
+      position: fixed;
+      top: 5px;
+      left: 5px;
+      padding: 8px;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 14px;
+
+      @media screen and (min-height: 1024px) {
+         font-size: 20px;
+      }
+   }
+
+   .center-box {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      user-select: none;
+
+      .logo {
+         text-align: center;
+         color: #ffffff;
+
+         img {
+            width: 150px;
+         }
+      }
+
+      .arrow {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         color: #ffffff;
+         font-size: 17px;
+         width: 40px;
+         height: 40px;
+         background: linear-gradient(150deg, #fd95e6, #ea4ac8);
+         border-radius: 50%;
+         margin: 10px;
+         user-select: none;
+         touch-action: none;
+      }
+
+      .player-data {
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         align-items: center;
+
+         .form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .data-row {
+               display: flex;
+               flex-direction: row;
+               justify-content: center;
+               align-content: center;
+               width: 100%;
+            }
+
+            .input-box {
+               background-color: #222222;
+               padding: 8px;
+               margin: 5px;
+               outline: none;
+               border: 2px solid #333333;
+               border-radius: 3px;
+               color: #aeaeae;
+               font-family: 'Rajdhani', sans-serif;
+               font-weight: 500;
+               font-size: 16px;
+               transition: border 0.4s;
+            }
+
+            .input-box:focus {
+               border: 2px solid #e66acb;
+            }
+
+            #tag {
+               width: 40px;
+            }
+
+            #code {
+               width: 40px;
+            }
+
+            #nick {
+               flex-grow: 1;
+            }
+
+            #skin1 {
+               width: 135px;
+            }
+
+            #skin2 {
+               width: 135px;
+            }
+         }
+      }
+
+      #play {
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         align-items: center;
+         align-self: center;
+         background: linear-gradient(150deg, #fd95e6, #ea4ac8);
+         color: #ffffff;
+         padding: 10px 30px;
+         border: none;
+         outline: none;
+         border-radius: 24px;
+         text-align: center;
+         font-family: 'Rajdhani', sans-serif;
+         font-weight: 600;
+         font-size: 18px;
+         margin-top: 5px;
+         user-select: none;
+         touch-action: none;
+
+         i {
+            margin-right: 5px;
+         }
+      }
+   }
+
+   .bottom-left-btns {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      position: fixed;
+      bottom: 8px;
+      left: 8px;
+      transform-origin: bottom left;
+      touch-action: none;
+
+      .btn-square {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         padding: 15px;
+         border-radius: 50%;
+         border: none;
+         outline: none;
+         background: linear-gradient(150deg, #333, #444);
+         color: #ffffff;
+         font-size: 20px;
+         width: 50px;
+         height: 50px;
+         user-select: none;
+         margin: 2px;
+      }
+
+      #servers {
+         background: linear-gradient(150deg, #95dafd, #4aa0ea);
+      }
+
+      #settings {
+         background: linear-gradient(150deg, #fd95e6, #ea4ac8);
+      }
+
+      #discord {
+         background: linear-gradient(150deg, #9fb0ef, #425bb3);
+
+         a {
+            color: #ffffff;
+         }
+      }
+
+      #fullscreen {
+         background: linear-gradient(150deg, #73e899, #34c15f);
+      }
+   }
+}

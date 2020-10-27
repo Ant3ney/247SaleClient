@@ -1,0 +1,28 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import 'huds';
+@import 'menu';
+@import 'splash-screen';
+
+html, body {
+  overflow: hidden;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  user-select: none;
+}
+
+body {
+  overflow: hidden;
+  background-color: #111111;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+#screen {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
