@@ -11,7 +11,7 @@ const config = {
   mode: environment,
   target: 'web',
   devServer: {
-    host: '0.0.0.0',
+    host: '127.0.0.1',
     contentBase: `${__dirname}/dist`,
     compress: true,
     headers: {
