@@ -123,9 +123,9 @@ class Profiles {
 			const defaultData: ProfileData = Defaults[i] || {};
 			const nick: string = defaultData.nick || `Profile ${i + 1}`;
 			const skin1: string =
-				defaultData.skin1 || 'https://i.imgur.com/gDaGg7U.png';
+				defaultData.skin1 || '';
 			const skin2: string =
-				defaultData.skin2 || 'https://i.imgur.com/gDaGg7U.png';
+				defaultData.skin2 || '';
 			const profile: Profile = new Profile(nick, skin1, skin2);
 			this.list.push(profile);
 		}
