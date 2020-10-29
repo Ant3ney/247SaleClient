@@ -2,9 +2,11 @@ import Menu from "./ui/Menu";
 import Huds from "./ui/Huds";
 import Minimap from "./ui/huds/Minimap";
 import Joystick from "./ui/huds/Joystick";
+import SkinModal from './UI/UISkinModal';
 
 class UI {
   userScale: number;
+  SkinModal: any = SkinModal;
 
   constructor() {
     this.userScale = 1;
@@ -13,6 +15,7 @@ class UI {
   initialise(): void {
     Menu.initialise();
     Huds.initialise();
+	SkinModal.initialise();
 
     this.scale();
     window.addEventListener('resize', () => { this.scale() }, { passive: true });
@@ -38,6 +41,11 @@ class UI {
 
     const menuBtns: HTMLDivElement = <HTMLDivElement>document.querySelector('#menu .bottom-left-btns');
     menuBtns.style.transform = `scale(${0.7 + (ratio * 0.8)})`;
+	
+	const skinModal: any = document.querySelector("#skin-modal .content");
+	if(skinModal) {
+		skinModal.style.transform = `scale(${ratio})`;
+	}
 
     Minimap.resize((120 * window.devicePixelRatio * (0.7 + ratio)) * this.userScale | 0);
     Joystick.resize((0.7 + ratio) * this.userScale);

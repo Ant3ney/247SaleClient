@@ -2,6 +2,7 @@ import Socket from './Socket';
 import Writer from '../Writer';
 import Player from '../../game/Player';
 import World from '../../game/World';
+//import AccountData from '../../ui/AccountData';
 
 class Emitter {
    handshakeDone: boolean;
@@ -52,20 +53,20 @@ class Emitter {
    }
 
    skin(unit: number = Player.activeTab): void {
-      if (
-         !Socket.ws ||
-         !Socket.connected ||
-         !this.handshakeDone ||
-         unit >= World.myPlayerIDs.length
-      )
-         return;
+      if (!Socket.ws || !Socket.connected || !this.handshakeDone || unit >= World.myPlayerIDs.length) return;
 
-      const skinURL: string =
-         unit === 0 ? Player.skin1 : unit === 1 ? Player.skin2 : '';
-      const writer: Writer = new Writer(2 + skinURL.length + 1);
+      const skinURL: string = unit === 0 ? Player.skin1 : unit === 1 ? Player.skin2 : '';
+	  const hasAuthToken = Player.authToken != null;
+	  
+	  let len = 2 + skinURL.length + 1;
+	  
+	  if (hasAuthToken) len += 2 * (Player.authToken.length + 1);
+	  
+      const writer: Writer = new Writer(len);
       writer.writeUInt8(21);
       writer.writeUInt8(unit);
       writer.writeString8(skinURL);
+	  if (hasAuthToken) writer.writeString16(Player.authToken);
 
       Socket.ws.send(writer.buffer);
    }

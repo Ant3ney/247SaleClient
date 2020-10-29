@@ -81,21 +81,26 @@
     <div class="center-box">
       <div class="logo"><img src="../resources/images/logo-med.png"></div>
       <div class="player-data">
-        <div id="profile-previous" class="arrow">
-          <i class="fas fa-chevron-left"></i>
-        </div>
         <div class="form">
           <div class="data-row">
             <input class="input-box" id="tag" placeholder="Tag" readonly>
             <input class="input-box" id="nick" placeholder="Nick" readonly>
           </div>
+		  <!--<div>
+            <input class="input-field skin-input" readonly id="skinURL1" placeholder="Skin URL" style="display: none" />
+			<input class="input-field skin-input" readonly id="skinURL2" placeholder="Skin URL" style="display: none" />
+          </div>-->
           <div class="data-row">
-            <input class="input-box" id="skin1" placeholder="Skin URL 1" readonly style="display: none;">
-            <input class="input-box" id="skin2" placeholder="Skin URL 2" readonly style="display: none;">
+            <!--<input class="input-box" id="skin1" placeholder="Skin URL 1" readonly>
+            <input class="input-box" id="skin2" placeholder="Skin URL 2" readonly>-->
+			
+			<div class="profile-controls">
+				<div class="arrow inline" id="profile-previous"><i class="fas fa-caret-left"></i></div>
+				<div class="skin-preview inline" id="skin-preview-1" style="background-image: url(&quot;src/resources/img/no-skin.png&quot;);"></div>
+				<div class="skin-preview inline" id="skin-preview-2" style="background-image: url(&quot;src/resources/img/no-skin.png&quot;);"></div>
+				<div class="arrow inline" id="profile-next"><i class="fas fa-caret-right"></i></div>
+			</div>
           </div>
-        </div>
-        <div id="profile-next" class="arrow">
-          <i class="fas fa-chevron-right"></i>
         </div>
       </div>
       <button id="play">
@@ -151,6 +156,90 @@
           </template>
         </div>
       </div>
+    </div>
+
+	<div id="skin-modal">
+        <div class="content">
+            <div class="exit-button"><i class="fas fa-times"></i></div>
+            <div class="tabs">
+                <button id="skinBtn1"><i class="fas fa-medal"></i>Level</button>
+                <button id="skinBtn2"><i class="fas fa-grin-hearts"></i>Free</button>
+                <button id="skinBtn3"><i class="fas fa-user-circle"></i>My Skins</button>
+                <button id="skinBtn4"><i class="fas fa-star"></i>Favorites</button>
+                <button id="skinBtn5"><i class="fas fa-plus-square"></i>Submit</button>
+            </div>
+            <div class="tabContent">
+
+                <template name="skin-item">
+                    <div class="grid-item">
+                        <img draggable="false">
+                        <div class="icon"><i class="fas fa-bookmark fa-2x"></i></div>
+                        <div class="title">Skin Name Goes Here</div>
+                        <button>Activate</button>
+                    </div>
+                </template>
+
+
+                <input id="skinSearch" type="text" class="searchBox" placeholder="Search . . ." />
+
+                <div id="skinView" class="scrollview ps ps--active-y">
+                    <div class="grid-container" id="skinGrid">
+
+                    </div>
+                    <div id="skinsLoading">
+                        <h2>Loading . . .</h2>
+                    </div>
+                </div>
+                <div id="skinsPagin" class="pagination">
+                    <a class="pagination-0">&laquo;</a>
+                    <a class="pagination-1">1</a>
+                    <a class="pagination-2 active">2</a>
+                    <a class="pagination-3">3</a>
+                    <a class="pagination-4">&raquo;</a>
+                </div>
+                <div id="skin-submit">
+                    <div class="submit-page">
+                        <h3>Submit A Skin</h3>
+                        <p>Submit a custom skin to be approved. Approved skins will become freely available to all
+                            players!</p>
+                        <p><i>Note: You can only have a limited number of skins pending approval at once.</i></p>
+                        <input id="imageUploadFile" style="visibility: collapse; width: 0px;" type="file"
+                            accept="image/png, image/jpeg" />
+                        <div id="submit-form-state1">
+                            <button id="imageUploadFileBtn">Browse</button>
+                        </div>
+                        <div id="submit-form-state2">
+                            <button disabled="true">Uploading...</button>
+                        </div>
+                        <div id="submit-form-state3">
+                            <h2>Done!</h2>
+
+                            <div>
+                                <p>Check your 'My Skins' periodically to see your approved submissions.</p>
+                                <button id="submitStartOver">Start Over</button>
+                            </div>
+                        </div>
+                        <div id="submit-form-state4">
+                            <h2>Pending</h2>
+
+                            <div>
+                                <p>You already have the maximum number of skins pending moderation.</p>
+                            </div>
+                        </div>
+                        <div id="submit-form-state5">
+                            <h2>Whoops.</h2>
+
+                            <div>
+                                <p>There was a problem uploading.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <div id="settings-menu">

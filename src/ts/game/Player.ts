@@ -24,6 +24,7 @@ class Player {
   biggestCellMass: number;
   isTR: boolean;
   isStopped: boolean;
+  authToken: string = 'SENPA_MOBILE';
 
   constructor() {
     this.nick = '';
