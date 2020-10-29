@@ -82,8 +82,7 @@ class Cells {
 
          if (cell.isPlayerCell) {
             const cellClient: ClientData = cell.parentPlayer.parentClient;
-            const isTeammate: boolean = cellClient.tag === myClient.tag;
-            const isBot: boolean = cell.isBot;
+            const isTeammate: boolean = cellClient.tag === myClient.tag && cellClient.teamColor === myClient.teamColor;            const isBot: boolean = cell.isBot;
             let skin: HTMLCanvasElement | boolean = false;
 
             if (!isBot && Player.isTR && !cell.isTR) ctx.globalAlpha *= 0.35;

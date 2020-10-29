@@ -23,7 +23,7 @@ class Skins {
 
   get(url: string): HTMLCanvasElement | false {
     if (url === 'no-skin') return false;
-    if (!url) url = this.fallbacks.noSkin;
+    if (!url) return false;
 
     const skin: HTMLCanvasElement | undefined = this.downloaded.get(url);
     if (skin !== undefined) return skin;

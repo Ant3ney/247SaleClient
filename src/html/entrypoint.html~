@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://arc.io/widget.js#vVr1umev"></script>
     <meta name="viewport" content="width=device-width, user-scalable=no, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -94,9 +95,9 @@
             <input class="input-box" id="skin2" placeholder="Skin URL 2" readonly>-->
 			
 			<div class="profile-controls">
-        <div class="arrow inline" id="profile-previous"><i class="fas fa-caret-left"></i></div>
-        <div class="skin-preview inline" id="skin-preview-1"></div>
-        <div class="skin-preview inline" id="skin-preview-2"></div>
+				<div class="arrow inline" id="profile-previous"><i class="fas fa-caret-left"></i></div>
+				<div class="skin-preview inline" id="skin-preview-1" style="background-image: url(&quot;src/resources/images/no-skin.png&quot;);"></div>
+				<div class="skin-preview inline" id="skin-preview-2" style="background-image: url(&quot;src/resources/images/no-skin.png&quot;);"></div>
 				<div class="arrow inline" id="profile-next"><i class="fas fa-caret-right"></i></div>
 			</div>
           </div>

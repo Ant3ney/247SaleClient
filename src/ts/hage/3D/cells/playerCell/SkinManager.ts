@@ -41,7 +41,7 @@ class SkinManager {
 
   get(url: string): Sprite | false {
     if (url === 'no-skin') return false;
-    if (!url) url = this.fallbacks.noSkin;
+    if (!url) return false;
 
     const skin: Skin | undefined = this.skins.get(url);
     if (skin !== undefined) return skin.getSprite();
