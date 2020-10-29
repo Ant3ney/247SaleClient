@@ -472,6 +472,8 @@ export default class SkinModal {
                     const el = this.getSelectedSkinInputEl();
                     el.val('');
                     el.change();
+					
+					this.onSkinUpdate(this.selectedSkinUnit, 'no-skin');
 
                     this.rebuildPageResults();
                     this.hide();

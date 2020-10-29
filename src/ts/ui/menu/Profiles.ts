@@ -29,14 +29,19 @@ class Profiles {
 	
 	onSkinUpdate(id: number, newSkin: string) {
 		const selected: Profile = this.list[this.selected];
+		let skinUrl: string = newSkin;
+		
+		if(newSkin === 'no-skin') {
+			skinUrl = 'https://senpa.io/web/resources/src/resources/img/no-skin.png';
+		}
 		
 		if(id === 0) {
-			$(`#skin-preview-1`).css('background-image', `url(${newSkin})`);
+			$(`#skin-preview-1`).css('background-image', `url(${skinUrl})`);
 			
 			selected.skin1 = newSkin;
 			Player.skin1 = newSkin;
 		} else {
-			$(`#skin-preview-2`).css('background-image', `url(${newSkin})`);
+			$(`#skin-preview-2`).css('background-image', `url(${skinUrl})`);
 			
 			selected.skin2 = newSkin;
 			Player.skin2 = newSkin;
