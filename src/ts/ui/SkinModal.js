@@ -30,11 +30,7 @@ export default class SkinModal {
         }
 
         this.tabs = {
-            TAB_LEVELS: 1,
-            TAB_FREE: 2,
-            TAB_MYSKINS: 3,
-            TAB_FAVORITES: 4,
-            TAB_SUBMITSKIN: 5
+            TAB_FREE: 1
         }
 
         this.tab = 0;
@@ -278,10 +274,7 @@ export default class SkinModal {
         let type = "";
 
         switch (inputType) {
-            case 1: type = "level"; break;
-            case 2: type = "free"; break;
-            case 3: type = "mine"; break;
-            case 4: type = "favorites"; break;
+            case 1: type = "free"; break;
         }
         return type;
     }
