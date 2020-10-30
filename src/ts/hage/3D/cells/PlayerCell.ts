@@ -106,7 +106,7 @@ class PlayerCell {
       const showNick = true;
       if (showNick) {
          const nickText = NickText.get(
-            cellClient.tag + (cell.nick || 'Unnamed cell')
+          (cell.nick || 'Unnamed cell')
          );
          const nickTextScale = (cell.radius * 0.3) / 128;
          const color: number = parseInt(

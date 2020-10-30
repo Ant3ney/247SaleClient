@@ -148,7 +148,7 @@ class Cells {
                   cell.radius * Camera.zoom * nickSize;
                const color: string = cellClient.teamColor;
                const canvas: HTMLCanvasElement | boolean = TextCache.nick(
-                  cellClient.tag + (cell.nick || 'Unnamed cell'),
+                 (cell.nick || 'Unnamed cell'),
                   color,
                   strokeNick,
                   screenRadius
