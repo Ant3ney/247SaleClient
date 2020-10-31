@@ -19,27 +19,28 @@
     }
 
 
-
-
+    
+    
     .content {
+        height: 100vh;
+        width: 100vw;
         padding: 0 20px 20px;
-        width: 850px;
         z-index: 1;
         overflow: hidden;
         position: relative;
-
+        
         background-color: #111;
         border-radius: 4px;
         border: 2px solid #272727;
         box-shadow: 0px 0px 20px #0a0a0a;
-
+        
         .exit-button {
-            background: #e67bbe;
-            width: 60px;
-            height: 26px;
+            background:red;
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
             padding-top: 2px;
             font-size: 18px;
-            border-radius: 0px 0px 4px 4px;
             text-align: center;
             margin-bottom: 10px;
             box-sizing: border-box;
@@ -47,8 +48,16 @@
             cursor: pointer;
             float: right;
 
-          }
+            .fas.fa-times {
+                margin-top: 8px;
+            }
+            
+        }
         
+        #skinBtn2 {
+            height: 9vh;
+            margin-left: -2.5px;
+        }
 
         button {
             width: 100%;
@@ -134,10 +143,15 @@
             }
         }
         .tabContent {
-            height: 540px;
+            //height: 540px;
+            height: 77vh;
             display: flex;
             flex-direction: column;
 
+            #skinSearch {
+                border: 1.5px solid grey;
+                height: 7vh;
+            }
             .searchBox {
                 width: 100%;
                 padding: 5px 10px;
@@ -155,7 +169,7 @@
                 font-family: Rajdhani;
                 font-weight: 500;
                 font-size: 18px;
-                border: none;
+                //border: none;
                 outline: none;
                 box-sizing: border-box;
             }
@@ -172,7 +186,7 @@
 
                 .grid-container {
                     display: grid;
-                    grid-template-columns: repeat(5, 1fr);
+                    grid-template-columns: repeat(10, 2fr);
                     margin-top: 10px;
                     gap: 10px;
 
@@ -185,6 +199,8 @@
                     align-items: center;
                 }
                 .grid-item {
+                    height: 52vh;
+                    width: 20vw;
                     padding: 5px;
                     text-align: center;
                     display: flex;
@@ -195,9 +211,10 @@
                     position: relative;
 
                     img {
-                        width: 100px;
-                        height: 100px;
+                        width: 20vh;
+                        height: 20vh;
 
+                        margin-bottom: 10px;
                         border-radius: 100%;
                         border: 5px solid rgb(245, 225, 243);
                         background-color: #777;
@@ -227,12 +244,13 @@
                         justify-content: center;
                         font-size: 1.3em;
                         font-weight: bold;
+                        color: white;
                     }
                     .icon {
                         position: absolute;
                         right: 13px;
                         top: 10px;
-                        opacity: .5;
+                        opacity: .3;
                         transition: transform .15s ease-out;
 
                     }
@@ -257,7 +275,9 @@
 
                     button {
                         width: 100%;
-                        padding: 5px 10px;
+                        height: 2em;
+                        padding: 5px 10px 0px;
+                        border-radius: 8%;
                     }
                 }
             }
@@ -313,8 +333,9 @@
             background-color: #777;
             width: 6px;
         }
-    
+        
         .ps__thumb-y {
+            display: none;
             background-color: #777;
         }
         /* perfect scrollbar overwrites */
@@ -330,5 +351,35 @@
     button {
         width: 10%;
         height: 34px;
+    }
+}
+
+//responsiveness ipad
+@media screen and (min-height: 1000px) {
+    #skin-modal .content .tabContent .scrollview .grid-item {
+        height: 68vh;
+    }
+
+    #skin-modal .content .tabContent #skinSearch {
+        height: 10vh;
+        margin-bottom: 5px;
+    }
+
+    #skin-modal .content .tabContent {
+        height: 82vh;
+    }
+
+    #skin-modal .content .tabContent .scrollview .grid-item .title {
+        margin-top: 3vh;
+        font-size: 2em;
+    }
+
+    #skin-modal .content .tabContent .scrollview .grid-item img {
+        margin: 10vh 0;
+    }
+
+    #skin-modal .content .tabContent .scrollview .grid-item button {
+        margin-top: 6.5vh;
+        height: 8vh;
     }
 }

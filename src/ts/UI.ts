@@ -2,7 +2,7 @@ import Menu from "./ui/Menu";
 import Huds from "./ui/Huds";
 import Minimap from "./ui/huds/Minimap";
 import Joystick from "./ui/huds/Joystick";
-import SkinModal from './UI/UISkinModal';
+import SkinModal from './ui/UISkinModal';
 
 class UI {
   userScale: number;
@@ -44,10 +44,10 @@ class UI {
 	
 	const skinModal: any = document.querySelector("#skin-modal .content");
 	if(skinModal) {
-		skinModal.style.transform = `scale(${ratio})`;
+		skinModal.style.transform = `scale(${1})`;
 	}
 
-    Minimap.resize((120 * window.devicePixelRatio * (0.7 + ratio)) * this.userScale | 0);
+    Minimap.resize((140 * window.devicePixelRatio * (0.7 + ratio)) * this.userScale | 0);
     Joystick.resize((0.7 + ratio) * this.userScale);
   }
 }
