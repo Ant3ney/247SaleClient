@@ -2,132 +2,149 @@ import Socket from './Socket';
 import Writer from '../Writer';
 import Player from '../../game/Player';
 import World from '../../game/World';
-//import AccountData from '../../ui/AccountData';
+const BotProtect = require('./BotProtect').default;
+
+declare global {
+    interface Window {
+		BotProtect: any
+	}
+}
 
 class Emitter {
-   handshakeDone: boolean;
+	handshakeDone: boolean;
 
-   constructor() {
-      this.handshakeDone = false;
-   }
+	constructor() {
+		this.handshakeDone = false;
+		if (BotProtect.enabled) BotProtect.waitForBotProtect();
+	}
 
-   initialise(): void {
-      this.handshakeDone = false;
-      this.handshake1();
-   }
+	async initialise(): Promise<void> {
+		if (BotProtect.enabled) {
+			if (window.BotProtect.ready) {
+				console.log('Waiting for BotProtect');
+				await BotProtect.waitForBotProtect();
+				console.log('BotProtect ready loaded.');
+			} else {
+				console.log('BotProtect already loaded.');
+			}
+		}
 
-   handshake1(): void {
-      if (Socket.ws === null) return;
+		this.handshakeDone = false;
+		this.handshake1();
+	}
 
-      const version: number = 2;
-      const writer: Writer = new Writer(1);
-      writer.writeUInt8(version);
-      Socket.ws.send(writer.buffer);
-   }
+	handshake1(): void {
+		if (Socket.ws === null) return;
 
-   playerInfo(): void {
-      this.nick();
-      this.tag();
-      this.skin(0);
-      this.skin(1);
-   }
+		const version: number = 2;
+		const writer: Writer = new Writer(1);
+		writer.writeUInt8(version);
+		Socket.ws.send(writer.buffer);
+	}
 
-   nick(): void {
-      if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
+	playerInfo(): void {
+		this.nick();
+		this.tag();
+		this.skin(0);
+		this.skin(1);
+	}
 
-      const writer: Writer = new Writer(1 + 2 * (Player.nick.length + 1));
-      writer.writeUInt8(10);
-      writer.writeString16(Player.nick);
+	nick(): void {
+		if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
 
-      Socket.ws.send(writer.buffer);
-   }
+		const writer: Writer = new Writer(1 + 2 * (Player.nick.length + 1));
+		writer.writeUInt8(10);
+		writer.writeString16(Player.nick);
 
-   tag(): void {
-      if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
+		Socket.ws.send(writer.buffer);
+	}
 
-      const writer: Writer = new Writer(1 + 2 * (Player.teamTag.length + 1));
-      writer.writeUInt8(11);
-      writer.writeString16(Player.teamTag);
+	tag(): void {
+		if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
 
-      Socket.ws.send(writer.buffer);
-   }
+		const writer: Writer = new Writer(1 + 2 * (Player.teamTag.length + 1));
+		writer.writeUInt8(11);
+		writer.writeString16(Player.teamTag);
 
-   skin(unit: number = Player.activeTab): void {
-      if (!Socket.ws || !Socket.connected || !this.handshakeDone || unit >= World.myPlayerIDs.length) return;
+		Socket.ws.send(writer.buffer);
+	}
 
-      const skinURL: string = unit === 0 ? Player.skin1 : unit === 1 ? Player.skin2 : '';
-	  const hasAuthToken = Player.authToken != null;
-	  
-	  let len = 2 + skinURL.length + 1;
-	  
-	  if (hasAuthToken) len += 2 * (Player.authToken.length + 1);
-	  
-      const writer: Writer = new Writer(len);
-      writer.writeUInt8(21);
-      writer.writeUInt8(unit);
-      writer.writeString8(skinURL);
-	  if (hasAuthToken) writer.writeString16(Player.authToken);
+	skin(unit: number = Player.activeTab): void {
+		if (!Socket.ws || !Socket.connected || !this.handshakeDone || unit >= World.myPlayerIDs.length) return;
 
-      Socket.ws.send(writer.buffer);
-   }
+		const skinURL: string = unit === 0 ? Player.skin1 : unit === 1 ? Player.skin2 : '';
+		const hasAuthToken = Player.authToken != null;
 
-   cursor(x: number, y: number, unit: number = Player.activeTab): void {
-      if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
+		let len = 2 + skinURL.length + 1;
 
-      const spectatePoint: boolean = !Player.isAlive;
-      const writer: Writer = new Writer(spectatePoint ? 10 : 11);
-      writer.writeUInt8(20);
-      writer.writeUInt8(spectatePoint ? 1 : 0);
-      if (!spectatePoint) writer.writeUInt8(unit);
-      writer.writeInt32(x);
-      writer.writeInt32(y);
+		if (hasAuthToken) len += 2 * (Player.authToken.length + 1);
 
-      Socket.ws.send(writer.buffer);
-   }
+		const writer: Writer = new Writer(len);
+		writer.writeUInt8(21);
+		writer.writeUInt8(unit);
+		writer.writeString8(skinURL);
+		if (hasAuthToken) writer.writeString16(Player.authToken);
 
-   spawn(unit: number = Player.activeTab): void {
-      if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
+		Socket.ws.send(writer.buffer);
+	}
 
-      this.playerInfo();
-      const writer: Writer = new Writer(2);
-      writer.writeUInt8(0);
-      writer.writeUInt8(unit);
+	cursor(x: number, y: number, unit: number = Player.activeTab): void {
+		if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
 
-      Socket.ws.send(writer.buffer);
-   }
+		const spectatePoint: boolean = !Player.isAlive;
+		const writer: Writer = new Writer(spectatePoint ? 10 : 11);
+		writer.writeUInt8(20);
+		writer.writeUInt8(spectatePoint ? 1 : 0);
+		if (!spectatePoint) writer.writeUInt8(unit);
+		writer.writeInt32(x);
+		writer.writeInt32(y);
 
-   ping(): void {
-      if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
+		Socket.ws.send(writer.buffer);
+	}
 
-      const writer: Writer = new Writer(1);
-      writer.writeUInt8(30);
+	spawn(unit: number = Player.activeTab): void {
+		if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
 
-      Socket.ws.send(writer.buffer);
-      Socket.pingTime = performance.now();
-   }
+		this.playerInfo();
+		const writer: Writer = new Writer(2);
+		writer.writeUInt8(0);
+		writer.writeUInt8(unit);
 
-   split(unit: number, count: number): void {
-      if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
+		Socket.ws.send(writer.buffer);
+	}
 
-      const writer: Writer = new Writer(3);
-      writer.writeUInt8(22);
-      writer.writeUInt8(unit);
-      writer.writeUInt8(count);
+	ping(): void {
+		if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
 
-      Socket.ws.send(writer.buffer);
-   }
+		const writer: Writer = new Writer(1);
+		writer.writeUInt8(30);
 
-   feed(unit: number, single: boolean, state: number = 0): void {
-      if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
+		Socket.ws.send(writer.buffer);
+		Socket.pingTime = performance.now();
+	}
 
-      const writer: Writer = new Writer(single ? 3 : 4);
-      writer.writeUInt8(23);
-      writer.writeUInt8(unit);
-      writer.writeUInt8(single ? 0 : 1);
-      if (!single) writer.writeUInt8(state);
+	split(unit: number, count: number): void {
+		if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
 
-      Socket.ws.send(writer.buffer);
-   }
+		const writer: Writer = new Writer(3);
+		writer.writeUInt8(22);
+		writer.writeUInt8(unit);
+		writer.writeUInt8(count);
+
+		Socket.ws.send(writer.buffer);
+	}
+
+	feed(unit: number, single: boolean, state: number = 0): void {
+		if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
+
+		const writer: Writer = new Writer(single ? 3 : 4);
+		writer.writeUInt8(23);
+		writer.writeUInt8(unit);
+		writer.writeUInt8(single ? 0 : 1);
+		if (!single) writer.writeUInt8(state);
+
+		Socket.ws.send(writer.buffer);
+	}
 }
 
 export default new Emitter();

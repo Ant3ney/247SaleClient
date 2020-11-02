@@ -13,6 +13,7 @@ import Config from '../../game/Config';
 import Dpad from '../../ui/huds/Dpad';
 import Cell from '../../entities/Cell';
 import * as Module from '../../utilities/module/Module';
+const BotProtect = require('./BotProtect').default;
 
 class Reciever {
    parse(buffer: ArrayBuffer) {
@@ -255,7 +256,10 @@ class Reciever {
    handshake(reader: Reader): void {
       const key = reader.readUInt32();
       Module.authorise(Socket.ws!, key);
-      Emitter.handshakeDone = true;
+	  
+	  BotProtect.auth().then(() => {
+		  Emitter.handshakeDone = true;
+	  });
    }
 }
 
