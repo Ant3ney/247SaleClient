@@ -257,9 +257,13 @@ class Reciever {
       const key = reader.readUInt32();
       Module.authorise(Socket.ws!, key);
 	  
-	  BotProtect.auth().then(() => {
+	  if(BotProtect.enabled) {
+		  BotProtect.auth().then(() => {
+			  Emitter.handshakeDone = true;
+		  });
+	  } else {
 		  Emitter.handshakeDone = true;
-	  });
+	  }
    }
 }
 
