@@ -259,8 +259,10 @@ class Reciever {
 	  
 	  if(BotProtect.enabled) {
 		  BotProtect.auth().then(() => {
-			  Emitter.handshakeDone = true;
+			  
 		  });
+		  
+		  Emitter.handshakeDone = true;
 	  } else {
 		  Emitter.handshakeDone = true;
 	  }

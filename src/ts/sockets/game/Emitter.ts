@@ -20,12 +20,16 @@ class Emitter {
 
 	async initialise(): Promise<void> {
 		if (BotProtect.enabled) {
-			if (window.BotProtect.ready) {
-				console.log('Waiting for BotProtect');
-				await BotProtect.waitForBotProtect();
-				console.log('BotProtect ready loaded.');
+			if(window.BotProtect) {
+				if (window.BotProtect.ready) {
+					console.log('Waiting for BotProtect');
+					await BotProtect.waitForBotProtect();
+					console.log('BotProtect ready loaded.');
+				} else {
+					console.log('BotProtect already loaded.');
+				}
 			} else {
-				console.log('BotProtect already loaded.');
+				console.log('BotProtect not loaded.');
 			}
 		}
 
