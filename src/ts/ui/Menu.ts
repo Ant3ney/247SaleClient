@@ -2,6 +2,7 @@ import SettingsMenu from "./menu/SettingsMenu";
 import ServerMenu from "./menu/ServerMenu";
 import Profiles from "./menu/Profiles";
 import Events from "../game/Events";
+import AccountData from "./AccountData";
 
 class Menu {
   element: HTMLElement;
@@ -20,6 +21,7 @@ class Menu {
     SettingsMenu.initialise();
     ServerMenu.initialise();
     Profiles.initialise();
+    AccountData.initialise();
     this.attachEvents();
   }
 
@@ -43,6 +45,10 @@ class Menu {
 
     const btnSettingsMenu: HTMLButtonElement = <HTMLButtonElement>document.getElementById('settings');
     btnSettingsMenu.addEventListener('touchend', () => { SettingsMenu.show() }, { passive: true });
+    // btnSettingsMenu.addEventListener('click', () => { SettingsMenu.show() }, { passive: true });
+
+    const btnLogin: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button');
+    btnLogin.addEventListener('click', () => { AccountData.loginWithDiscord(); });
 
     const btnFullscreen: HTMLButtonElement | null = <HTMLButtonElement | null>document.getElementById('fullscreen');
     if (btnFullscreen) {

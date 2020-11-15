@@ -146,6 +146,94 @@
       }
    }
 
+   #firstLoginForm {
+      display: none;
+   }
+
+   #secondLoginForm {
+      display: none;
+   }
+
+   .login-panel {
+      position: fixed;
+      bottom: 8px;
+      right: 8px;
+      transform-origin: bottom right;
+
+      background: linear-gradient(150deg, #333, #444);
+      color: #ffffff;
+
+      align-items: center;
+      padding: 15px;
+      border-radius: 20px;
+
+      width: 250px;
+      height: 80px;
+
+      #login-panel-name {
+         font-size: 20px;
+      }
+
+      #pf-avatar {
+         position: absolute;
+         width: 80px;
+         height: 80px;
+         
+         top: 10px;
+         right: 10px;
+         transform-origin: top right;
+      }
+   }
+
+   .progress-frame {
+
+      width: 150px;
+      height: 30px;
+
+      background: rgb(172, 172, 172);
+      border-radius: 10px;
+      padding: 0px;
+      margin: 0px;
+      .progress {
+         background: rgb(129, 194, 255);
+         width: 75px;
+         height: 100%;
+         border-radius: 10px;
+      }
+   }
+   
+   .bottom-right-btns {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      position: fixed;
+      bottom: 8px;
+      right: 8px;
+      transform-origin: bottom right;
+      touch-action: none;
+
+      .btn-square {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         padding: 15px;
+         border-radius: 40px;
+         border: none;
+         outline: none;
+         background: linear-gradient(150deg, #333, #444);
+         color: #ffffff;
+         font-size: 20px;
+         user-select: none;
+         height: 80px;
+         width: 180px;
+         margin: 2px;
+      }
+
+      #login-button {
+         background: linear-gradient(150deg, #95dafd, #4aa0ea);
+      }
+   }
+
    .bottom-left-btns {
       display: flex;
       flex-direction: row;
