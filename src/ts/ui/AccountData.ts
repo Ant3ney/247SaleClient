@@ -1,5 +1,7 @@
 const cookie = require('cookiejs');
 
+import Experience from './../game/Experience';
+
 class Profile {
 	public experience: number = 0;
 	public favorites: Array<number> = [];
@@ -66,14 +68,13 @@ class AccountData {
 	}
 
 	setExperienceProgress(progress: number) {
-		progress = Math.min(progress, 100);
-		progress = Math.max(progress, 10);
+		progress = Math.min(progress, 1);
+		progress = Math.max(progress, 0.1);
 
 		const progElem = document.getElementById("login-panel-xp-progress");
 		if (progElem === null || progElem === undefined)
 			return;
-
-		progElem.style.width = (150 * (progress / 100)).toString();
+		progElem.style.width = (150 * progress).toString() + 'px';
 	}
 
 	setRealName(name: string) {
@@ -103,8 +104,11 @@ class AccountData {
 	}
 
 	updateProfilePanel() {
+
+		const level = Experience.levelFromExp(this.profile.experience);
+		const expForLevel = Experience.realExpGainRequiredForLevelUp(level);
 		this.setStatus(true);
-		this.setExperienceProgress(this.profile.experience);
+		this.setExperienceProgress(Experience.realExp(this.profile.experience) / expForLevel);
 		this.setRealName(this.profile.realName);
 		this.setProfilePicture(this.profile.avatarURL);
 	}
