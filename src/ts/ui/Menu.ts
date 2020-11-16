@@ -47,8 +47,14 @@ class Menu {
     btnSettingsMenu.addEventListener('touchend', () => { SettingsMenu.show() }, { passive: true });
     // btnSettingsMenu.addEventListener('click', () => { SettingsMenu.show() }, { passive: true });
 
-    const btnLogin: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button');
-    btnLogin.addEventListener('click', () => { AccountData.loginWithDiscord(); });
+    const btnLoginDiscord: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button-discord');
+    btnLoginDiscord.addEventListener('click', () => { AccountData.loginWithDiscord(); });
+    
+    const btnLoginFB: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button-fb');
+    btnLoginFB.addEventListener('click', () => { AccountData.loginWithFB(); });
+    
+    const btnLogout: HTMLButtonElement = <HTMLButtonElement>document.getElementById('logout-button');
+    btnLogout.addEventListener('click', () => { AccountData.logout(); });
 
     const btnFullscreen: HTMLButtonElement | null = <HTMLButtonElement | null>document.getElementById('fullscreen');
     if (btnFullscreen) {

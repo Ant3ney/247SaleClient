@@ -54,11 +54,15 @@ class AccountData {
 		  })
 			.then(data => data.json())
 			.then(profile => {
+
+			  if(profile === undefined || profile === null)
+				return reject();
+			  if (profile.error)
+				return reject(profile.error);
 				this.profile.experience= profile.experience;
 				this.profile.id = profile.id;
 				this.profile.realName= profile.realName;
 				this.profile.avatarURL = profile.avatarURL;
-				console.log(profile);
 			  accept(this);
 			})
 			.catch(err => {
@@ -120,7 +124,7 @@ class AccountData {
 			  cookie.remove("profile");
 			}
 			const token = cookie.get("auth");
-			if (token !== false && token !== null && token != undefined) {
+			if (token !== false && token !== null && token != undefined && token !== "SENPA_MOBILE") {
 			  this.authToken = token;
 			  accept(this.authToken);
 			} else {
@@ -143,8 +147,13 @@ class AccountData {
 
       if (token && token != undefined) {
 		 this.setAuthToken(token);
-		 this.fetchProfileData().then(() => {this.updateProfilePanel();});
+		 this.fetchProfileData().then(() => { this.updateProfilePanel(); });
       }
+	}
+
+	logout() {
+		this.setAuthToken("SENPA_MOBILE");
+		this.setStatus(false);
 	}
 
 	loginWithFB() {
@@ -178,7 +187,11 @@ class AccountData {
 
 	initialise() : void { 
 		this.loadAuthToken().then(() => {
-			this.fetchProfileData().then(() => {this.updateProfilePanel();});
+			this.fetchProfileData().then(() => { this.updateProfilePanel(); }).catch(() => {
+				console.error("invalid token");
+			});
+		}).catch(() => {
+			console.warn("login token not stored in cookies or invalid");
 		});
 	}
 	
