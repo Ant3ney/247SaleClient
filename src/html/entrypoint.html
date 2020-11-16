@@ -186,20 +186,24 @@
       </div>
     </div>
 
-	<div id="skin-modal">
+ <div id="skin-modal">
         <div class="content">
             <div class="exit-button"><i class="fas fa-times"></i></div>
             <div class="tabs">
-                <button id="skinBtn2"><i class="fas fa-grin-hearts"></i>Skin Gallery</button>
+                <button id="skinBtn1"><i class="fas fa-medal"></i>Level</button>
+                <button id="skinBtn2"><i class="fas fa-grin-hearts"></i>Free</button>
+                <button id="skinBtn3"><i class="fas fa-user-circle"></i>My Skins</button>
+                <button id="skinBtn4"><i class="fas fa-star"></i>Favorites</button>
+                <button id="skinBtn5"><i class="fas fa-plus-square"></i>Submit</button>
             </div>
             <div class="tabContent">
 
                 <template name="skin-item">
                     <div class="grid-item">
-                      <div class="title">Skin Name Goes Here</div>
-                      <img draggable="false">
-                      <div class="icon"><i class="fas fa-bookmark fa-2x"></i></div>
-                      <button>Activate</button>
+                        <img draggable="false">
+                        <div class="icon"><i class="fas fa-bookmark fa-2x"></i></div>
+                        <div class="title">Skin Name Goes Here</div>
+                        <button>Activate</button>
                     </div>
                 </template>
 
@@ -221,6 +225,46 @@
                     <a class="pagination-3">3</a>
                     <a class="pagination-4">&raquo;</a>
                 </div>
+                <div id="skin-submit">
+                    <div class="submit-page">
+                        <h3>Submit A Skin</h3>
+                        <p>Submit a custom skin to be approved. Approved skins will become freely available to all
+                            players!</p>
+                        <p><i>Note: You can only have a limited number of skins pending approval at once.</i></p>
+                        <input id="imageUploadFile" style="visibility: collapse; width: 0px;" type="file"
+                            accept="image/png, image/jpeg" />
+                        <div id="submit-form-state1">
+                            <button id="imageUploadFileBtn">Browse</button>
+                        </div>
+                        <div id="submit-form-state2">
+                            <button disabled="true">Uploading...</button>
+                        </div>
+                        <div id="submit-form-state3">
+                            <h2>Done!</h2>
+
+                            <div>
+                                <p>Check your 'My Skins' periodically to see your approved submissions.</p>
+                                <button id="submitStartOver">Start Over</button>
+                            </div>
+                        </div>
+                        <div id="submit-form-state4">
+                            <h2>Pending</h2>
+
+                            <div>
+                                <p>You already have the maximum number of skins pending moderation.</p>
+                            </div>
+                        </div>
+                        <div id="submit-form-state5">
+                            <h2>Whoops.</h2>
+
+                            <div>
+                                <p>There was a problem uploading.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
 

@@ -29,8 +29,12 @@ export default class SkinModal {
             }
         }
 
-        this.tabs = {
-            TAB_FREE: 1
+         this.tabs = {
+            TAB_LEVELS: 1,
+            TAB_FREE: 2,
+            TAB_MYSKINS: 3,
+            TAB_FAVORITES: 4,
+            TAB_SUBMITSKIN: 5
         }
 
         this.tab = 0;
@@ -229,7 +233,7 @@ export default class SkinModal {
         if (skin.requirementType == null || skin.requirementType == 0) return true;
         if (skin.requirementType == 1) {
             let { experience = 0 } = AccountData.profile;
-            const level = 0;
+        const level = Experience.levelFromExp(experience);	
 
             if (level < parseInt(skin.requirementData)) {
                 return `${lockIcon} Level ${skin.requirementData}`;
@@ -273,10 +277,13 @@ export default class SkinModal {
     typeIntToString(inputType) {
         let type = "";
 
-        switch (inputType) {
-            case 1: type = "free"; break;
-        }
-        return type;
+ 	        switch (inputType) {	
+            case 1: type = "level"; break;	
+            case 2: type = "free"; break;	
+            case 3: type = "mine"; break;	
+            case 4: type = "favorites"; break;	
+        }	
+        return type;	
     }
 
     rebuildPageResults() {
@@ -438,10 +445,10 @@ export default class SkinModal {
 
                 if (currentIndex != -1) {
                     AccountData.profile.favorites.splice(currentIndex, 1);
-                    //this.sendFavorite(skin.id, 'DELETE');
+                    this.sendFavorite(skin.id, 'DELETE');
                 } else {
                     AccountData.profile.favorites.push(skin.id);
-                    //this.sendFavorite(skin.id, 'POST');
+                    this.sendFavorite(skin.id, 'POST');
                 }
                 $(icon).hide();
                 console.log("icon clicked")
