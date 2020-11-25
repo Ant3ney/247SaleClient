@@ -21,6 +21,8 @@ class AccountData {
 	private urlAuthDiscord: string = "";
 	private urlAuthFacebook: string = "";
 
+	public loginStatus: boolean = false;
+
 	private windowObjectReference: any = null;
 	private previousUrl: string = "";
 
@@ -100,7 +102,7 @@ class AccountData {
 		console.log("set login status", isLoggedIn);
 		const firstLoginForm = document.getElementById("login-form-first"),
 			  secondLoginForm = document.getElementById("login-form-second");
-
+		this.loginStatus = isLoggedIn;
 		if (firstLoginForm)
 			firstLoginForm.style.display = isLoggedIn ? "none" : "block";
 		if (secondLoginForm)

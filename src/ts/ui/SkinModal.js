@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import AccountData from './AccountData';
 import PerfectScrollbar from 'perfect-scrollbar';
+import Experience from '../game/Experience';
 
 const DEVBUILD = false;
 
@@ -334,7 +335,7 @@ export default class SkinModal {
     }
 
     show() {
-        if (AccountData.profile != null && AccountData.authToken != null) {
+        if (AccountData.loginStatus === true && (AccountData.profile != null && AccountData.authToken != null)) {
             $("#skin-modal").addClass("visible");
             this.open = true;
 
