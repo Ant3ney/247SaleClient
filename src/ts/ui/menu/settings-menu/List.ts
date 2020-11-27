@@ -144,12 +144,6 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       dpad.innerText = value;
     }
   },
-  gameSounds: {
-    type: 'toggle',
-    category: 'game',
-    displayName: 'Game sounds',
-    default: true
-  },
   stopOnRelease: {
     type: 'toggle',
     category: 'game',

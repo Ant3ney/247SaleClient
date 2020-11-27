@@ -8,7 +8,6 @@ import Camera from "./Camera";
 import { Point, ServerListEntry } from "../utilities/Structures";
 import Menu from "../ui/Menu";
 import World from "./World";
-import SfxManager from "../ui/SfxManager";
 
 class Events {
   feedInterval: number;
@@ -34,7 +33,6 @@ class Events {
 
   feed(): void {
     Emitter.feed(Player.activeTab, true);
-    SfxManager.eject.play();
   }
 
   macroFeed(turnOn: boolean): void {
