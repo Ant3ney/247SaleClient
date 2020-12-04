@@ -1,7 +1,7 @@
 import World from "./World";
 import Camera from "./Camera";
 import Menu from "../ui/Menu";
-import Socket from "../sockets/game/Socket";
+// import Socket from "../sockets/game/Socket";
 import Joystick from "../ui/huds/Joystick";
 import { Point } from "../utilities/Structures";
 import SfxManager from "../ui/SfxManager";
@@ -105,6 +105,7 @@ class Player {
     this.mass = 0;
     this.biggestCellMass = 0;
     Camera.targetZoom = 0.25;
+    Menu.makeTransparent();
     Menu.hide();
     Menu.buttonPlay.innerHTML = '<i class="fas fa-play"></i><span>Play</span>';
   }
@@ -113,7 +114,7 @@ class Player {
     Menu.show();
     Joystick.resetBall();
     Joystick.hide();
-    Socket.cleanUp();
+    // Socket.cleanUp();
     this.isTR = false;
     SfxManager.death.play();
   }

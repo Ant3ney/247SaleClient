@@ -65,6 +65,7 @@ class AccountData {
 				this.profile.id = profile.id;
 				this.profile.realName= profile.realName;
 				this.profile.avatarURL = profile.avatarURL;
+				console.log(profile);
 			  accept(this);
 			})
 			.catch(err => {

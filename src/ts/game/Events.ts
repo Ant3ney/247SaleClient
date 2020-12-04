@@ -12,8 +12,10 @@ import SfxManager from "../ui/SfxManager";
 
 class Events {
   feedInterval: number;
+  connectedServer: string;
 
   constructor() {
+    this.connectedServer = "";
     this.feedInterval = 0;
   }
 
@@ -29,7 +31,13 @@ class Events {
       window.alert('Server is full. Please switch to another server.');
       return;
     }
-    Socket.connect(ServerMenu.selectedServer);
+
+    if (this.connectedServer != ServerMenu.selectedServer) {
+      Socket.connect(ServerMenu.selectedServer);
+      this.connectedServer = ServerMenu.selectedServer;
+    } else {
+      Emitter.spawn();
+    }
   }
 
   feed(): void {

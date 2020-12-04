@@ -74,6 +74,10 @@ class Menu {
     this.buttonPlay.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i><span>Connecting</span>';
   }
 
+  makeTransparent(): void {
+    this.element.style.background = 'rgba(17,17,17,0.75)';
+  }
+
   show(): void {
     this.element.style.display = 'block';
     this.isOpen = true;
