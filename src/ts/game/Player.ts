@@ -4,7 +4,6 @@ import Menu from "../ui/Menu";
 // import Socket from "../sockets/game/Socket";
 import Joystick from "../ui/huds/Joystick";
 import { Point } from "../utilities/Structures";
-import SfxManager from "../ui/SfxManager";
 import Config from "./Config";
 import ClientData from "../entities/ClientData";
 
@@ -116,7 +115,6 @@ class Player {
     Joystick.hide();
     // Socket.cleanUp();
     this.isTR = false;
-    SfxManager.death.play();
   }
 }
 

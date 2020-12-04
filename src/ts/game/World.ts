@@ -2,7 +2,6 @@ import Cell from '../entities/Cell';
 import Player from './Player';
 import ClientData from '../entities/ClientData';
 import PlayerData from '../entities/PlayerData';
-import SfxManager from '../ui/SfxManager';
 
 class World {
   clientsList: Map<number, ClientData>;
@@ -50,7 +49,6 @@ class World {
       const myCellCount: number = Player.myCellCount;
       if (myCellCount === 0) Player.onDeath();
     }
-    if (hunter.isOwn >= 0 && prey.isPlayerCell) SfxManager.eat.play();
     this.cells.set(`${preyID}:removed`, prey);
   }
 
@@ -90,7 +88,6 @@ class World {
     const myCellCount: number = Player.myCellCount;
     const myCells: Map<number, Cell> = this.myCells[index];
     myCells.set(cell.id, cell);
-    if (myCells.size > 1) SfxManager.split.play();
     if (myCellCount === 0) Player.onSpawn();
   }
 
