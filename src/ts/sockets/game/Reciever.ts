@@ -71,7 +71,7 @@ class Reciever {
       Dpad.buttons.a.style.visibility =
          playerUnitCount > 1 ? 'visible' : 'hidden';
       Emitter.playerInfo();
-      Emitter.spawn();
+      // Emitter.spawn();
    }
 
    clientsUpdate(reader: Reader): void {

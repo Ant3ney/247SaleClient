@@ -104,7 +104,6 @@ class Player {
     this.mass = 0;
     this.biggestCellMass = 0;
     Camera.targetZoom = 0.25;
-    Menu.makeTransparent();
     Menu.hide();
     Menu.buttonPlay.innerHTML = '<i class="fas fa-play"></i><span>Play</span>';
   }

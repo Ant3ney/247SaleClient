@@ -22,7 +22,7 @@ class Events {
     setInterval(() => { this.sendMouse() }, 42);
   }
 
-  play(): void {
+  connectToServer(): void {
     if (ServerMenu.selectedServer.length < 1) return void console.warn('No server selected.');
     const serverInfo: ServerListEntry | undefined = ServerList.listByIp.get(ServerMenu.selectedServer);
     if (serverInfo === undefined || serverInfo.maxPlayers <= serverInfo.numPlayers) {
@@ -34,9 +34,11 @@ class Events {
     if (this.connectedServer != ServerMenu.selectedServer) {
       Socket.connect(ServerMenu.selectedServer);
       this.connectedServer = ServerMenu.selectedServer;
-    } else {
-      Emitter.spawn();
-    }
+    } 
+  }
+
+  play(): void {
+    Emitter.spawn();
   }
 
   feed(): void {

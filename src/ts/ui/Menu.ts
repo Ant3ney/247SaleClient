@@ -25,7 +25,14 @@ class Menu {
     this.attachEvents();
   }
 
+  onServerChanged(): void {
+    Events.connectToServer();
+  }
+
   attachEvents(): void {
+    ServerMenu.onServerChanged = this.onServerChanged.bind(this);
+    this.onServerChanged();
+
     document.body.addEventListener('touchstart', (event: TouchEvent) => {
       if (!this.isOpen) event.preventDefault();
     }, { passive: false });
@@ -48,13 +55,13 @@ class Menu {
     // btnSettingsMenu.addEventListener('click', () => { SettingsMenu.show() }, { passive: true });
 
     const btnLoginDiscord: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button-discord');
-    btnLoginDiscord.addEventListener('click', () => { AccountData.loginWithDiscord(); });
+    btnLoginDiscord.addEventListener('touchend', () => { AccountData.loginWithDiscord(); });
     
     const btnLoginFB: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button-fb');
-    btnLoginFB.addEventListener('click', () => { AccountData.loginWithFB(); });
+    btnLoginFB.addEventListener('touchend', () => { AccountData.loginWithFB(); });
     
     const btnLogout: HTMLButtonElement = <HTMLButtonElement>document.getElementById('logout-button');
-    btnLogout.addEventListener('click', () => { AccountData.logout(); });
+    btnLogout.addEventListener('touchend', () => { AccountData.logout(); });
 
     const btnFullscreen: HTMLButtonElement | null = <HTMLButtonElement | null>document.getElementById('fullscreen');
     if (btnFullscreen) {
@@ -72,10 +79,6 @@ class Menu {
     event.preventDefault();
     Events.play();
     this.buttonPlay.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i><span>Connecting</span>';
-  }
-
-  makeTransparent(): void {
-    this.element.style.background = 'rgba(17,17,17,0.75)';
   }
 
   show(): void {

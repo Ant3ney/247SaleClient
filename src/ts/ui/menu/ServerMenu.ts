@@ -11,6 +11,8 @@ class ServerMenu {
   _serverName: string;
   _selectedRegion: string;
 
+  onServerChanged: any;
+
   constructor() {
     this.element = <HTMLDivElement>document.getElementById('server-menu');
     this.listContainer = <HTMLDivElement>document.getElementById('server-list');
@@ -20,6 +22,7 @@ class ServerMenu {
     this.selectedServer = '';
     this._serverName = '';
     this._selectedRegion = '';
+    this.onServerChanged = null;
   }
 
   get serverName(): string {
@@ -63,6 +66,8 @@ class ServerMenu {
     this.attachEvents();
     this.selectedRegion = 'EU';
     this.selectedServer = localStorage.getItem('senpa-mob:server') || '';
+    if (this.onServerChanged !== null)
+      this.onServerChanged();
   }
 
   attachEvents(): void {
@@ -128,6 +133,9 @@ class ServerMenu {
       this.selectedServer = data.IP;
       this.serverName = data.name;
       localStorage.setItem('senpa-mob:server', data.IP);
+
+      if (this.onServerChanged !== null)
+        this.onServerChanged();
     }, { passive: true });
 
     this.listContainer.appendChild(row);
