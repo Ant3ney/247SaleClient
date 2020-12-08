@@ -114,7 +114,8 @@ class Player {
     Camera.targetZoom = 0.25;
     Menu.hide();
     Huds.show();
-    Menu.buttonPlay.innerHTML = '<i class="fas fa-play"></i><span>Play</span>';
+    
+    Menu.setPlayButtonNormal();
   }
 
   onDeath(): void {

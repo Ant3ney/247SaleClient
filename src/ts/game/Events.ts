@@ -8,6 +8,7 @@ import Camera from "./Camera";
 import { Point, ServerListEntry } from "../utilities/Structures";
 import Menu from "../ui/Menu";
 import World from "./World";
+import Huds from "../ui/Huds";
 
 class Events {
   feedInterval: number;
@@ -26,10 +27,11 @@ class Events {
     if (ServerMenu.selectedServer.length < 1) return void console.warn('No server selected.');
     const serverInfo: ServerListEntry | undefined = ServerList.listByIp.get(ServerMenu.selectedServer);
     if (serverInfo === undefined || serverInfo.maxPlayers <= serverInfo.numPlayers) {
-      Menu.buttonPlay.innerHTML = '<i class="fas fa-play"></i><span>Play</span>';
+      Menu.setPlayButtonNormal();
       window.alert('Server is full. Please switch to another server.');
       return;
     }
+    Menu.setPlayButtonConnecting();
 
     if (this.connectedServer != ServerMenu.selectedServer) {
       Socket.connect(ServerMenu.selectedServer);
@@ -38,7 +40,13 @@ class Events {
   }
 
   play(): void {
-    Emitter.spawn();
+    if (Player.isAlive && Socket.connected) {
+      Menu.hide();
+      Huds.show();
+    } else {
+      Menu.setPlayButtonLoading();
+      Emitter.spawn();
+    }
   }
 
   feed(): void {

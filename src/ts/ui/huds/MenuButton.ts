@@ -1,5 +1,6 @@
 import Menu from "../Menu";
 import Socket from "../../sockets/game/Socket";
+import Huds from "../Huds";
 
 class MenuButton {
   warningContainer: HTMLDivElement;
@@ -14,7 +15,14 @@ class MenuButton {
 
   attachEvents(): void {
     const mainBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById('back-to-menu');
-    mainBtn.addEventListener('touchend', () => { this.showWarning() });
+    mainBtn.addEventListener('touchend', () => { 
+      Huds.hide();
+      Menu.show();
+    });
+
+
+    // const mainBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById('back-to-menu');
+    // mainBtn.addEventListener('touchend', () => { this.showWarning() });
 
     const closeBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById('close-return-warning');
     closeBtn.addEventListener('touchend', () => { this.hideWarning() });

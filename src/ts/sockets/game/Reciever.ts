@@ -15,6 +15,7 @@ import Cell from '../../entities/Cell';
 import * as Module from '../../utilities/module/Module';
 import Player from '../../game/Player';
 import { Point } from 'pixi.js';
+import Menu from '../../ui/Menu';
 const BotProtect = require('./BotProtect').default;
 
 class Reciever {
@@ -76,6 +77,8 @@ class Reciever {
       Dpad.buttons.a.style.visibility =
          playerUnitCount > 1 ? 'visible' : 'hidden';
       Emitter.playerInfo();
+      
+      Menu.setPlayButtonNormal();
    }
 
    clientsUpdate(reader: Reader): void {
@@ -263,7 +266,6 @@ class Reciever {
 	  
 	  if(BotProtect.enabled) {
 		  BotProtect.auth().then(() => {
-			  
 		  });
 		  
 		  Emitter.handshakeDone = true;

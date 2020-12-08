@@ -74,10 +74,21 @@ class Menu {
     this.isFullscreen = !this.isFullscreen;
   }
 
+  setPlayButtonConnecting(): void {
+    this.buttonPlay.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i><span>Connecting</span>';
+  }
+
+  setPlayButtonLoading(): void {
+    this.buttonPlay.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i><span>Loading</span>';
+  }
+
+  setPlayButtonNormal(): void {
+    this.buttonPlay.innerHTML = '<i class="fas fa-play"></i><span>Play</span>';
+  }
+
   onPlay(event: TouchEvent): void {
     event.preventDefault();
     Events.play();
-    this.buttonPlay.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i><span>Connecting</span>';
   }
 
   show(): void {
