@@ -6,6 +6,7 @@ import Joystick from "../ui/huds/Joystick";
 import { Point } from "../utilities/Structures";
 import Config from "./Config";
 import ClientData from "../entities/ClientData";
+import Huds from "../ui/Huds";
 
 class Player {
   nick: string;
@@ -41,6 +42,13 @@ class Player {
     this.biggestCellMass = 0;
     this.isTR = false;
     this.isStopped = false;
+  }
+
+  setCenters(pos: Point): void {
+    this.center1.x = pos.x;
+    this.center1.y = pos.y;
+    this.center2.x = pos.x;
+    this.center2.y = pos.y;
   }
 
   get myCellCount(): number {
@@ -105,10 +113,12 @@ class Player {
     this.biggestCellMass = 0;
     Camera.targetZoom = 0.25;
     Menu.hide();
+    Huds.show();
     Menu.buttonPlay.innerHTML = '<i class="fas fa-play"></i><span>Play</span>';
   }
 
   onDeath(): void {
+    Huds.hide();
     Menu.show();
     Joystick.resetBall();
     Joystick.hide();

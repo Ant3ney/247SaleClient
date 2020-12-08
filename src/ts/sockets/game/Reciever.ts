@@ -13,6 +13,8 @@ import Config from '../../game/Config';
 import Dpad from '../../ui/huds/Dpad';
 import Cell from '../../entities/Cell';
 import * as Module from '../../utilities/module/Module';
+import Player from '../../game/Player';
+import { Point } from 'pixi.js';
 const BotProtect = require('./BotProtect').default;
 
 class Reciever {
@@ -57,6 +59,9 @@ class Reciever {
       const worldSize: number = reader.readUInt32();
       Border.update(0, 0, worldSize, worldSize);
 
+      Player.setCenters(new Point(worldSize / 2, worldSize / 2));
+      Camera.targetZoom = 0.5;
+
       World.myClientID = reader.readUInt16();
       World.myPlayerIDs = [];
       World.myCells = [];
@@ -71,7 +76,6 @@ class Reciever {
       Dpad.buttons.a.style.visibility =
          playerUnitCount > 1 ? 'visible' : 'hidden';
       Emitter.playerInfo();
-      // Emitter.spawn();
    }
 
    clientsUpdate(reader: Reader): void {

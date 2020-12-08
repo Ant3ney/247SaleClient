@@ -1,3 +1,6 @@
+import Menu from "./ui/Menu";
+
+
 class SplashScreen {
   element: HTMLDivElement;
 
@@ -11,6 +14,7 @@ class SplashScreen {
         this.element.style.opacity = '0';
         window.setTimeout(() => {
           this.element.style.display = 'none';
+          Menu.onServerChanged();
         }, 1E3);
       });
     }, 1E3);

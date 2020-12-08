@@ -15,12 +15,21 @@ class Huds {
     this.lastUpdate = 0;
   }
 
+  hide(): void {
+    this.element.style.display = 'none';
+  }
+  show(): void {
+    this.element.style.display = 'block';
+  }
+
   initialise(): void {
     Joystick.initialise();
     MenuButton.initialise();
     Dpad.initialise();
     Leaderboard.initialise();
     Minimap.initialise();
+
+    this.hide();
 
     this.addEvents();
   }

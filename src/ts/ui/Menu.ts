@@ -31,7 +31,6 @@ class Menu {
 
   attachEvents(): void {
     ServerMenu.onServerChanged = this.onServerChanged.bind(this);
-    this.onServerChanged();
 
     document.body.addEventListener('touchstart', (event: TouchEvent) => {
       if (!this.isOpen) event.preventDefault();
