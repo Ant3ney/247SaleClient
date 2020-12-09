@@ -7,12 +7,14 @@ import AccountData from "./AccountData";
 class Menu {
   element: HTMLElement;
   buttonPlay: HTMLButtonElement;
+  buttonSpectate: HTMLButtonElement;
   isOpen: boolean;
   isFullscreen: boolean;
 
   constructor() {
     this.element = <HTMLElement>document.getElementById('menu');
     this.buttonPlay = <HTMLButtonElement>document.getElementById('play');
+    this.buttonSpectate = <HTMLButtonElement>document.getElementById('spectate');
     this.isOpen = true;
     this.isFullscreen = false;
   }
@@ -44,6 +46,10 @@ class Menu {
 
     this.buttonPlay.addEventListener('touchend', (event: TouchEvent) => {
       this.onPlay(event);
+    }, { passive: false });
+    
+    this.buttonSpectate.addEventListener('touchend', (event: TouchEvent) => {
+      this.onSpectate(event);
     }, { passive: false });
 
     const btnServerMenu: HTMLButtonElement = <HTMLButtonElement>document.getElementById('servers');
@@ -89,6 +95,11 @@ class Menu {
   onPlay(event: TouchEvent): void {
     event.preventDefault();
     Events.play();
+  }
+
+  onSpectate(event: TouchEvent): void {
+    event.preventDefault();
+    Events.spectate();
   }
 
   show(): void {

@@ -21,6 +21,18 @@ class Huds {
   show(): void {
     this.element.style.display = 'block';
   }
+  hideControls(): void {
+    const controls = <HTMLElement>document.getElementById('d-pad');
+    if (controls !== undefined) {
+      controls.style.display = "none";
+    }
+  }
+  showControls(): void {
+    const controls = <HTMLElement>document.getElementById('d-pad');
+    if (controls !== undefined) {
+      controls.style.display = "block";
+    }
+  }
 
   initialise(): void {
     Joystick.initialise();

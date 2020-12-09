@@ -114,6 +114,7 @@ class Player {
     Camera.targetZoom = 0.25;
     Menu.hide();
     Huds.show();
+    Huds.showControls();
     
     Menu.setPlayButtonNormal();
   }

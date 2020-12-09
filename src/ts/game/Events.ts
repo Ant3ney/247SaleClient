@@ -39,10 +39,20 @@ class Events {
     } 
   }
 
+  spectate(): void {
+    Menu.hide();
+    Huds.show();
+
+    if (Player.isAlive === false) {
+      Huds.hideControls();
+    }
+  }
+
   play(): void {
     if (Player.isAlive && Socket.connected) {
       Menu.hide();
       Huds.show();
+      Huds.showControls();
     } else {
       Menu.setPlayButtonLoading();
       Emitter.spawn();
@@ -71,7 +81,7 @@ class Events {
   sendMouse(): void {
     const joystickX: number = Joystick.direction.x * (150 * window.devicePixelRatio);
     const joystickY: number = Joystick.direction.y * (150 * window.devicePixelRatio);
-    const center: Point = Player.activeTab === 0 ? Player.center1 : Player.center2;
+    const center: Point = (false === Player.isAlive) ? Camera.spectatePoint : (Player.activeTab === 0 ? Player.center1 : Player.center2);
     const x: number = center.x + joystickX / Camera.zoom;
     const y: number = center.y + joystickY / Camera.zoom;
     Emitter.cursor(x, y, Player.activeTab);
