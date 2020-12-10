@@ -1,6 +1,8 @@
 const $ = require('jquery');
-const Image_NoSkin: string = 'https://senpa.io/web/resources/src/resources/img/no-skin.png';
+// const Image_NoSkin: string = 'https://senpa.io/web/resources/src/resources/img/no-skin.png';
 import Player from '../../../game/Player';
+
+const Image_NoSkin = require('../../../../resources/images/no-skin.png');
 
 class Profile {
 	nick: string;
@@ -18,11 +20,11 @@ class Profile {
 		let skin2 = this.skin2 || Image_NoSkin;
 		
 		if(skin1 === 'no-skin') {
-			skin1 = 'https://senpa.io/web/resources/src/resources/img/no-skin.png';
+			skin1 = Image_NoSkin;
 		}
 		
 		if(skin2 === 'no-skin') {
-			skin2 = 'https://senpa.io/web/resources/src/resources/img/no-skin.png';
+			skin2 = Image_NoSkin;
 		}
 		
 		$(`#skin-preview-1`).css('background-image', `url(${skin1})`);

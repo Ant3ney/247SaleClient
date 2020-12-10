@@ -7,6 +7,8 @@ const $ = require('jquery');
 import UI from '../../UI';
 let SkinModal = UI.SkinModal;
 
+const Image_NoSkin = require('../../../resources/images/no-skin.png');
+
 class Profiles {
 	list: Profile[];
 	tag: string;
@@ -46,7 +48,7 @@ class Profiles {
 		let skinUrl: string = newSkin;
 		
 		if(newSkin === 'no-skin') {
-			skinUrl = 'https://senpa.io/web/resources/src/resources/img/no-skin.png';
+			skinUrl = Image_NoSkin;
 		}
 		
 		if(id === 0) {
