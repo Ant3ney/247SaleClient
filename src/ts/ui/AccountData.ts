@@ -128,6 +128,10 @@ class AccountData {
 		this.setExperienceProgress(Experience.realExp(this.profile.experience) / expForLevel);
 		this.setRealName(this.profile.realName);
 		this.setProfilePicture(this.profile.avatarURL);
+
+		const xpText = document.getElementById('xp-text');
+		if (xpText)
+			xpText.innerHTML = this.profile.experience.toString() + " / " + expForLevel.toString() + " XP";
 	}
 
 	loadAuthToken() {
