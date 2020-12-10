@@ -12,7 +12,21 @@ class Profiles {
 	tag: string;
 	selected: number;
 
+	config: any;
+
 	constructor() {
+        if (false){
+            this.config = {
+                saveProfile: "http://localhost/account/save-profile",
+                skinBase: "https://auth.senpa.io/u/",
+            }
+        } else {
+			this.config = {
+                saveProfile: "https://auth.senpa.io/account/save-profile",
+                skinBase: "https://auth.senpa.io/u/",
+            }
+        }
+
 		this.list = [];
 		this.tag = '';
 		this.selected = 0;
@@ -23,7 +37,7 @@ class Profiles {
 	initialise(): void {
 		this.attachEvents();
 		this.createProfiles();
-		this.loadData();
+		// this.loadData();
 		this.updateElements();
 	}
 	
@@ -124,6 +138,7 @@ class Profiles {
 	}
 
 	createProfiles(): void {
+		this.list = [];
 		for (let i: number = 0; i < 10; i++) {
 			const defaultData: ProfileData = Defaults[i] || {};
 			const nick: string = defaultData.nick || `Profile ${i + 1}`;
@@ -136,27 +151,19 @@ class Profiles {
 		}
 	}
 
-	loadData(): void {
-		const savedProfiles: string | null = localStorage.getItem(
-			'senpa-mob:profiles'
-		);
-		if (savedProfiles !== null) {
-			try {
-				const data: ProfileData[] = JSON.parse(savedProfiles);
-				for (let i: number = 0; i < 10; i++) {
-					const savedProfile: ProfileData | undefined = data[i];
-					if (savedProfile === undefined) continue;
-					const profile: Profile = this.list[i];
-					if (savedProfile.nick) profile.nick = savedProfile.nick;
-					if (savedProfile.skin1) profile.skin1 = savedProfile.skin1;
-					if (savedProfile.skin2) profile.skin2 = savedProfile.skin2;
-				}
-			} catch {
-				console.warn(
-					'Saved profiles data was found corrupt. Cleaning up...'
-				);
-				localStorage.removeItem('senpa-mob:profiles');
-			}
+	loadData(profileData: any): void {
+		if (!profileData.skinProfiles || !profileData.skinRoutes)
+			return;
+		
+		const skinRoutes = profileData.skinRoutes;
+		this.createProfiles();
+		for (const profileId of Object.keys(profileData.skinProfiles)) {
+			const profile = profileData.skinProfiles[profileId];
+			console.log(profile);
+			if (!skinRoutes[profile.skinId1] || !skinRoutes[profile.skinId2]) 
+				continue;
+			this.list[parseInt(profileId)].skin1 = this.config.skinBase + skinRoutes[profile.skinId1];
+			this.list[parseInt(profileId)].skin2 = this.config.skinBase + skinRoutes[profile.skinId2];
 		}
 
 		const savedTag: string | null = localStorage.getItem('senpa-mob:tag');
@@ -176,34 +183,11 @@ class Profiles {
 		Player.nick = selectedProfile.nick;
 		Player.skin1 = selectedProfile.skin1;
 		Player.skin2 = selectedProfile.skin2;
+
+		selectedProfile.updateSkinPreviews();
 	}
 
 	saveData(): void {
-		let profiles: ProfileData[] = [];
-		const profile: Profile = this.list[this.selected];
-		const savedProfiles: string | null = localStorage.getItem(
-			'senpa-mob:profiles'
-		);
-
-		if (savedProfiles !== null) {
-			try {
-				profiles = JSON.parse(savedProfiles);
-			} catch {
-				console.warn(
-					'Saved profiles data was found corrupt. Cleaning up...'
-				);
-				localStorage.removeItem('senpa-mob:profiles');
-			}
-		}
-
-		const profileData: ProfileData = {
-			nick: profile.nick,
-			skin1: profile.skin1,
-			skin2: profile.skin2,
-		};
-		profiles[this.selected] = profileData;
-
-		localStorage.setItem('senpa-mob:profiles', JSON.stringify(profiles));
 		localStorage.setItem('senpa-mob:tag', this.tag);
 		localStorage.setItem('senpa-mob:selected', this.selected.toString());
 	}

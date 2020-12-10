@@ -2,12 +2,21 @@ const cookie = require('cookiejs');
 
 import Experience from './../game/Experience';
 
+class SkinProfile {
+	public skinId1: number = 0;
+	public skinId2: number = 0;
+	
+}
+
 class Profile {
 	public experience: number = 0;
 	public favorites: Array<number> = [];
 	public realName: string = "";
 	public id: number = 0;
 	public avatarURL: string = "";
+
+	public skinRoutes: Map<number, string> = new Map<number, string>();
+	public skinProfiles: Map<number, SkinProfile> = new Map<number, SkinProfile>();
 	
 	constructor() {
 		
@@ -20,6 +29,9 @@ class AccountData {
 	private urlAuthAccount: string = "";
 	private urlAuthDiscord: string = "";
 	private urlAuthFacebook: string = "";
+
+	public onLogin: any = undefined;
+	public onLogout: any = undefined;
 
 	public loginStatus: boolean = false;
 
@@ -61,11 +73,9 @@ class AccountData {
 				return reject();
 			  if (profile.error)
 				return reject(profile.error);
-				this.profile.experience= profile.experience;
-				this.profile.id = profile.id;
-				this.profile.realName= profile.realName;
-				this.profile.avatarURL = profile.avatarURL;
-				console.log(profile);
+				this.profile = <Profile>profile;
+
+				console.log(this.profile);
 			  accept(this);
 			})
 			.catch(err => {
@@ -150,13 +160,18 @@ class AccountData {
 
       if (token && token != undefined) {
 		 this.setAuthToken(token);
-		 this.fetchProfileData().then(() => { this.updateProfilePanel(); });
+		 this.fetchProfileData().then(() => { 
+			this.updateProfilePanel();
+			this.onLogin(); 
+			});
       }
 	}
 
 	logout() {
 		this.setAuthToken("SENPA_MOBILE");
 		this.setStatus(false);
+
+		this.onLogout();
 	}
 
 	loginWithFB() {
@@ -190,7 +205,10 @@ class AccountData {
 
 	initialise() : void { 
 		this.loadAuthToken().then(() => {
-			this.fetchProfileData().then(() => { this.updateProfilePanel(); }).catch(() => {
+			this.fetchProfileData().then(() => { 
+				this.updateProfilePanel();
+				this.onLogin();  
+			}).catch(() => {
 				console.error("invalid token");
 			});
 		}).catch(() => {

@@ -25,6 +25,15 @@ class Menu {
     Profiles.initialise();
     AccountData.initialise();
     this.attachEvents();
+
+    AccountData.onLogin = () => {
+      Profiles.loadData(AccountData.profile);
+    };
+
+    AccountData.onLogout = () => {
+      Profiles.createProfiles();
+      Profiles.updateElements();
+    };
   }
 
   onServerChanged(): void {
