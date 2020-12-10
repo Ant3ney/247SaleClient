@@ -23,7 +23,7 @@ class Socket {
     this.url = url;
 
     //this.ws = new WebSocket(`ws://${this.url || url}`, 'mobile');
-    this.ws = new WebSocket(`wss://${url}`, 'mobile');
+    this.ws = new WebSocket(`wss://${url}`,);
     this.ws.binaryType = 'arraybuffer';
     this.ws.onopen = () => { this.onOpen() };
     this.ws.onmessage = (message: MessageEvent) => { this.onMessage(message) };
