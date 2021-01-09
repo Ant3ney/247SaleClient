@@ -57,7 +57,8 @@ class MouseTracker {
     const center: Point = Player.activeTab === 0 ? Player.center1 : Player.center2;
     const x: number = center.x + joystickX / Camera.zoom;
     const y: number = center.y + joystickY / Camera.zoom;
-
+    
+    if (!World.myCells[Player.activeTab]) return;
     for (const cell of World.myCells[Player.activeTab].values()) {
       if (index === MAX_COUNT) break;
 

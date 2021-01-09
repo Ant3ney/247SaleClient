@@ -22,6 +22,7 @@ class MouseTracker {
     const y: number = center.y + joystickY / Camera.zoom;
 
     ctx.beginPath();
+    if (!World.myCells[Player.activeTab]) return;
     for (const cell of World.myCells[Player.activeTab].values()) {
       if (cell.removed) continue;
       ctx.moveTo(cell.x, cell.y);
