@@ -60,6 +60,7 @@ class DirectionArrow {
 
     let radius: number = 0;
 
+    if (!World.myCells[Player.activeTab]) return;
     for (const cell of World.myCells[Player.activeTab].values()) {
       if (cell.removed) continue;
       const dx: number = center.x - cell.x;
