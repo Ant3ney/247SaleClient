@@ -26,6 +26,9 @@ class Reciever {
          case 0:
             this.preInfoPacket(reader);
             break;
+         case 1:
+            this.worldSizePacket(reader);
+            break;
          case 10:
             this.clientsUpdate(reader);
             break;
@@ -80,6 +83,12 @@ class Reciever {
       
       Menu.setPlayButtonNormal();
    }
+
+   worldSizePacket(reader: Reader) {
+      const worldSize: number = reader.readUInt32();
+      Border.update(0, 0, worldSize, worldSize);
+   }
+
 
    clientsUpdate(reader: Reader): void {
       const newCount: number = reader.readUInt8();
@@ -263,15 +272,14 @@ class Reciever {
    handshake(reader: Reader): void {
       const key = reader.readUInt32();
       Module.authorise(Socket.ws!, key);
-	  
-	  if(BotProtect.enabled) {
-		  BotProtect.auth().then(() => {
-		  });
-		  
-		  Emitter.handshakeDone = true;
-	  } else {
-		  Emitter.handshakeDone = true;
-	  }
+
+      if (BotProtect.enabled) {
+         BotProtect.auth().then((token: string) => Emitter.sendBotProtectToken(token));
+
+         Emitter.handshakeDone = true;
+      } else {
+         Emitter.handshakeDone = true;
+      }
    }
 }
 

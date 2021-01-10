@@ -2,11 +2,10 @@ import Socket from './Socket';
 import Writer from '../Writer';
 import Player from '../../game/Player';
 import World from '../../game/World';
-import AccountData from '../../ui/AccountData';
-const BotProtect = require('./BotProtect').default;
+import BotProtect from './BotProtect';
 
 declare global {
-    interface Window {
+	interface Window {
 		BotProtect: any
 	}
 }
@@ -21,7 +20,7 @@ class Emitter {
 
 	async initialise(): Promise<void> {
 		if (BotProtect.enabled) {
-			if(window.BotProtect) {
+			if (window.BotProtect) {
 				if (window.BotProtect.ready) {
 					console.log('Waiting for BotProtect');
 					await BotProtect.waitForBotProtect();
@@ -44,6 +43,16 @@ class Emitter {
 		const version: number = 2;
 		const writer: Writer = new Writer(1);
 		writer.writeUInt8(version);
+		Socket.ws.send(writer.buffer);
+	}
+
+	sendBotProtectToken(token: string): void {
+		if (Socket.ws === null || token == null) return;
+
+		const writer: Writer = new Writer(2 + token.length);
+		writer.writeUInt8(150);
+		writer.writeString8(token);
+
 		Socket.ws.send(writer.buffer);
 	}
 
@@ -78,17 +87,17 @@ class Emitter {
 		if (!Socket.ws || !Socket.connected || !this.handshakeDone || unit >= World.myPlayerIDs.length) return;
 
 		const skinURL: string = unit === 0 ? Player.skin1 : unit === 1 ? Player.skin2 : '';
-		const hasAuthToken = AccountData.authToken != null;
+		const hasAuthToken = Player.authToken != null;
 
 		let len = 2 + skinURL.length + 1;
 
-		if (hasAuthToken) len += 2 * (AccountData.authToken.length + 1);
+		if (hasAuthToken) len += 2 * (Player.authToken.length + 1);
 
 		const writer: Writer = new Writer(len);
 		writer.writeUInt8(21);
 		writer.writeUInt8(unit);
 		writer.writeString8(skinURL);
-		if (hasAuthToken) writer.writeString16(AccountData.authToken);
+		if (hasAuthToken) writer.writeString16(Player.authToken);
 
 		Socket.ws.send(writer.buffer);
 	}
