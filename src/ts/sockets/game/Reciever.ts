@@ -84,12 +84,7 @@ class Reciever {
       Menu.setPlayButtonNormal();
    }
 
-   worldSizePacket(reader: Reader) {
-      const worldSize: number = reader.readUInt32();
-      Border.update(0, 0, worldSize, worldSize);
-   }
-
-
+ 
    clientsUpdate(reader: Reader): void {
       const newCount: number = reader.readUInt8();
       for (let i: number = 0; i < newCount; i++) {
@@ -175,6 +170,11 @@ class Reciever {
       }
    }
 
+   worldSizePacket(reader: Reader) {
+      const worldSize: number = reader.readUInt32();
+      Border.update(0, 0, worldSize, worldSize);
+   }
+
    worldUpdate(reader: Reader): void {
       const eatCount: number = reader.readUInt16();
       for (let i: number = 0; i < eatCount; i++) {
@@ -238,8 +238,9 @@ class Reciever {
          const nick: string = client.nick || 'Unnamed cell';
          const color: string = client.teamColor;
          const mass: number = reader.readUInt32();
-         Leaderboard.add(nick, mass, color);
+         Leaderboard.add(nick, mass, color, clientID);
       }
+      Leaderboard.setPlayerId(World.myClientID);
    }
 
    minimapUpdate(reader: Reader): void {

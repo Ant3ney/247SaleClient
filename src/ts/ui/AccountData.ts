@@ -1,11 +1,12 @@
 const cookie = require('cookiejs');
 
 import Experience from './../game/Experience';
+// @ts-ignore
+import postMessage from './huds/postMessage.js';
 
 class SkinProfile {
 	public skinId1: number = 0;
 	public skinId2: number = 0;
-	
 }
 
 class Profile {
@@ -26,6 +27,7 @@ class Profile {
 class AccountData {
 	public authToken: string = 'SENPA_MOBILE'; //'SENPA_MOBILE';
 	public profile: Profile = new Profile();
+	public postMessage: any = postMessage;
 	private urlAuthAccount: string = "";
 	private urlAuthDiscord: string = "";
 	private urlAuthFacebook: string = "";
@@ -60,25 +62,36 @@ class AccountData {
 		console.log("-> Fetching profile data");
 
 		return new Promise((accept, reject) => {
-		  fetch(this.urlAuthAccount, {
-			method: "GET",
-			headers: {
-			  auth: this.authToken
+			if(this.authToken){
+				this.postMessage.send("authToken below");
+				this.postMessage.send(this.authToken);
 			}
-		  })
+			else{
+				this.postMessage.send("authToken is undefined or null");
+			}
+		  	fetch(this.urlAuthAccount, {
+				method: "GET",
+				headers: {
+				  auth: this.authToken
+				}
+		  	})
 			.then(data => data.json())
 			.then(profile => {
-
 			  if(profile === undefined || profile === null)
 				return reject();
-			  if (profile.error)
+			  if (profile.error){
+				  postMessage.send("Something went wrong in acout details in fetchProfileData");
+				  postMessage.send(profile.error.message);
 				return reject(profile.error);
-				this.profile = <Profile>profile;
-
-				console.log(this.profile);
+			  }
+			  this.profile = <Profile>profile;
+			  this.postMessage.send(this.profile.avatarURL);
 			  accept(this);
 			})
 			.catch(err => {
+			  this.postMessage.send("Something went wron. In Acound data.fetchProfileData");
+			  postMessage.send("this.auth = " + this.authToken);
+			  this.postMessage.send(err.message);
 			  reject(err);
 			});
 		});
@@ -94,11 +107,42 @@ class AccountData {
 		progElem.style.width = (150 * progress).toString() + 'px';
 	}
 
+	setSmallRealName(name: string){
+		const nameElem = document.getElementById("small-login-panel-name");
+		if (nameElem === null || nameElem === undefined)
+			return;
+		nameElem.innerHTML = name; 
+	}
+
 	setRealName(name: string) {
 		const nameElem = document.getElementById("login-panel-name");
 		if (nameElem === null || nameElem === undefined)
 			return;
 		nameElem.innerHTML = name;
+	}
+
+	setLv(lv: number){
+		//small-login-panel-lv
+		const lvElem = document.getElementById('login-panel-lv');
+		if(lvElem === null || lvElem === undefined)
+			return;
+		lvElem.innerHTML = ("Level " + lv);
+	}
+
+	setSmallLv(lv: number){
+		//small-login-panel-lv
+		const lvElem = document.getElementById('small-login-panel-lv');
+		if(lvElem === null || lvElem === undefined)
+			return;
+		lvElem.innerHTML = ("Level " + lv);
+	}
+
+	setSmallProfilePicture(url: string) {
+		const picElem = document.getElementById("small-pf-avatar");
+		if (picElem === null || picElem === undefined)
+			return;
+
+		picElem.setAttribute('src', url);
 	}
 
 	setProfilePicture(url: string) {
@@ -111,23 +155,65 @@ class AccountData {
 
 	setStatus(isLoggedIn: boolean) {
 		console.log("set login status", isLoggedIn);
-		const firstLoginForm = document.getElementById("login-form-first"),
-			  secondLoginForm = document.getElementById("login-form-second");
+		const zeroLoginForm = document.getElementById("login-form-zero"),
+			  secondLoginForm = document.getElementById("login-form-second"),
+			  thirdLoginForm: HTMLButtonElement = <HTMLButtonElement>document.getElementById("login-form-third");
 		this.loginStatus = isLoggedIn;
-		if (firstLoginForm)
-			firstLoginForm.style.display = isLoggedIn ? "none" : "block";
-		if (secondLoginForm)
+		if (zeroLoginForm){
+			zeroLoginForm.style.display = isLoggedIn ? "none" : "block";
+		}
+		if (secondLoginForm){
 			secondLoginForm.style.display =  isLoggedIn ? "block" : "none";
+		}
+		if (thirdLoginForm){
+			if(thirdLoginForm.style.display !== "none"){
+				thirdLoginForm.style.display = "none";
+			}
+		}
 	}
 
-	updateProfilePanel() {
+	showLargeProfilePanel(){
+		const smallProfilePanel: HTMLButtonElement = <HTMLButtonElement>document.querySelector('#login-form-second');
+		const largeProfilePanel: HTMLButtonElement = <HTMLButtonElement>document.querySelector('#login-form-third');
+		if(smallProfilePanel.style.display !== 'none'){
+			smallProfilePanel.style.display = 'none';
+		}
+		if(largeProfilePanel.style.display !== 'block'){
+			largeProfilePanel.style.display = 'block';
+		}
+		this.updateLargeProfilePanel();
+	}
 
+	showSmallProfilePanel(){
+		const smallProfilePanel: HTMLButtonElement = <HTMLButtonElement>document.querySelector('#login-form-second');
+		const largeProfilePanel: HTMLButtonElement = <HTMLButtonElement>document.querySelector('#login-form-third');
+		if(smallProfilePanel.style.display !== 'block'){
+			smallProfilePanel.style.display = 'block';
+		}
+		if(largeProfilePanel.style.display !== 'none'){
+			largeProfilePanel.style.display = 'none';
+		}
+		this.updateSmallProfilePanel();
+	}
+
+	updateLargeProfilePanel(){
+		const level = Experience.levelFromExp(this.profile.experience);
+		const expForLevel = Experience.realExpGainRequiredForLevelUp(level);
+		this.setLv(level);
+		this.setRealName(this.profile.realName);
+		this.setProfilePicture(this.profile.avatarURL);
+		const xpText = document.getElementById('xp-text');
+		if (xpText)
+			xpText.innerHTML = this.profile.experience.toString() + " / " + expForLevel.toString() + " XP";
+	}
+
+	updateSmallProfilePanel() {
 		const level = Experience.levelFromExp(this.profile.experience);
 		const expForLevel = Experience.realExpGainRequiredForLevelUp(level);
 		this.setStatus(true);
-		this.setExperienceProgress(Experience.realExp(this.profile.experience) / expForLevel);
-		this.setRealName(this.profile.realName);
-		this.setProfilePicture(this.profile.avatarURL);
+		this.setSmallLv(level);
+		this.setSmallRealName(this.profile.realName);
+		this.setSmallProfilePicture(this.profile.avatarURL);
 
 		const xpText = document.getElementById('xp-text');
 		if (xpText)
@@ -145,7 +231,6 @@ class AccountData {
 			  this.authToken = token;
 			  accept(this.authToken);
 			} else {
-			  //this.updatePanelState();
 			  reject({
 				code: this.errors[0],
 				msg: "Auth token not stored in cookies"
@@ -159,21 +244,38 @@ class AccountData {
 		this.authToken = authToken;
 	}
 
+	removeAuthToken(){
+		cookie.set("auth", "");
+	}
+
 	receiveMessage(event: any) {
-		const token = event.data.token;
+		let token;
+		if(process.env.NODE_ENV !== 'development'){
+			token = (event.data).replace('token:', '');
+		}
+		else{
+			token = event.data.token;
+		}		
 
       if (token && token != undefined) {
+		 this.postMessage.send("Setting auth stuff");
 		 this.setAuthToken(token);
-		 this.fetchProfileData().then(() => { 
-			this.updateProfilePanel();
+		 this.fetchProfileData()
+		 .then(() => {
+			 //ToDo invistagate code around here 
+			this.updateSmallProfilePanel();
 			this.onLogin(); 
-			});
+		})
+		.catch((err) => {
+			console.error(err)
+		});
       }
 	}
 
 	logout() {
 		this.setAuthToken("SENPA_MOBILE");
 		this.setStatus(false);
+		this.removeAuthToken();
 
 		this.onLogout();
 	}
@@ -181,7 +283,6 @@ class AccountData {
 	loginWithFB() {
 		this.popupLogin(this.urlAuthFacebook, "Login with Facebook");
 	}
-
 	loginWithDiscord() {
 		this.popupLogin(this.urlAuthDiscord, "Login with Discord");
 	}
@@ -202,21 +303,27 @@ class AccountData {
          this.windowObjectReference.focus();
       }
 
-      window.onmessage = (event: any) => this.receiveMessage(event);
-
       this.previousUrl = url;
 	}
 
-	initialise() : void { 
-		this.loadAuthToken().then(() => {
-			this.fetchProfileData().then(() => { 
-				this.updateProfilePanel();
+	initialise() : void {
+		window.onmessage = (event: any) => this.receiveMessage(event);
+		this.loadAuthToken()
+		.then(() => {
+			this.fetchProfileData()
+			.then(() => { 
+				this.updateSmallProfilePanel();
 				this.onLogin();  
-			}).catch(() => {
+			})
+			.catch(() => {
 				console.error("invalid token");
+				this.postMessage.test("Invalid token");
+				this.postMessage.send("Req:NativeAuthToken");
 			});
-		}).catch(() => {
+		})
+		.catch(() => {
 			console.warn("login token not stored in cookies or invalid");
+			this.postMessage.send("Req:NativeAuthToken");
 		});
 	}
 	

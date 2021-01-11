@@ -76,11 +76,30 @@ class SettingsMenu {
     const template: HTMLTemplateElement = <HTMLTemplateElement>this.templates.toggle;
     const node: HTMLDivElement = <HTMLDivElement>template.content.children[0].cloneNode(true);
 
+    // define inner elements
+    let toggleBox: HTMLDivElement = <HTMLDivElement>node.querySelector('.toggle-box');
+    let onText: HTMLDivElement = <HTMLDivElement>toggleBox.querySelector('.toggle-text.on');
+    let offText: HTMLDivElement = <HTMLDivElement>toggleBox.querySelector('.toggle-text.off');
+
     // set node data
     const title: HTMLDivElement = <HTMLDivElement>node.querySelector('.title');
     title.innerHTML = setting.displayName;
     node.setAttribute('category', setting.category);
-    if (setting.default) node.classList.add('active');
+    if (setting.default){
+      node.classList.add('active');
+      showEle(onText);
+      hideEle(offText);
+      toggleBox.classList.add('onPadding');
+      toggleBox.classList.remove('offPadding');
+    }
+    else{
+      node.classList.remove('active');
+      showEle(offText);
+      hideEle(onText);
+      toggleBox.classList.add('offPadding');
+      toggleBox.classList.remove('onPadding');
+    }
+    console.log(setting.default);
     node.style.display = setting.category === 'game' ? 'flex': 'none';
 
     // define setting
@@ -91,8 +110,20 @@ class SettingsMenu {
         return value;
       },
       set(newValue: boolean) {
-        if (newValue) node.classList.add('active');
-        else node.classList.remove('active');
+        if (newValue){
+          node.classList.add('active');
+          showEle(onText);
+          hideEle(offText);
+          toggleBox.classList.add('onPadding');
+          toggleBox.classList.remove('offPadding');
+        }
+        else{ 
+          node.classList.remove('active');
+          showEle(offText);
+          hideEle(onText);
+          toggleBox.classList.add('offPadding');
+          toggleBox.classList.remove('onPadding');
+        }
         self.saveSetting(name, newValue);
         value = newValue;
         if (setting.onChange) setting.onChange(newValue);
@@ -296,6 +327,15 @@ class SettingsMenu {
       const value: boolean | string = settings[key];
       Settings[key] = value;
     }
+  }
+}
+
+function hideEle(ele: HTMLDivElement){
+  ele.classList.add('display-none');
+}
+function showEle(ele: HTMLDivElement){
+  while(ele.classList.contains('display-none')){
+    ele.classList.remove('display-none');
   }
 }
 

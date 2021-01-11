@@ -11,6 +11,10 @@
   background-color: #111111;
   opacity: 1;
   transition: opacity 1s;
+  background-image: url('../resources/images/food-bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 
   .senpaio-logo {
     width: 280px;

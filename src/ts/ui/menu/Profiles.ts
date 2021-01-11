@@ -139,6 +139,8 @@ class Profiles {
 		});
 	}
 
+	function
+
 	createProfiles(): void {
 		this.list = [];
 		for (let i: number = 0; i < 10; i++) {
@@ -187,6 +189,7 @@ class Profiles {
 		Player.skin2 = selectedProfile.skin2;
 
 		selectedProfile.updateSkinPreviews();
+		this.updatePreviewElements();
 	}
 
 	saveData(): void {
@@ -198,6 +201,31 @@ class Profiles {
 		const profile: Profile = this.list[this.selected];
 
 		profile.select();
+
+		this.updatePreviewElements();
+	}
+
+	updatePreviewElements(){
+		let skin1 = (document.getElementById('skin-preview-1').style.backgroundImage.indexOf('no-skin.png') >= 0 ? 'none' : 'something');
+		let skin2 = (document.getElementById('skin-preview-2').style.backgroundImage.indexOf('no-skin.png') >= 0 ? 'none' : 'something');
+
+		if(skin1 == 'none' && $(`#skin-preview-1`).hasClass('has-image')){
+			while($(`#skin-preview-1`).hasClass('has-image')){
+				$(`#skin-preview-1`).removeClass('has-image');
+			}
+		}
+		if(skin2 == 'none' && $(`#skin-preview-2`).hasClass('has-image')){
+			while($(`#skin-preview-2`).hasClass('has-image')){
+				$(`#skin-preview-2`).removeClass('has-image');
+			}
+		}
+
+		if(skin1 != 'none' && !$(`#skin-preview-1`).hasClass('has-image')){
+			$(`#skin-preview-1`).addClass('has-image');
+		}
+		if(skin2 != 'none' && !$(`#skin-preview-2`).hasClass('has-image')){
+			$(`#skin-preview-2`).addClass('has-image');
+		}
 	}
 }
 

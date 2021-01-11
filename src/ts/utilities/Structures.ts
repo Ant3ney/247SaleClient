@@ -35,7 +35,8 @@ interface ProfileData {
 interface LeaderboardSlot {
   name: string,
   score: number,
-  color: string
+  color: string,
+  id: any
 }
 
 export {

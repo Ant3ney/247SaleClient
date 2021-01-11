@@ -37,12 +37,13 @@ class ServerList {
         }
         SplashScreen.finish();
       }
+
       request.onerror = () => {
         const message: HTMLDivElement = <HTMLDivElement>document.getElementById('network-error');
         message.style.display = 'block';
       }
       request.send();
-    }
+      }
 
     //setTimeout(() => { this.fetchServers() }, this.refreshInterval);
   }

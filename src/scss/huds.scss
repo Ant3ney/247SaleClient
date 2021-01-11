@@ -5,16 +5,58 @@
 @import 'huds/leaderboard';
 @import 'huds/minimap';
 
+$border-color: rgba(144, 152, 173, 0.4);
+
 .skin-preview {
-  background-color: #333;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  margin: 12px;
-  border: 6px solid #555;
-  box-sizing: border-box;
+  padding: 21px;
+  padding-left: 32px;
+  height: 11px;
+  margin-left: 0.75rem;
+  margin-top: auto;
+  margin-bottom: auto;
   background-size: cover !important;
   transition: border-color .15s ease-out;
+  display: flex;
+  border-radius: 100%;
+  border: 2px solid #707070;
+  position: relative;
+
+  .pluss{
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    bottom: 0px;
+    right: 0px;
+    border-radius: 100%;
+    border: 2px solid $border-color;
+    background-color: #272727;
+    display: flex;
+
+    i{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      color: #c7c6c9;
+      font-size: 6px !important;
+    }
+    i::before{
+      margin: auto;
+    }
+  }
+}
+.skin-preview:nth-of-type(1){
+  margin-left: 0rem;
+}
+
+.has-image{
+  border-radius: 100% !important;
+  border: 2px solid #707070;
+}
+
+.skin-preview:nth-of-type(2){
+  @media only screen and (max-width: 500px) {
+    margin-left: 0.25rem;
+  }
 }
 
 .inline {
@@ -31,32 +73,40 @@
   .top-left {
     position: fixed;
     top: 12px;
-    left: 10px;
+    left: 40px;
     display: flex;
-    flex-direction: column;
     transform-origin: top left;
+
+    #skins-toggle{
+      display: none;
+    }
     
     .buttons {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: flex-start;
 
+      #minimap-toggle{
+        margin-top: 10px;
+      }
+
       button {
-        background-color: #333333;
+        border: 2px solid $border-color !important;
         color: #ffffff;
         border: none;
         outline: none;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
         margin: 2px;
-        border-radius: 50%;
-        font-size: 18px;
+        border-radius: 10px;
+        font-size: 20px;
         outline: none;
         user-select: none;
         padding: 0px;
+        background-color: transparent;
 
         i {
           width: 100%;
@@ -75,37 +125,160 @@
   .top-right {
     position: fixed;
     top: 12px;
-    right: 10px;
+    right: 40px;
     display: flex;
     flex-direction: column;
     transform-origin: top right;
 
     .buttons {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: flex-end;
 
+      .zoom-container{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: auto;
+      }
+
+      #leaderboard-toggle{
+        margin-top: 2px;
+      }
+
       button {
-        background-color: #333333;
+        background-color: transparent;
+        border: 2px solid $border-color !important;
         color: #ffffff;
         border: none;
         outline: none;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
         margin: 2px;
-        border-radius: 50%;
-        font-size: 18px;
+        margin-top: 10px;
+        border-radius: 10px;
+        font-size: 20px;
         outline: none;
         user-select: none;
         padding: 0px;
 
-        i {
-          width: 100%;
+        .lBord-icon-container{
+          margin: 7px;
+          margin-top: 5px;
+          display: flex;
+          width: 25px;
+          height: 25px;
+          .lBord-icon{
+            width: 100%;
+            height: 100%;
+            background-image: url("../../src/resources/images/leaderbord.png");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
         }
       }
     }
+
+    #lBord{
+      display: none;
+      border: 2px solid $border-color;
+      border-radius: 8px;
+      padding: 10px;
+      padding-top: 5px;
+      padding-left: 6px;
+      padding-bottom: 5px;
+      margin-left: 5px;
+      width: 118px;
+      .header-container{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 15px;
+        p{
+          color: #707070;
+          margin-top: auto;
+          margin-bottom: auto;
+          font-size: 15px;
+          font-weight: 600
+        }
+        .lBord-icon-container{
+          margin: 5px;
+          margin-top: 1px;
+          display: flex;
+          width: 22px;
+          height: 22px;
+          margin-left: 5px;
+          margin-right: 7px;
+          margin-bottom: 0px;
+          .lBord-icon{
+            width: 100%;
+            height: 100%;
+            background-image: url("../../src/resources/images/leaderbord.png");
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+        }
+      }     
+    }
   }
+
+  .flex-row{
+    flex-direction: row !important;
+  }
+  .flex-column{
+    flex-direction: column !important;
+  }
+}
+
+.chevron::before {
+	border-style: solid;
+  border-width: 0.09em 0.09em 0 0;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+	content: '';
+	display: flex;
+	height: 0.45em;
+	position: relative;
+	transform: rotate(-45deg);
+  width: 0.45em;
+  border-top-left-radius: 10%;
+  border-top-right-radius: 20%;
+  border-bottom-right-radius: 10%;
+  border-bottom-left-radius: 10%;
+  top: 0.5rem;
+}
+
+.chevron.right:before {
+  transform: rotate(45deg);
+  @media only screen and (max-width: 500px) {
+    right: 0.2em;
+  }
+}
+
+.chevron.bottom:before {
+	top: 0;
+	transform: rotate(135deg);
+}
+
+.chevron.left:before {
+	@media only screen and (max-width: 500px) {
+    left: 0.2em;
+  }
+	transform: rotate(-135deg);
+}
+
+.login-icon{
+  margin-right: 0.5rem !important;
+  font-size: 15px;
+  margin-left: 0.5rem !important;
+  display: flex;
+}
+.fa-discord::before{
+  margin: auto;
+}
+.fa-facebook-f{
+  margin: auto;
 }

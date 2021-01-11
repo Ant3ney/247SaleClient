@@ -36,10 +36,9 @@ class Cells {
       const strokeNick: boolean = <boolean>Settings.nickStroke;
 
       const allSkins: boolean = <string>Settings.showSkins === 'all';
-      const teamSkins: boolean =
-         allSkins || <string>Settings.showSkins === 'team';
-      const ownSkin: boolean =
-         teamSkins || <string>Settings.showSkins === 'own';
+      const teamSkins: boolean = allSkins || <string>Settings.showSkins === 'team';
+      const ownSkin: boolean = teamSkins || <string>Settings.showSkins === 'own';
+         
 
       const pellets: boolean = true;
       const singleColorPellets: boolean = <boolean>Settings.singleColorPellets;

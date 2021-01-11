@@ -14,7 +14,7 @@ class ServerMenu {
   onServerChanged: any;
 
   constructor() {
-    this.element = <HTMLDivElement>document.getElementById('server-menu');
+    this.element = <HTMLDivElement>document.getElementById('outter-server-menu');
     this.listContainer = <HTMLDivElement>document.getElementById('server-list');
     this.template = <HTMLTemplateElement>document.getElementById('server-list-row');
     this.isOpen = false;
@@ -51,7 +51,7 @@ class ServerMenu {
       item.style.display = isTitle || region === value ? 'flex' : 'none';
     }
 
-    const navBar: HTMLDivElement = <HTMLDivElement>document.querySelector('#server-menu .container .nav-bar');
+    const navBar: HTMLDivElement = <HTMLDivElement>document.querySelector('#server-menu .header .nav-bar');
     const regionBtns: HTMLCollection = navBar.children;
     for (let i: number = 0; i < regionBtns.length; i++) {
       const regionBtn: HTMLDivElement = <HTMLDivElement>regionBtns[i];
@@ -82,7 +82,7 @@ class ServerMenu {
       this.isScrolling = false;
     }, { passive: true });
 
-    const navBar: HTMLDivElement = <HTMLDivElement>document.querySelector('#server-menu .container .nav-bar');
+    const navBar: HTMLDivElement = <HTMLDivElement>document.querySelector('#server-menu .header .nav-bar');
     const regionBtns: HTMLCollection = navBar.children;
     for (let i = 0; i < regionBtns.length; i++) {
       const regionBtn: HTMLDivElement = <HTMLDivElement>regionBtns[i];

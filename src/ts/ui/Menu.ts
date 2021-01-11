@@ -66,7 +66,15 @@ class Menu {
 
     const btnSettingsMenu: HTMLButtonElement = <HTMLButtonElement>document.getElementById('settings');
     btnSettingsMenu.addEventListener('touchend', () => { SettingsMenu.show() }, { passive: true });
-    // btnSettingsMenu.addEventListener('click', () => { SettingsMenu.show() }, { passive: true });
+
+    const btnSignIn: HTMLButtonElement = <HTMLButtonElement>document.getElementById('sign-in-menu');
+    btnSignIn.addEventListener('touchend', () => { this.showSignInOptions() }, { passive: true });
+
+    const btnExitSettingsMenu: HTMLButtonElement = <HTMLButtonElement>document.getElementById('exit-server-options');
+    btnExitSettingsMenu.addEventListener('touchend', () => { this.exitSinInPotions() }, { passive: true });
+
+    const btnSmallProfilePanel: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-second');
+    btnSmallProfilePanel.addEventListener('touchend', () => { AccountData.showLargeProfilePanel(); }, { passive: true });
 
     const btnLoginDiscord: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button-discord');
     btnLoginDiscord.addEventListener('touchend', () => { AccountData.loginWithDiscord(); });
@@ -77,10 +85,26 @@ class Menu {
     const btnLogout: HTMLButtonElement = <HTMLButtonElement>document.getElementById('logout-button');
     btnLogout.addEventListener('touchend', () => { AccountData.logout(); });
 
+    const btnExitPanel: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-panel-close');
+    btnExitPanel.addEventListener('touchend', () => { AccountData.showSmallProfilePanel(); });
+
     const btnFullscreen: HTMLButtonElement | null = <HTMLButtonElement | null>document.getElementById('fullscreen');
     if (btnFullscreen) {
       btnFullscreen.addEventListener('touchend', () => { this.onFullscreen() }, { passive: true });
     }
+  }
+
+  showSignInOptions(): void{
+    const signInConteiner: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-zero');
+    const optionsConteiner: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-first');
+    signInConteiner.style.display = "none";
+    optionsConteiner.style.display = "block";
+  }
+  exitSinInPotions(): void{
+    const signInConteiner: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-zero');
+    const optionsConteiner: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-first');
+    signInConteiner.style.display = "block";
+    optionsConteiner.style.display = "none";
   }
 
   onFullscreen(): void {

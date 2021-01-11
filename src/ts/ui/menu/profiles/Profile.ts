@@ -1,5 +1,4 @@
 const $ = require('jquery');
-// const Image_NoSkin: string = 'https://senpa.io/web/resources/src/resources/img/no-skin.png';
 import Player from '../../../game/Player';
 
 const Image_NoSkin = require('../../../../resources/images/no-skin.png');

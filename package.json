@@ -32,11 +32,13 @@
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.7.2",
-    "webpack-obfuscator": "0.18.0"
+    "webpack-obfuscator": "^0.18.8"
   },
   "dependencies": {
+    "javascript-obfuscator": "^2.9.4",
     "jquery": "^3.5.1",
     "node-sass": "^4.14.1",
-    "perfect-scrollbar": "^1.5.0"
+    "perfect-scrollbar": "^1.5.0",
+    "react-native-webview": "^11.0.2"
   }
 }

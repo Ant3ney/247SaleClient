@@ -15,7 +15,7 @@ class UI {
   initialise(): void {
     Menu.initialise();
     Huds.initialise();
-	SkinModal.initialise();
+	  SkinModal.initialise();
 
     this.scale();
     window.addEventListener('resize', () => { this.scale() }, { passive: true });

@@ -1,36 +1,83 @@
-import Settings from '../../game/Settings';
-import Camera from "../../game/Camera";
-import World from "../../game/World";
 import Player from "../../game/Player";
-import Joystick from '../../ui/huds/Joystick';
+import Camera from "../../game/Camera";
+import Joystick from "../../ui/huds/Joystick";
 import { Point } from "../../utilities/Structures";
+import World from "../../game/World";
+import Settings from "../../game/Settings";
 
-class MouseTracker {
-  render(ctx: CanvasRenderingContext2D) {
-    if (!Player.isAlive) return;
-    if (<string>Settings.directionMarkerType !== 'lines') return;
+class DirectionArrow {
+  arrow: HTMLCanvasElement;
+  color: string;
 
-    ctx.strokeStyle = <string>Settings.directionLinesColor;
-    ctx.lineWidth = 4;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+  constructor() {
+    this.arrow = document.createElement('canvas');
+    this.color = '#ffffff';
 
-    const joystickX: number = Joystick.direction.x * (150 * window.devicePixelRatio);
-    const joystickY: number = Joystick.direction.y * (150 * window.devicePixelRatio);
-    const center: Point = Player.activeTab === 0 ? Player.center1 : Player.center2;
-    const x: number = center.x + joystickX / Camera.zoom;
-    const y: number = center.y + joystickY / Camera.zoom;
+    this.renderArrow();
+  }
+
+  renderArrow(): void {
+    const canvas: HTMLCanvasElement = this.arrow;
+    const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
+    
+    const dpp: number = window.devicePixelRatio;
+    const width: number = 14 * dpp;
+    const height: number = 16 * dpp;
+
+    canvas.width = width;
+    canvas.height = height;
 
     ctx.beginPath();
+    ctx.moveTo(width / 2, 0);
+    ctx.lineTo(0, height);
+    ctx.lineTo(width / 2, height * 4 / 5);
+    ctx.lineTo(width, height);
+    ctx.closePath();
+
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+
+  render(ctx: CanvasRenderingContext2D) {
+    if (<string>Settings.directionMarkerType !== 'arrow') return;
+    if (!Player.isAlive) return;
+    
+    if (<string>Settings.directionArrowColor !== this.color) {
+      this.color = <string>Settings.directionArrowColor;
+      this.renderArrow();
+    }
+
+    const center: Point = Player.activeTab === 0 ? Player.center1 : Player.center2;
+    const joystickRadius: number = (150 * window.devicePixelRatio);
+    const joystickX: number = center.x + (Joystick.direction.x * joystickRadius) / Camera.zoom;
+    const joystickY: number = center.y + (Joystick.direction.y * joystickRadius) / Camera.zoom;
+
+    let radius: number = 0;
+    
     if (!World.myCells[Player.activeTab]) return;
     for (const cell of World.myCells[Player.activeTab].values()) {
       if (cell.removed) continue;
-      ctx.moveTo(cell.x, cell.y);
-      ctx.lineTo(x, y);
+      const dx: number = center.x - cell.x;
+      const dy: number = center.y - cell.y;
+      const h: number = Math.sqrt(dx ** 2 + dy ** 2) || 1;
+      if (radius < h + cell.radius + 75) radius = h + cell.radius + 75;
     }
-    ctx.closePath();
-    ctx.stroke();
+
+    const dx: number = joystickX - center.x;
+    const dy: number = joystickY - center.y;
+    const h: number = Math.sqrt(dx ** 2 + dy ** 2) || 1;
+    const ax: number = dx / h;
+    const ay: number = dy / h;
+    const translateX: number = center.x + ax * radius;
+    const translateY: number = center.y + ay * radius;
+    const angle: number = Math.atan(Joystick.direction.x / -Joystick.direction.y) + (Joystick.direction.y >= 0 ? Math.PI : 0);
+
+    ctx.save();
+    ctx.translate(translateX, translateY);
+    ctx.rotate(angle);
+    ctx.drawImage(this.arrow, - this.arrow.width * 3 / 2, - this.arrow.height * 3 / 2, this.arrow.width * 3, this.arrow.height * 3);
+    ctx.restore();
   }
 }
 
-export default new MouseTracker();
+export default new DirectionArrow();

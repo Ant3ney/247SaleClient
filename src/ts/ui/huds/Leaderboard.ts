@@ -1,19 +1,33 @@
 import { LeaderboardSlot } from "../../utilities/Structures";
+import world from "../../game/World";
+import player from '../../game/Player';
 
 class Leaderboard {
   list: LeaderboardSlot[];
   element: HTMLDivElement;
   isOpen: boolean;
+  playerId: any;
 
   constructor() {
     this.list = [];
     this.element = <HTMLDivElement>document.getElementById('leaderboard-hud');
     this.isOpen = false;
+    this.playerId = 1;
   }
 
   initialise(): void {
     const toggle: HTMLButtonElement = <HTMLButtonElement>document.getElementById('leaderboard-toggle');
     toggle.addEventListener('touchend', () => {
+      if (this.isOpen){
+        this.hide();
+      }
+      else{
+        this.show();
+      }
+    });
+
+    const lBord: HTMLButtonElement = <HTMLButtonElement>document.getElementById('lBord');
+    lBord.addEventListener('touchend', () => {
       if (this.isOpen) this.hide();
       else this.show();
     });
@@ -23,16 +37,35 @@ class Leaderboard {
     this.list = [];
   }
 
-  add(name: string, score: number, color: string): void {
-    const slot: LeaderboardSlot = <LeaderboardSlot>{ name, score, color };
+  setPlayerId(id: any){
+    this.playerId = id;
+  }
+
+  add(name: string, score: number, color: string, id: number): void {
+    const slot: LeaderboardSlot = <LeaderboardSlot>{ name, score, color, id };
     this.list.push(slot);
   }
 
   update(): void {
     const html: string[] = [];
-    for (let i: number = 0; i < 5 && i < this.list.length; i++) {
+    let playerInLeaderBord = false;
+    for (let i: number = 0; i < this.list.length; i++) {
       const slot = this.list[i];
-      html.push(`<div class="slot" style="color: ${slot.color}">${i + 1}. ${slot.name} (${slot.score})</div>`);
+      if(i < 5){
+        let color = "white";
+        if(slot.id == this.playerId){
+          if(playerInLeaderBord){
+
+          }
+          color = '#e8d589'; 
+          playerInLeaderBord = true;
+        }
+        html.push(`<div class="slot" style="color: ${color};">${i + 1}. ${slot.name}</div>`);
+      }
+      if(slot.id == this.playerId && i >= 5){
+        html.push(`<div class="slot" style="color: #e8d589">${i + 1}. ${slot.name}</div>`);
+        break;
+      }
     }
     this.element.innerHTML = html.join('');
   }
@@ -40,11 +73,52 @@ class Leaderboard {
   show(): void {
     this.element.style.display = 'flex';
     this.isOpen = true;
+
+    //Re ajusting ui structure
+    const topRightEle: HTMLButtonElement = <HTMLButtonElement>document.getElementsByClassName('top-right')[0];
+    if(!topRightEle.classList.contains('flex-row')){
+      topRightEle.classList.add('flex-row');
+    }
+    if(topRightEle.classList.contains('flex-column')){
+      topRightEle.classList.remove('flex-column');
+    }
+
+    const toggleEle: HTMLButtonElement = <HTMLButtonElement>document.getElementById('leaderboard-toggle');
+    if(toggleEle.style.display !== 'none'){
+      toggleEle.style.display = 'none';
+    }
+
+    const lBordContainer: HTMLButtonElement = <HTMLButtonElement>document.getElementById('lBord');
+    lBordContainer.style.display = "block";
+
+    const zoomIn: HTMLButtonElement = <HTMLButtonElement>document.getElementById('zoom-in');
+    zoomIn.style.marginTop = "2px";
+    //zoom-in
   }
 
   hide(): void {
     this.element.style.display = 'none';
     this.isOpen = false;
+
+    //Re ajusting ui structure
+    const topRightEle: HTMLButtonElement = <HTMLButtonElement>document.getElementsByClassName('top-right')[0];
+    if(!topRightEle.classList.contains('flex-column')){
+      topRightEle.classList.add('flex-column');
+    }
+    if(topRightEle.classList.contains('flex-row')){
+      topRightEle.classList.remove('flex-row');
+    }
+
+    const toggleEle: HTMLButtonElement = <HTMLButtonElement>document.getElementById('leaderboard-toggle');
+    if(toggleEle.style.display !== 'flex'){
+      toggleEle.style.display = 'flex';
+    }
+
+    const lBordContainer: HTMLButtonElement = <HTMLButtonElement>document.getElementById('lBord');
+    lBordContainer.style.display = "none";
+
+    const zoomIn: HTMLButtonElement = <HTMLButtonElement>document.getElementById('zoom-in');
+    zoomIn.style.marginTop = "10px";
   }
 }
 

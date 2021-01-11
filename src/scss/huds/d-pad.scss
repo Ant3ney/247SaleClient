@@ -1,4 +1,6 @@
 #d-pad {
+  $border-color: rgba(144, 152, 173, 0.4);
+
   position: fixed;
   width: 140px;
   height: 140px;
@@ -12,8 +14,8 @@
 
     button {
       border-radius: 50%;
-      border: 2px solid rgba(80, 80, 80, 0.5);
-      background-color: rgba(40, 40, 40, 0.5);
+      border: 2px solid $border-color;
+      background-color: transparent;
       outline: none;
       display: flex;
       justify-content: center;
@@ -24,14 +26,14 @@
     button.a > img,
     button.d > img {
       pointer-events: none;
-      width: 100%;
+      width: 160%;
       transform: scale(1);
     }
 
     button.b > img,
     button.c > img {
       pointer-events: none;
-      width: 100%;
+      width: 160%;
       transform: scale(1.2);
     }
 
@@ -47,19 +49,25 @@
       width: 44px;
       height: 44px;
       margin: 13px;
+      position: absolute;
       font-size: 20px;
+      top: 15px
     }
 
     button.b {
-      width: 70px;
-      height: 70px;
+      width: 65px;
+      height: 65px;
+      position: absolute;
       font-size: 30px;
+      top: 10px;
     }
 
     button.c {
-      width: 70px;
-      height: 70px;
+      width: 65px;
+      height: 65px;
       font-size: 30px;
+      position: absolute;
+      bottom: -15px;
     }
 
     button.d {
@@ -67,24 +75,65 @@
       height: 44px;
       margin: 13px;
       font-size: 20px;
+      position: absolute;
+      bottom: -15px;
     }
   }
 }
 
 #d-pad[position=right] {
-  right: 20px;
+  right: 40px;
   transform-origin: bottom right;
+  bottom: 36px;
+
+  .buttons {
+    button.a {
+      margin-left: 5px;
+    }
+    button.b {
+      right: 10px;
+    }
+    button.c {
+      left: 10px;
+    }
+    button.d {
+      right: 0px;
+      margin-right: 5px;
+    }
+  }
 }
 
 #d-pad[position=left] {
   left: 20px;
   transform-origin: bottom left;
+  bottom: -36px;
 
   .buttons {
     transform: scaleX(-1);
+    transform: scaleY(-1);
 
     button {
       transform: scaleX(-1);
+      transform: scaleY(-1);
+    }
+
+    button.a {
+      right: 0px;
+      margin-right: 5px;
+      top: -10px
+    }
+    button.b {
+      left: 10px;
+      top: -5px;
+    }
+    button.c {
+      right: 10px;
+      bottom: 15px;
+    }
+    button.d {
+      left: 0px;
+      margin-left: 5px;
+      bottom: 15px;
     }
   }
 }

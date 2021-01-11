@@ -156,16 +156,15 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
     displayName: 'Direction on touch',
     default: false
   },
-  // theme
   nickStroke: {
     type: 'toggle',
-    category: 'theme',
+    category: 'game',
     displayName: 'Nick stroke',
     default: true
   },
   massStroke: {
     type: 'toggle',
-    category: 'theme',
+    category: 'game',
     displayName: 'Mass stroke',
     default: true
   },
@@ -195,7 +194,7 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
   },
   singleColorPellets: {
     type: 'toggle',
-    category: 'theme',
+    category: 'game',
     displayName: 'Single color pellets',
     default: false
   },

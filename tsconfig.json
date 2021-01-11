@@ -5,8 +5,7 @@
     "downlevelIteration": true,
     "sourceMap": true,
     "noImplicitReturns": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "allowJs": true,
+    "noImplicitAny": false
   }
 }

@@ -45,6 +45,9 @@ export default class SkinModal {
 
         this.page = 0;
         this.nodeImgs = [];
+        this.nodeItems = [];
+        this.nodeBtns = [];
+        this.xIcons = [];
         this.currentlyDisplayedSkins = [];
     }
 	
@@ -213,6 +216,10 @@ export default class SkinModal {
                 $(img).attr("src", "");
             })
             this.nodeImgs = [];
+            this.nodeItems = [];
+            this.nodeBtns = [];
+            this.xIcons = [];
+            //return here
             this.currentlyDisplayedSkins = [];
         } else {
             $("#skinGrid").show();
@@ -245,12 +252,21 @@ export default class SkinModal {
     }
 
     updateSelectedSkinDisplay() {
-        this.nodeImgs.map(img => {
+        //updater
+        this.nodeImgs.map((img) => {
+            let i = this.nodeImgs.indexOf(img);
             const skin = $(img).attr("src");
+            let gridItem = this.nodeItems[i];
+            let btn = this.nodeBtns[i];
+            let icon = this.xIcons[i];
             if (this.getSelectedSkinURL() == skin) {
-                $(img).addClass("selected")
+                $(gridItem).addClass("selected");
+                $(btn).addClass("selected");
+                $(img).addClass("");
+                $(icon).addClass('selected');
             } else {
-                $(img).removeClass("selected")
+                $(gridItem).removeClass("selected");
+                $(btn).removeClass("selected");
             }
 
         })
@@ -262,8 +278,21 @@ export default class SkinModal {
 
             if (AccountData.profile.favorites != null && AccountData.profile.favorites.indexOf(skin.id) != -1) {
                 $(node).addClass("selected");
+                if(this.tab !== this.tabs.TAB_FAVORITES){
+                    $(node).children().removeClass("far");
+                    $(node).children().removeClass("fa-bookmark");
+                    $(node).children().addClass("fas");
+                    $(node).children().addClass("fa-bookmark");
+                }
+                
             } else {
                 $(node).removeClass("selected");
+                if (!$(node).children().hasClass("far") && this.tab !== this.tabs.TAB_FAVORITES) {
+                    $(node).children().removeClass("fas");
+                    $(node).children().removeClass("fa-bookmark");
+                    $(node).children().addClass("far");
+                    $(node).children().addClass("fa-bookmark");
+                }
             }
         })
 		
@@ -432,46 +461,47 @@ export default class SkinModal {
 		
         let el = this.skinItemTemplate.content.cloneNode(true);
         let imgEl = el.querySelector("img");
-        $(imgEl).attr("src", skinUrl)
+        let bntEl = el.querySelector("button");
+        $(imgEl).attr("src", skinUrl);
         this.nodeImgs.push(imgEl);
+        this.nodeItems.push($(imgEl).parent());
+        this.nodeBtns.push(bntEl);
         $(el.querySelector(".title")).text(cleanedName)
 
-
         const icon = el.querySelector(".icon");
-        if (this.tab !== this.tabs.TAB_LEVELS && this.tab !== this.tabs.TAB_MYSKINS) {
-            $(icon).attr("data-fav-skin-id", skin.id);
-			
-			$(icon)[0].addEventListener('touchend', () => {
-				const currentIndex = AccountData.profile.favorites.indexOf(skin.id);
-
-                if (currentIndex != -1) {
-                    AccountData.profile.favorites.splice(currentIndex, 1);
-                    this.sendFavorite(skin.id, 'DELETE');
-                } else {
-                    AccountData.profile.favorites.push(skin.id);
-                    this.sendFavorite(skin.id, 'POST');
-                }
-                $(icon).hide();
-                console.log("icon clicked")
-                this.updateFavoritedSkinsDisplay();
-			});
-
-            if (this.tab === this.tabs.TAB_FAVORITES) {
-                $(icon).html(`<i class="fas fa-times fa-2x"></i>`)
-                $(icon).addClass("delete-icon")
+        
+        $(icon).attr("data-fav-skin-id", skin.id);
+		
+		$(icon)[0].addEventListener('touchend', () => {
+			const currentIndex = AccountData.profile.favorites.indexOf(skin.id);
+            if (currentIndex != -1) {
+                AccountData.profile.favorites.splice(currentIndex, 1);
+                this.sendFavorite(skin.id, 'DELETE');
+            } else {
+                AccountData.profile.favorites.push(skin.id);
+                this.sendFavorite(skin.id, 'POST');
             }
-        } else {
-            $(icon).hide();
+            //$(icon).hide();
+            this.updateFavoritedSkinsDisplay();
+		});
+        if (this.tab === this.tabs.TAB_FAVORITES) {
+            icon.innerHTML = (`<i class="fas fa-times fa-2x"></i>`);
+            $(icon).addClass("delete-icon");
         }
-
+        this.xIcons.push($(icon).children());
+        
         const requirementMetMsg = this.validateSkinRequirements(skin);
         if (requirementMetMsg === true) {
             if (this.getSelectedSkinURL() == skinUrl) {
                 $(el.querySelector("button")).text("Remove");
+                $(el.querySelector("button")).addClass('selected');
+                $(el.querySelector("button")).parent().addClass('selected');
+                $(el.querySelector(".icon")).children().addClass('selected');
                 $(el.querySelector("button")).addClass("delete");
                 $(el.querySelector("button")).on("touchend", () => {
                     const el = this.getSelectedSkinInputEl();
                     el.val('');
+                    $(el).removeClass("has-image");
                     el.change();
 					
 					this.onSkinUpdate(this.selectedSkinUnit, 'no-skin');
@@ -483,8 +513,9 @@ export default class SkinModal {
                 $(el.querySelector("button")).on("touchend", () => {
                     const el = this.getSelectedSkinInputEl();
                     el.val(skinUrl);
+                    $(el).addClass("has-image");
                     el.change();
-					
+					console.log('Changed skin');
 					this.onSkinUpdate(this.selectedSkinUnit, skinUrl);
 
                     this.rebuildPageResults();
