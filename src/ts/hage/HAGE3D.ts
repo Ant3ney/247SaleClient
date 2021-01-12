@@ -18,7 +18,8 @@ class HAGE3D extends HAGE_BASE {
     this.options = <WebGLRendererOptions>{
       view: this.canvas,
       antialias: true,
-      resolution: 1
+      resolution: 1,
+      transparent: true
     };
     this.renderer = new WebGLRenderer(1, 1, this.options);
     this.stage = new Container();
