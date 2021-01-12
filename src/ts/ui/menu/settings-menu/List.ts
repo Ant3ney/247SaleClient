@@ -90,12 +90,12 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       arrow: 'Arrow'
     }
   },
-  showSectors: {
-    type: 'toggle',
-    category: 'game',
-    displayName: 'Show sectors',
-    default: true
-  },
+ // showSectors: {
+ //   type: 'toggle',
+ //   category: 'game',
+ //   displayName: 'Show sectors',
+ //   default: false
+//  },
   showSkins: {
     type: 'choice-box',
     category: 'game',
@@ -250,7 +250,7 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
     type: 'colorpicker',
     category: 'theme',
     displayName: 'Background color',
-    default: '#111111',
+    default: '#000000',
     onChange: (value: string) => {
       document.body.style.backgroundColor = value;
     }
