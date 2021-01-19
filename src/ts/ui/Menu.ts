@@ -2,7 +2,8 @@ import SettingsMenu from "./menu/SettingsMenu";
 import ServerMenu from "./menu/ServerMenu";
 import Profiles from "./menu/Profiles";
 import Events from "../game/Events";
-import AccountData from "./AccountData";
+import AccountData from "../entities/AccountData";
+import Account from "./Account";
 
 class Menu {
   element: HTMLElement;
@@ -34,7 +35,7 @@ class Menu {
       Profiles.updateElements();
     };
 
-    AccountData.initialise();
+    Account.initialise();
   }
 
   onServerChanged(): void {
@@ -75,19 +76,19 @@ class Menu {
     btnExitSettingsMenu.addEventListener('touchend', () => { this.exitSinInPotions() }, { passive: true });
 
     const btnSmallProfilePanel: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-second');
-    btnSmallProfilePanel.addEventListener('touchend', () => { AccountData.showLargeProfilePanel(); }, { passive: true });
+    btnSmallProfilePanel.addEventListener('touchend', () => { Account.showLargeProfilePanel(); }, { passive: true });
 
     const btnLoginDiscord: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button-discord');
-    btnLoginDiscord.addEventListener('touchend', () => { AccountData.loginWithDiscord(); });
+    btnLoginDiscord.addEventListener('touchend', () => { Account.loginWithDiscord(); });
 
     const btnLoginFB: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button-fb');
-    btnLoginFB.addEventListener('touchend', () => { AccountData.loginWithFB(); });
+    btnLoginFB.addEventListener('touchend', () => { Account.loginWithFB(); });
 
     const btnLogout: HTMLButtonElement = <HTMLButtonElement>document.getElementById('logout-button');
-    btnLogout.addEventListener('touchend', () => { AccountData.logout(); });
+    btnLogout.addEventListener('touchend', () => { Account.logout(); });
 
     const btnExitPanel: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-panel-close');
-    btnExitPanel.addEventListener('touchend', () => { AccountData.showSmallProfilePanel(); });
+    btnExitPanel.addEventListener('touchend', () => { Account.showSmallProfilePanel(); });
 
     const btnFullscreen: HTMLButtonElement | null = <HTMLButtonElement | null>document.getElementById('fullscreen');
     if (btnFullscreen) {

@@ -3,7 +3,7 @@ import Writer from '../Writer';
 import Player from '../../game/Player';
 import World from '../../game/World';
 import BotProtect from './BotProtect';
-import AccountData from '../../ui/AccountData';
+import AccountData from '../../entities/AccountData';
 
 declare global {
 	interface Window {

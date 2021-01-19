@@ -3,11 +3,11 @@ import { ProfileData } from '../../utilities/Structures';
 import Defaults from './profiles/Defaults';
 import Player from '../../game/Player';
 
-import AccountData from '../AccountData';
+import AccountData from '../../entities/AccountData';
 
 const $ = require('jquery');
 
-import SkinModal from '../SkinModal';
+import SkinModal from '../UISkinModal';
 import Emitter from '../../sockets/game/Emitter';
 
 const Image_NoSkin = require('../../../resources/images/no-skin.png');

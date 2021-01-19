@@ -47,8 +47,8 @@ class Border {
         this.sprite.x = WorldBorder.left + (edgeX / 2);
         this.sprite.y = WorldBorder.top + (edgeY / 2);
 
-        // this.sprite.width = edgeX;
-        // this.sprite.height = edgeY;
+        this.sprite.width = edgeX;
+        this.sprite.height = edgeY;
 
         // this.sprite.tint = parseInt((<string>Settings.sectorColor).replace('#', '0x'));
 
@@ -56,8 +56,6 @@ class Border {
 }
 
 export default new Border();
-
-
 
 function getBackgroundTexture() {
     const config = {
