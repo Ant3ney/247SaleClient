@@ -1,6 +1,6 @@
 import PerfectScrollbar from 'perfect-scrollbar';
 import Experience from '../game/Experience';
-import AccountData from './AccountData';
+import AccountData from "../entities/AccountData";
 
 import { SkinConfig, SkinData, TabData } from '../utilities/Structures';
 

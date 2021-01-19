@@ -1,6 +1,6 @@
 import { Profile } from '../utilities/Structures';
 // @ts-ignore
-import postMessage from './huds/postMessage.js';
+import postMessage from '../ui/huds/postMessage.js';
 
 const cookie = require('cookiejs');
 
