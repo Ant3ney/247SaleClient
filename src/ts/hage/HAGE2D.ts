@@ -1,6 +1,7 @@
 import HAGE_BASE from "./HAGE_BASE";
 import Camera from "../game/Camera";
 
+import Grid2 from "./2D/Grid2";
 import Grid from "./2D/Grid";
 import Border from "./2D/Border";
 import MouseTracker from "./2D/MouseTracker";
@@ -29,6 +30,7 @@ class HAGE2D extends HAGE_BASE {
     this.clearCanvas();
     this.setCamera();
 
+    Grid2.render(this.ctx);
     Grid.render(this.ctx);
     Border.render(this.ctx);
     MouseTracker.render(this.ctx);

@@ -2,6 +2,7 @@ import HAGE_BASE from "./HAGE_BASE";
 import { WebGLRenderer, WebGLRendererOptions, Container } from "pixi.js";
 import Camera from "../game/Camera";
 import Border from "./3D/Border";
+import Grid2 from "./3D/Grid2";
 import Grid from "./3D/Grid";
 import MouseTracker from "./3D/MouseTracker";
 import Cells from "./3D/Cells";
@@ -29,6 +30,9 @@ class HAGE3D extends HAGE_BASE {
     Grid.initialise();
     this.stage.addChild(Grid.container);
 
+    Grid2.initialise();
+    this.stage.addChild(Grid2.container);
+
     Border.initialise();
     this.stage.addChild(Border.container);
 
@@ -54,6 +58,7 @@ class HAGE3D extends HAGE_BASE {
   run(): void {
     this.setCamera();
 
+    Grid2.run();
     Grid.run();
     Border.run();
     MouseTracker.run();

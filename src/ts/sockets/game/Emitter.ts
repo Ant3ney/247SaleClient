@@ -3,6 +3,7 @@ import Writer from '../Writer';
 import Player from '../../game/Player';
 import World from '../../game/World';
 import BotProtect from './BotProtect';
+import AccountData from '../../ui/AccountData';
 
 declare global {
 	interface Window {
@@ -66,10 +67,17 @@ class Emitter {
 	nick(): void {
 		if (!Socket.ws || !Socket.connected || !this.handshakeDone) return;
 
-		const writer: Writer = new Writer(1 + 2 * (Player.nick.length + 1));
+		const hasAuthToken = AccountData.authToken != null;
+		let len = 1 + 2 * (Player.nick.length + 1);
+		if (hasAuthToken) len += 2 * (AccountData.authToken.length + 1);
+
+		const writer = new Writer(len);
 		writer.writeUInt8(10);
 		writer.writeString16(Player.nick);
 
+		if (hasAuthToken) {
+			writer.writeString16(AccountData.authToken);
+		}
 		Socket.ws.send(writer.buffer);
 	}
 

@@ -18,6 +18,8 @@ import { Point } from 'pixi.js';
 import Menu from '../../ui/Menu';
 const BotProtect = require('./BotProtect').default;
 
+import Profiles from '../../ui/menu/Profiles';
+
 class Reciever {
    parse(buffer: ArrayBuffer) {
       const reader: Reader = new Reader(buffer);
@@ -50,6 +52,9 @@ class Reciever {
          case 30:
             this.pong();
             break;
+         case 41:
+            this.serverMessage(reader);
+            break;
          case 43:
             this.configUpdate(reader);
             break;
@@ -80,11 +85,11 @@ class Reciever {
       Dpad.buttons.a.style.visibility =
          playerUnitCount > 1 ? 'visible' : 'hidden';
       Emitter.playerInfo();
-      
+
       Menu.setPlayButtonNormal();
    }
 
- 
+
    clientsUpdate(reader: Reader): void {
       const newCount: number = reader.readUInt8();
       for (let i: number = 0; i < newCount; i++) {
@@ -261,6 +266,26 @@ class Reciever {
 
    pong(): void {
       Socket.latency = (performance.now() - Socket.pingTime) | 0;
+   }
+
+   serverMessage(reader: Reader): void {
+      const type = reader.readUInt8();
+      const message = reader.readString16();
+      switch (type) {
+         case 0:
+            console.log(message);
+            break;
+         case 1:
+            console.log("SERVER", message, 1);
+            break;
+         case 2: {
+            const res = message.split("|");
+            console.log("SERVER", res[1], 1);
+            // TODO: reset nick to the current server name
+            Profiles.updateNick(res[0]);
+            break;
+         }
+      }
    }
 
    configUpdate(reader: Reader): void {

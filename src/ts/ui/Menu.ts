@@ -23,7 +23,6 @@ class Menu {
     SettingsMenu.initialise();
     ServerMenu.initialise();
     Profiles.initialise();
-    AccountData.initialise();
     this.attachEvents();
 
     AccountData.onLogin = () => {
@@ -34,6 +33,8 @@ class Menu {
       Profiles.createProfiles();
       Profiles.updateElements();
     };
+
+    AccountData.initialise();
   }
 
   onServerChanged(): void {
@@ -56,7 +57,7 @@ class Menu {
     this.buttonPlay.addEventListener('touchend', (event: TouchEvent) => {
       this.onPlay(event);
     }, { passive: false });
-    
+
     this.buttonSpectate.addEventListener('touchend', (event: TouchEvent) => {
       this.onSpectate(event);
     }, { passive: false });
@@ -78,10 +79,10 @@ class Menu {
 
     const btnLoginDiscord: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button-discord');
     btnLoginDiscord.addEventListener('touchend', () => { AccountData.loginWithDiscord(); });
-    
+
     const btnLoginFB: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-button-fb');
     btnLoginFB.addEventListener('touchend', () => { AccountData.loginWithFB(); });
-    
+
     const btnLogout: HTMLButtonElement = <HTMLButtonElement>document.getElementById('logout-button');
     btnLogout.addEventListener('touchend', () => { AccountData.logout(); });
 
@@ -94,13 +95,13 @@ class Menu {
     }
   }
 
-  showSignInOptions(): void{
+  showSignInOptions(): void {
     const signInConteiner: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-zero');
     const optionsConteiner: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-first');
     signInConteiner.style.display = "none";
     optionsConteiner.style.display = "block";
   }
-  exitSinInPotions(): void{
+  exitSinInPotions(): void {
     const signInConteiner: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-zero');
     const optionsConteiner: HTMLButtonElement = <HTMLButtonElement>document.getElementById('login-form-first');
     signInConteiner.style.display = "block";
