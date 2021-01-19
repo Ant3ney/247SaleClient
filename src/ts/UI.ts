@@ -2,7 +2,7 @@ import Menu from "./ui/Menu";
 import Huds from "./ui/Huds";
 import Minimap from "./ui/huds/Minimap";
 import Joystick from "./ui/huds/Joystick";
-import SkinModal from './ui/UISkinModal';
+import SkinModal from './ui/SkinModal';
 
 class UI {
   userScale: number;
