@@ -7,7 +7,7 @@ import AccountData from '../../entities/AccountData';
 
 const $ = require('jquery');
 
-import SkinModal from '../UISkinModal';
+import SkinModal from '../SkinModal';
 import Emitter from '../../sockets/game/Emitter';
 
 const Image_NoSkin = require('../../../resources/images/no-skin.png');
