@@ -101,7 +101,7 @@ class Player {
     this.center2.y /= count2 || 1;
     if (this.score < this.mass) this.score = this.mass;
 
-    const scaleBasis: number = Math.pow(Math.min(64 / size, 1), 0.4);
+    const scaleBasis: number = Math.pow(Math.min(0.6 / size, 1), 0.3);
     const ratio: number= Math.max(window.innerWidth / 1920, window.innerHeight / 1080);
     const scale: number = scaleBasis * ratio;
     Camera.autoZoom = scale;
