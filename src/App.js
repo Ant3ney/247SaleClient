@@ -1,25 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect, useContext } from 'react';
+import GlobalContextPro from './utilities/GlobalContext';
+import NavBar from './components/NavBar';
+import BodyNav from './components/BodyNav'
+import OrginSetter from './components/TestComps/OrginSetter';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={() => { console.log('Test')}}>Test code</button>
+        <GlobalContextPro>
+          <OrginSetter />
+          <NavBar />
+          <BodyNav />
+        </GlobalContextPro>
     </div>
   );
 }
-
 export default App;
