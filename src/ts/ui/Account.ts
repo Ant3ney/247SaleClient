@@ -1,5 +1,7 @@
 import AccountData from '../entities/AccountData';
 import Experience from '../game/Experience';
+// @ts-ignore
+import postMessage from './huds/postMessage.js';
 
 const avatarImg = require('../../resources/images/avatar.png');
 
@@ -170,12 +172,11 @@ class Account {
 	}
 
 	async receiveMessage(event: any) {
-		if (!event || !event.isTrusted || event.origin != 'https://auth.senpa.io' || !event.data || !event.data.token) return;
+		//if (!event || !event.isTrusted || event.origin != 'https://auth.senpa.io' || !event.data || !event.data.token) return;
+		let token;
 
-		const token = event.data.token; //DEVBUILD ? (event.data).replace('token:', '') : event.data.token;
-		// if (!token) return;
+		!DEVBUILD ? token = (event.data).replace('token:', '') : token = event.data.token;
 
-		// postMessage.send('Setting auth stuff');
 		AccountData.setAuthToken(token);
 
 		await AccountData.fetchProfileData(this.urlAuthAccount);
@@ -223,7 +224,7 @@ class Account {
 			this.updateSmallProfilePanel();
 			AccountData.onLogin();
 		} catch (e) {
-			// postMessage.send('Req:NativeAuthToken');
+			postMessage.send('Req:NativeAuthToken');
 		}
 	}
 }
