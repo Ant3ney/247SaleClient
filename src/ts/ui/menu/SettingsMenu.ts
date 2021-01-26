@@ -64,7 +64,7 @@ class SettingsMenu {
       const setting: SettingInfo = List[key];
       switch (setting.type) {
         case 'toggle': this.addToggle(key, <ToggleInfo>setting); break;
-        case 'colorpicker': this.addColorpicker(key, <ColorpickerInfo>setting); break;
+        case 'colorpicker': break;
         case 'choice-box': this.addChoiceBox(key, <ChoiceBoxInfo>setting); break;
         case 'range': this.addRange(key, <RangeInfo>setting); break;
       }
@@ -100,7 +100,6 @@ class SettingsMenu {
       toggleBox.classList.remove('onPadding');
     }
     console.log(setting.default);
-    node.style.display = setting.category === 'game' ? 'flex': 'none';
 
     // define setting
     let value: boolean = setting.default;
@@ -194,7 +193,6 @@ class SettingsMenu {
     const choiceContainer: HTMLDivElement = <HTMLDivElement>node.querySelector('.choices');
     title.innerHTML = setting.displayName;
     node.setAttribute('category', setting.category);
-    node.style.display = setting.category === 'game' ? 'flex': 'none';
 
     const values: string[] = Object.keys(setting.choices);
     for (const value of values) {
@@ -255,7 +253,6 @@ class SettingsMenu {
     fill.style.width = `${(setting.default - setting.min) / (setting.max - setting.min) * 100 | 0}%`;
 
     node.setAttribute('category', setting.category);
-    node.style.display = setting.category === 'game' ? 'flex': 'none';
 
     // define setting
     let value: number = setting.default;

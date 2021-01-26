@@ -198,6 +198,12 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
     displayName: 'Single color pellets',
     default: false
   },
+  lightMode: {
+    type: 'toggle',
+    category: 'theme',
+    displayName: 'Light mode',
+    default: false
+  },
   pelletColor: {
     type: 'colorpicker',
     category: 'theme',
