@@ -1,7 +1,7 @@
 $large-Max: 710px;
 $default-Max: 260px;
 $med-Max: 200px;
-$small-Max: 160px;
+$small-Max: 170px;
 
 #skin-modal.visible {
     display: flex;
@@ -438,8 +438,8 @@ $small-Max: 160px;
 
             .tabContent{
                 .search-icon{
-                    top: 145px;
-                    right: 40px;
+                    top: 117px;
+                    right: 58px;
                 }
 
                 .scrollview{
@@ -503,9 +503,17 @@ $small-Max: 160px;
                             max-height: $med-Max;
                             img{
                                 margin-top: 0px;
+                                margin-bottom: 0px;
                             }
                             button{
                                 margin-bottom: 0px;
+                                margin-top: 10px;
+                                font-size: 18px;
+                            }
+                            .title{
+                                height: auto;
+                                margin-top: 10px;
+                                font-size: 18px;
                             }
                         }
                     }
@@ -543,6 +551,7 @@ $small-Max: 160px;
             padding-bottom: 7px;
             .tabs {
                 button{
+                    font-size: 10px;
                     padding-top: 7px;
                     padding-bottom: 7px;
                 }
@@ -551,7 +560,7 @@ $small-Max: 160px;
             .tabContent{
                 margin-top: 7px;
                 .search-icon{
-                    top: 56px;
+                    top: 53px;
                 }
                 .search-container{
                     .searchBox{
@@ -577,13 +586,17 @@ $small-Max: 160px;
                         .grid-item{
                             padding-top: 5px;
                             padding-bottom: 5px;
-                            width: 22vw;
+                            width: 24vw;
                             max-height: $small-Max;
                             img{
                                 margin-top: 0px;
                             }
                             button{
                                 margin-bottom: 0px;
+                                font-size: 16px;
+                            }
+                            .title{
+                                font-size: 16px;
                             }
                         }
                     }
