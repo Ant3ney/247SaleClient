@@ -350,17 +350,6 @@ class SkinModal {
             headers
         });
 
-        try{
-            data = await fetch(url, {
-                method: 'GET',
-                headers
-            });
-        } 
-        catch(err){
-            console.error('error happeoned in data fetch', err);
-        }
-
-
         const json = await data.json();
 
         if (json.results && !json.error) {

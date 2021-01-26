@@ -64,7 +64,7 @@ class SettingsMenu {
       const setting: SettingInfo = List[key];
       switch (setting.type) {
         case 'toggle': this.addToggle(key, <ToggleInfo>setting); break;
-        case 'colorpicker': break;
+        case 'colorpicker': this.addColorpicker(key, <ColorpickerInfo>setting); break;
         case 'choice-box': this.addChoiceBox(key, <ChoiceBoxInfo>setting); break;
         case 'range': this.addRange(key, <RangeInfo>setting); break;
       }
@@ -181,6 +181,7 @@ class SettingsMenu {
 
     // append to dom
     this.container.appendChild(node);
+    node.style.display = 'none';
   }
 
   addChoiceBox(name: string, setting: ChoiceBoxInfo): void {
