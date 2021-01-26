@@ -204,6 +204,7 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
     displayName: 'Light mode',
     default: false,
     onChange: (lightMode: boolean) => {
+      //Settings elements
       let settingsHeaderEle: HTMLDivElement = <HTMLDivElement>document.getElementsByClassName('header')[1];
       let settingTitle: HTMLDivElement = <HTMLDivElement>settingsHeaderEle.getElementsByTagName('span')[0];
       let settingsContainer: HTMLDivElement = <HTMLDivElement>document.querySelector('#settings-menu .container');
@@ -212,6 +213,11 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       let settingItem: HTMLDivElement;
       let settingItemTitles = document.querySelectorAll('#settings-menu .title');
       let settingItemTitle: HTMLDivElement;
+
+      //Hud and canvas elements
+      let canvas: HTMLDivElement = <HTMLDivElement>document.getElementById('screen');
+      let pauseButton: HTMLDivElement = <HTMLDivElement>document.querySelector('#back-to-menu i');
+      let mapToggle: HTMLDivElement = <HTMLDivElement>document.querySelector('#minimap-toggle i');
       //item
       if(lightMode){
         //#region setting changes
@@ -228,6 +234,11 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
             settingItemTitle.style.color = 'black';
           }
         //#endregion
+        ////#region HUD and Canvas
+          canvas.style.backgroundColor = 'white';
+          pauseButton.style.color = 'black';
+          mapToggle.style.color = 'black';
+        //#endregion
       }
       else{
         //#region setting changes
@@ -243,6 +254,11 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
             settingItemTitle = <HTMLDivElement>settingItemTitles[i];
             settingItemTitle.style.color = 'white';
           }
+        //#endregion
+        //#region Hud and Canvas
+          canvas.style.backgroundColor = 'black';
+          pauseButton.style.color = 'white';
+          mapToggle.style.color = 'white';
         //#endregion
       }
     }
