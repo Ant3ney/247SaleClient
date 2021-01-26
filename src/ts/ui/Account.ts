@@ -175,7 +175,11 @@ class Account {
 		//if (!event || !event.isTrusted || event.origin != 'https://auth.senpa.io' || !event.data || !event.data.token) return;
 		let token;
 
-		!DEVBUILD ? token = (event.data).replace('token:', '') : token = event.data.token;
+		!DEVBUILD && isReactNativeMessage(event) ? token = (event.data).replace('token:', '') : token = event.data.token;
+
+		if(!token){
+			return;
+		}
 
 		AccountData.setAuthToken(token);
 
@@ -231,3 +235,8 @@ class Account {
 
 
 export default new Account();
+
+function isReactNativeMessage(event){
+	return (event.data.indexOf('token:') >= 0);
+	//React native message always has token:ndhbnhjbjhds.dsnhds.ndshbhjs format
+}
