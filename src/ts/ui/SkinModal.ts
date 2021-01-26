@@ -345,18 +345,31 @@ class SkinModal {
         if (query == null || query.length < 1) delete headers.query;
         if (page == null) delete headers.page;
 
-        const data = await fetch(url, {
+        let data = await fetch(url, {
             method: 'GET',
             headers
         });
+
+        try{
+            data = await fetch(url, {
+                method: 'GET',
+                headers
+            });
+        } 
+        catch(err){
+            console.error('error happeoned in data fetch', err);
+        }
+
 
         const json = await data.json();
 
         if (json.results && !json.error) {
             this.setPageResults(json.results);
             console.log(json.results);
-        } else {
-            console.log("error", json);
+        } else if(!json.results) {
+            console.error("json.results dosent exzist", json);
+        }else{
+            console.error("json.error exzists", json.error);
         }
     }
 
