@@ -202,7 +202,50 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
     type: 'toggle',
     category: 'theme',
     displayName: 'Light mode',
-    default: false
+    default: false,
+    onChange: (lightMode: boolean) => {
+      let settingsHeaderEle: HTMLDivElement = <HTMLDivElement>document.getElementsByClassName('header')[1];
+      let settingTitle: HTMLDivElement = <HTMLDivElement>settingsHeaderEle.getElementsByTagName('span')[0];
+      let settingsContainer: HTMLDivElement = <HTMLDivElement>document.querySelector('#settings-menu .container');
+      let settingItemsContainer: HTMLDivElement = <HTMLDivElement>document.querySelector('#settings-menu .setting-items');
+      let settingItems = document.querySelectorAll('#settings-menu .item');
+      let settingItem: HTMLDivElement;
+      let settingItemTitles = document.querySelectorAll('#settings-menu .title');
+      let settingItemTitle: HTMLDivElement;
+      //item
+      if(lightMode){
+        //#region setting changes
+          settingsHeaderEle.style.backgroundColor = 'white';
+          settingTitle.style.color = 'black';
+          settingsContainer.style.backgroundColor = 'white';
+          settingItemsContainer.style.backgroundColor = 'white';
+          for(let i = 0; i < settingItems.length; i++){
+            settingItem = <HTMLDivElement>settingItems[i];
+            settingItem.style.backgroundColor = '#f5f5f5';
+          }
+          for(let i = 0; i < settingItemTitles.length; i++){
+            settingItemTitle = <HTMLDivElement>settingItemTitles[i];
+            settingItemTitle.style.color = 'black';
+          }
+        //#endregion
+      }
+      else{
+        //#region setting changes
+          settingsHeaderEle.style.backgroundColor = '#272727';
+          settingTitle.style.color = 'white';
+          settingsContainer.style.backgroundColor = 'black';
+          settingItemsContainer.style.backgroundColor = 'black';
+          for(let i = 0; i < settingItems.length; i++){
+            settingItem = <HTMLDivElement>settingItems[i];
+            settingItem.style.backgroundColor = '#272727';
+          }
+          for(let i = 0; i < settingItemTitles.length; i++){
+            settingItemTitle = <HTMLDivElement>settingItemTitles[i];
+            settingItemTitle.style.color = 'white';
+          }
+        //#endregion
+      }
+    }
   },
   pelletColor: {
     type: 'colorpicker',
