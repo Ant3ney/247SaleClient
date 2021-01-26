@@ -2,3 +2,5 @@ node_modules
 dist/*
 !dist/Module.wasm
 .DS_Store
+# Local Netlify folder
+.netlify
