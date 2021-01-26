@@ -150,13 +150,13 @@ class SkinModal {
             const ENTER_KEY_CODE = 13;
             if (e.keyCode == ENTER_KEY_CODE) {
                 if (e.target.id === "skinSearch") {
-                    const query = $("#skinSearch").val();
+                    const query = $(".search-container").val();
                     this.runSkinsFetch(this.tab, query, 0);
                 }
             }
         });
 
-        $("#skinSearch").on("change paste keyup", e => {
+        $(".search-container").on("change paste keyup", e => {
             if (this.prevSearchVal != e.target.value) {
                 this.prevSearchVal = e.target.value;
                 if (this.prevSearchVal === "") {
@@ -175,7 +175,7 @@ class SkinModal {
     loadSubmitPage() {
         this.setActiveTab(this.tabs.TAB_SUBMITSKIN);
         $("#skin-submit").show();
-        $("#skinSearch").hide();
+        $(".search-container").hide();
         $("#skinView").hide();
         $("#skinsPagin").hide();
 
@@ -187,7 +187,7 @@ class SkinModal {
             $("#skinBtn" + i).prop("disabled", false);
         }
         $("#skinBtn" + this.tab).prop("disabled", true);
-        $("#skinSearch").val("");
+        $(".search-container").val("");
     }
 
     loadTab(index) {
@@ -195,14 +195,14 @@ class SkinModal {
 
         this.setActiveTab(index);
 
-        $("#skinSearch").show();
+        $(".search-container").show();
         $("#skin-submit").hide();
         $("#skinView").show();
         $("#skinsPagin").show();
         $("#skinGrid").html('');
 
         if (index === this.tabs.TAB_LEVELS) {
-            $("#skinSearch").hide();
+            $(".search-container").hide();
             $("#skinsPagin").hide();
         }
 
