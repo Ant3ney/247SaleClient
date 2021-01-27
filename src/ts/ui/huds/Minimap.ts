@@ -12,6 +12,7 @@ class Minimap {
   PI2: number;
   size: number;
   isOpen: boolean;
+  lightMode: boolean;
 
   constructor () {
     this.container = <HTMLDivElement>document.getElementById('minimap-hud');
@@ -111,7 +112,7 @@ class Minimap {
     canvas.height = this.size;
 
     ctx.clearRect(0, 0, edge, edge);
-    ctx.fillStyle = 'rgba(36,36,36,0.63)';
+    ctx.fillStyle = this.lightMode ? 'rgba(136, 136, 136,0.63)' : 'rgba(36,36,36,0.63)';
     ctx.fillRect(0, 0, edge, edge);
 
     if (false) {

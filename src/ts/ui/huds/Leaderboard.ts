@@ -7,6 +7,7 @@ class Leaderboard {
   element: HTMLDivElement;
   isOpen: boolean;
   playerId: any;
+  lightMode: boolean;
 
   constructor() {
     this.list = [];
@@ -52,11 +53,8 @@ class Leaderboard {
     for (let i: number = 0; i < this.list.length; i++) {
       const slot = this.list[i];
       if(i < 5){
-        let color = "white";
+        let color = this.lightMode ? "black" : "white";
         if(slot.id == this.playerId){
-          if(playerInLeaderBord){
-
-          }
           color = '#e8d589'; 
           playerInLeaderBord = true;
         }

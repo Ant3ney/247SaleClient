@@ -1,4 +1,6 @@
 import UI from "../../../UI";
+import leaderboard from '../../huds/Leaderboard';
+import Minimap from '../../huds/Minimap';
 
 interface SettingInfo {
   type: string,
@@ -218,6 +220,13 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       let canvas: HTMLDivElement = <HTMLDivElement>document.getElementById('screen');
       let pauseButton: HTMLDivElement = <HTMLDivElement>document.querySelector('#back-to-menu i');
       let mapToggle: HTMLDivElement = <HTMLDivElement>document.querySelector('#minimap-toggle i');
+      let leaderbordButton: HTMLDivElement = <HTMLDivElement>document.querySelector('#leaderboard-toggle .lBord-icon');
+      let innerLeaderbordLogo: HTMLDivElement = <HTMLDivElement>document.querySelector('#lBord .lBord-icon');
+      let zoomInHud: HTMLDivElement = <HTMLDivElement>document.querySelector('#zoom-in i');
+      let zoomOutHud: HTMLDivElement = <HTMLDivElement>document.querySelector('#zoom-out i');
+      let dPadA: HTMLImageElement = <HTMLImageElement>document.querySelector('#d-pad-a img');
+      let joystickBG: HTMLImageElement = <HTMLImageElement>document.querySelector('#joystick');
+      let joystickBall: HTMLImageElement = <HTMLImageElement>document.querySelector('#joystick-ball');
       //item
       if(lightMode){
         //#region setting changes
@@ -238,6 +247,14 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           canvas.style.backgroundColor = 'white';
           pauseButton.style.color = 'black';
           mapToggle.style.color = 'black';
+          leaderbordButton.classList.add('lBord-icon-dark');
+          innerLeaderbordLogo.classList.add('lBord-icon-dark');
+          zoomInHud.style.color = 'black';
+          zoomOutHud.style.color = 'black';
+          leaderboard.lightMode = true;
+          joystickBG.style.backgroundColor = 'rgba(100, 100, 100, 0.2)';
+          joystickBall.style.backgroundColor = 'rgba(99, 98, 101, 0.8)';
+          Minimap.lightMode = true;
         //#endregion
       }
       else{
@@ -259,6 +276,13 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           canvas.style.backgroundColor = 'black';
           pauseButton.style.color = 'white';
           mapToggle.style.color = 'white';
+          leaderbordButton.classList.remove('lBord-icon-dark');
+          innerLeaderbordLogo.classList.remove('lBord-icon-dark');
+          zoomInHud.style.color = 'white';
+          zoomOutHud.style.color = 'white';
+          joystickBG.style.backgroundColor = 'rgba(200, 200, 200, 0.2)';
+          joystickBall.style.backgroundColor = 'rgba(199, 198, 201, 0.8)';
+          Minimap.lightMode = false;
         //#endregion
       }
     }
