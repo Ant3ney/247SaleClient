@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'SHOWG';
+  src: local('SHOWG'), url('./fonts/SHOWG.TTF') format('truetype');
+}
+
+.auth-input::placeholder{
+  color: rgba(255,255,255, 0.3);
+}

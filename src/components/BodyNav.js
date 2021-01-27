@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import SignUpForm from './pages/auth/SignUp/SignUpForm';
+import SignUpPage from './pages/auth/SignUp/Index';
 import SignInForm from './pages/auth/SignIn/SignInForm';
 import LandingPage from './pages/Landing/index';
 import HomePage from './pages/Home/index';
@@ -16,9 +16,9 @@ export default function BodyNav(){
         return <HomePage />;
     }
     else if(currentNav === 'SignUp'){
-        return (<SignUpForm
-                 setCurrentNav={setCurrentNav}
-                />);
+        return (<SignUpPage
+         variant={'authPage'}
+        />);
     }
     else if(currentNav === 'SignIn'){
         return(<SignInForm />);

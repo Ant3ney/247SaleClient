@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import signUp from '../../../../utilities/auth/signUp';
+import authStyles from '../authStyles';
 
 import { GlobalContext } from '../../../../utilities/GlobalContext';
 
-export default function SignUpForm(){
+export default function SignUpForm(props){
     const [email, setEmail] = useState('notSet');
     const [name, setName] = useState('notSet');
     const [password, setPassword] = useState('notSet');
@@ -11,16 +12,88 @@ export default function SignUpForm(){
     const setUser = useContext(GlobalContext).setUser;
     const serverOrigin = useContext(GlobalContext).serverOrigin;
     const setCurrentNav = useContext(GlobalContext).setCurrentNav;
+    const size = useContext(GlobalContext).size;
     
-    return(<div>
-        <h5>Sign-Up</h5>
-        <input name="name" onChange={(event) => {setName(event.target.value)}}></input>
-        <input name="email" type="email" onChange={(event) => {setEmail(event.target.value)}}></input>
-        <input name="password" type="password" onChange={(event) => {setPassword(event.target.value)}}></input>
-        <button onClick={() => {
+    return(<div
+     style={{
+         ...authStyles.authFormContainer(size, props.variant)
+     }}
+    >
+        <label 
+         for='nameInput'
+         style={{
+             ...authStyles.authFormLabel(size)
+         }}
+        >
+            Name
+        </label>
+        <input 
+         id='nameInput' 
+         name="name" 
+         onChange={(event) => {setName(event.target.value)}}
+         className='auth-input'
+         style={{
+             ...authStyles.authInput(size, props.variant)
+         }}
+         placeholder="John Doe"
+        >
+        </input>
+        <label 
+         for='nameInput'
+         style={{
+             ...authStyles.authFormLabel(size),
+             ...{
+                 marginTop: '1em'
+             }
+         }}
+        >
+            email
+        </label>
+        <input 
+         id='emailInput' 
+         name="email" 
+         type="email"
+         className='auth-input'
+         onChange={(event) => {setEmail(event.target.value)}}
+         style={{
+            ...authStyles.authInput(size, props.variant)
+         }}
+         placeholder='johndoe@gmail.com'
+        >
+        </input>
+        <label 
+         for='nameInput'
+         style={{
+             ...authStyles.authFormLabel(size),
+             ...{
+                 marginTop: '1em'
+             }
+         }}
+        >
+            password
+        </label>
+        <input 
+         id='passwordInput' 
+         name="password" 
+         type="password" 
+         className='auth-input'
+         onChange={(event) => {setPassword(event.target.value)}}
+         style={{
+            ...authStyles.authInput(size, props.variant)
+         }}
+         placeholder='************'
+        >
+        </input>
+        <button 
+         onClick={() => {
             signUp(name, email, password, setUser, serverOrigin)
             .then(setCurrentNav('Landing'));
          }}
-        >Sign Up</button>
+         style={{
+             ...authStyles.authButtons(size, props.variant)
+         }}
+        >
+            Sign Up
+        </button>
     </div>);
 }

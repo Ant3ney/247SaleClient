@@ -7,11 +7,18 @@ import BodyNav from './components/BodyNav'
 import OrginSetter from './components/TestComps/OrginSetter';
 
 function App() {
+  const [devmode, setDevMode] = useState(false);
   return (
     <div>
-      <button onClick={() => { console.log('Test')}}>Test code</button>
         <GlobalContextPro>
-          <OrginSetter />
+          {devmode ?
+            <div>
+              <OrginSetter />
+              <button onClick={() => { console.log('Test')}}>Test code</button>
+            </div>
+          :
+            <></>
+          }
           <NavBar />
           <BodyNav />
         </GlobalContextPro>
