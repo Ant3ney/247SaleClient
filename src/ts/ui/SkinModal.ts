@@ -29,6 +29,8 @@ class SkinModal {
     skinItemTemplate: HTMLElement;
     submitTemplate: HTMLElement;
 
+    lightMode: boolean;
+
     constructor() {
         this.pageData = null;
         this.selectedSkinUnit = 0;
@@ -86,6 +88,7 @@ class SkinModal {
         this.page = p;
 
         const btn = (i) => $("#skinsPagin .pagination-" + i);
+        this.setPaginationColor();
 
         if (p < 2) {
             btn(0).hide();
@@ -101,6 +104,19 @@ class SkinModal {
         btn(4).text(p + 2);
 
         this.runSkinsFetch(this.tab, null, this.page);
+    }
+
+    setPaginationColor(){
+        for(let i = 0; i < 5; i++){
+            let page = $("#skinsPagin .pagination-" + i);
+            let selected = i === 2;
+            if(this.lightMode){
+                page.css('color', selected ? 'white' : 'black');
+            }
+            else{
+                page.css('color', 'white');
+            }
+        }
     }
 
     updatePageForward() {
@@ -173,12 +189,12 @@ class SkinModal {
     }
 
     loadSubmitPage() {
+        this.setTabColor(5);
         this.setActiveTab(this.tabs.TAB_SUBMITSKIN);
         $("#skin-submit").show();
         $(".search-container").hide();
         $("#skinView").hide();
         $("#skinsPagin").hide();
-
     }
 
     setActiveTab(t) {
@@ -193,6 +209,7 @@ class SkinModal {
     loadTab(index) {
         if (this.tab === index) return;
 
+        this.setTabColor(index);
         this.setActiveTab(index);
 
         $(".search-container").show();
@@ -207,6 +224,18 @@ class SkinModal {
         }
 
         this.setPage(1, true);
+    }
+
+    setTabColor(index) {
+        for (let i = 0; i < 10; i++) {
+            if(this.lightMode){
+                $("#skinBtn" + i).css('background-color', i === index ? '#bbbbbb' :'#d4d4d4');
+            }
+            else{
+                $("#skinBtn" + i).css('background-color', i === index ? '#444444' :'#2b2b2b');
+            }
+            console.log($("#skinBtn" + i));
+        }
     }
 
     setPageResults(data) {
@@ -463,9 +492,12 @@ class SkinModal {
             .replace(/-/g, " ") // replace hyphens with spaces
             .replace(/[0-9]+/, ""); // remove numbers
 
-        const el = (<HTMLTemplateElement>this.skinItemTemplate.cloneNode(true)).content;
+        const node = <HTMLTemplateElement>this.skinItemTemplate.cloneNode(true)
+        const el = (node).content;
+        const element: HTMLDivElement = <HTMLDivElement>el.querySelector('.grid-item');
         const bntEl = el.querySelector("button");
         const imgEl = el.querySelector("img");
+        const titleEl = $(el.querySelector(".title"));
 
         $(imgEl).attr("src", skinUrl);
 
@@ -473,11 +505,14 @@ class SkinModal {
         this.nodeItems.push($(imgEl).parent());
         this.nodeBtns.push(bntEl);
 
-        $(el.querySelector(".title")).text(cleanedName);
+        titleEl.text(cleanedName);
 
         const icon = el.querySelector(".icon");
 
         $(icon).attr("data-fav-skin-id", skin.id);
+
+        element.style.backgroundColor = this.lightMode ? 'white' : '#282828';
+        titleEl.css('color', this.lightMode ? 'black' : 'white');
 
         $(icon)[0].addEventListener('touchend', () => {
             const currentIndex = AccountData.profile.favorites.indexOf(skin.id);

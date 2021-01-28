@@ -2,6 +2,7 @@ import UI from "../../../UI";
 import leaderboard from '../../huds/Leaderboard';
 import Minimap from '../../huds/Minimap';
 import ServerMenu from '../ServerMenu';
+import SkinModal from '../../SkinModal';
 
 interface SettingInfo {
   type: string,
@@ -241,8 +242,18 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       let serRowCell: HTMLDivElement;
 
       //Menu elements
-      let tag: HTMLImageElement = <HTMLImageElement>document.querySelector('#tag');
-      let nick: HTMLImageElement = <HTMLImageElement>document.querySelector('#nick');
+      let tag: HTMLDivElement = <HTMLDivElement>document.querySelector('#tag');
+      let nick: HTMLDivElement = <HTMLDivElement>document.querySelector('#nick');
+      
+      //SkinModel elements
+      let skinModelHeaderBg: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .header-container');
+      let skinModelHeaderText: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .header-text');
+      let skinModelContent: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .content');
+      let skinModelTabs = document.querySelectorAll('#skin-modal .tabs button');
+      let skinModelTab: HTMLButtonElement;
+      let skinModelSearchBG: HTMLDivElement = <HTMLDivElement>document.querySelector('#skinSearch');
+      let skinModelSearchIcon: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .search-icon');
+
       if(lightMode){
         //#region setting changes
           settingsHeaderEle.style.backgroundColor = 'white';
@@ -295,6 +306,20 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           tag.style.backgroundColor = 'white';
           nick.style.backgroundColor = 'white';
         //#endregion
+        //#region SkinModal
+          SkinModal.lightMode = true;
+          skinModelHeaderBg.style.backgroundColor = 'white';
+          skinModelHeaderText.style.color = 'black';
+          skinModelContent.style.backgroundColor = 'white';//#bbbbbb //#d4d4d4
+          for(let i = 0; i < skinModelTabs.length; i++){
+            skinModelTab = <HTMLButtonElement>skinModelTabs[i];
+            let selected = skinModelTab.disabled;
+            skinModelTab.style.backgroundColor = selected ? '#bbbbbb' : '#d4d4d4';
+          }
+          skinModelSearchBG.style.backgroundColor = 'white';
+          skinModelSearchBG.classList.add('black-text');
+          skinModelSearchIcon.style.color = 'black';
+        //#endregion
       }
       else{
         //#region setting changes
@@ -344,8 +369,22 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           }
         //#endregion
         //#region Menu
-        tag.style.backgroundColor = '#222222';
-        nick.style.backgroundColor = '#222222';
+          tag.style.backgroundColor = '#222222';
+          nick.style.backgroundColor = '#222222';
+        //#endregion
+        //#region SkinModal
+          SkinModal.lightMode = false;
+          skinModelHeaderBg.style.backgroundColor = 'black';
+          skinModelHeaderText.style.color = 'white';
+          skinModelContent.style.backgroundColor = '#111';
+          for(let i = 0; i < skinModelTabs.length; i++){
+            skinModelTab = <HTMLButtonElement>skinModelTabs[i];
+            let selected = skinModelTab.disabled;
+            skinModelTab.style.backgroundColor = selected ? '#444444' : '#2b2b2b';
+          }
+          skinModelSearchBG.style.backgroundColor = '#282828';
+          skinModelSearchBG.classList.remove('black-text');
+          skinModelSearchIcon.style.color = 'white';
         //#endregion
       }
     }
