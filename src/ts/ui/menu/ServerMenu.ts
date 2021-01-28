@@ -12,6 +12,7 @@ class ServerMenu {
   _selectedRegion: string;
 
   onServerChanged: any;
+  lightMode: boolean;
 
   constructor() {
     this.element = <HTMLDivElement>document.getElementById('outter-server-menu');
@@ -66,8 +67,9 @@ class ServerMenu {
     this.attachEvents();
     this.selectedRegion = 'EU';
     this.selectedServer = localStorage.getItem('senpa-mob:server') || '';
-    if (this.onServerChanged !== null)
+    if (this.onServerChanged !== null){
       this.onServerChanged();
+    }
   }
 
   attachEvents(): void {
@@ -97,6 +99,7 @@ class ServerMenu {
   
   updateServerList(): void {
     const titleRow: HTMLDivElement = <HTMLDivElement>this.listContainer.querySelector('div.item-row.title');
+    titleRow.style.backgroundColor = this.lightMode ? 'white' : 'black'
     this.listContainer.innerHTML = '';
     this.listContainer.appendChild(titleRow);
     for (const entry of ServerList.list) {
@@ -110,6 +113,7 @@ class ServerMenu {
     const name: HTMLDivElement = <HTMLDivElement>row.querySelector('.cell[data=name]');
     const count: HTMLDivElement = <HTMLDivElement>row.querySelector('.cell[data=count]');
     const mode: HTMLDivElement = <HTMLDivElement>row.querySelector('.cell[data=mode]');
+    const cells = [name, count, mode];
 
     name.innerText = data.name;
     count.innerText = `${data.numPlayers} / ${data.maxPlayers}`;
@@ -137,6 +141,11 @@ class ServerMenu {
       if (this.onServerChanged !== null)
         this.onServerChanged();
     }, { passive: true });
+
+    row.style.backgroundColor = this.lightMode ? 'white' : '#2b2829';
+    cells.forEach(cell => {
+      cell.style.color = this.lightMode ? 'black' : 'white';
+    });
 
     this.listContainer.appendChild(row);
   }

@@ -1,6 +1,7 @@
 import UI from "../../../UI";
 import leaderboard from '../../huds/Leaderboard';
 import Minimap from '../../huds/Minimap';
+import ServerMenu from '../ServerMenu';
 
 interface SettingInfo {
   type: string,
@@ -227,7 +228,21 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       let dPadA: HTMLImageElement = <HTMLImageElement>document.querySelector('#d-pad-a img');
       let joystickBG: HTMLImageElement = <HTMLImageElement>document.querySelector('#joystick');
       let joystickBall: HTMLImageElement = <HTMLImageElement>document.querySelector('#joystick-ball');
-      //item
+      
+      //Server menu elements
+      let serverHeader: HTMLImageElement = <HTMLImageElement>document.querySelector('#server-menu .header');
+      let serverListContainer: HTMLImageElement = <HTMLImageElement>document.querySelector('#server-menu .container');
+      let serverListTitle: HTMLImageElement = <HTMLImageElement>document.querySelector('#server-menu .item-row.title');
+      let itemTitles = document.querySelectorAll('#server-menu .item-title');
+      let itemTitle: HTMLDivElement;
+      let serverItemRows = document.querySelectorAll('#server-menu .item-row');
+      let serverItemRow: HTMLDivElement;
+      let serverRowCells;
+      let serRowCell: HTMLDivElement;
+
+      //Menu elements
+      let tag: HTMLImageElement = <HTMLImageElement>document.querySelector('#tag');
+      let nick: HTMLImageElement = <HTMLImageElement>document.querySelector('#nick');
       if(lightMode){
         //#region setting changes
           settingsHeaderEle.style.backgroundColor = 'white';
@@ -243,7 +258,7 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
             settingItemTitle.style.color = 'black';
           }
         //#endregion
-        ////#region HUD and Canvas
+        //#region HUD and Canvas
           canvas.style.backgroundColor = 'white';
           pauseButton.style.color = 'black';
           mapToggle.style.color = 'black';
@@ -255,6 +270,30 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           joystickBG.style.backgroundColor = 'rgba(100, 100, 100, 0.2)';
           joystickBall.style.backgroundColor = 'rgba(99, 98, 101, 0.8)';
           Minimap.lightMode = true;
+        //#endregion
+        //#region Server menu
+          serverHeader.style.backgroundColor = 'white';
+          serverListContainer.style.backgroundColor = 'white';
+          serverListTitle.style.backgroundColor = 'white';
+          ServerMenu.lightMode = true;
+          for(let i = 0; i < itemTitles.length; i++){
+            itemTitle = <HTMLImageElement>itemTitles[i];
+            itemTitle.style.color = '#444444';
+          }
+          for(let i = 0; i < serverItemRows.length; i++){
+            serverItemRow = <HTMLImageElement>serverItemRows[i];
+            serverItemRow.style.backgroundColor = 'white';
+            console.log(serverItemRow);
+            serverRowCells = serverItemRow.getElementsByClassName('cell');
+            for(let j = 0; j < serverRowCells.length; j++){
+              serRowCell = <HTMLImageElement>serverRowCells[j];
+              serRowCell.style.color = 'black';
+            }
+          }
+        //#endregion
+        //#region Menu
+          tag.style.backgroundColor = 'white';
+          nick.style.backgroundColor = 'white';
         //#endregion
       }
       else{
@@ -283,6 +322,30 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           joystickBG.style.backgroundColor = 'rgba(200, 200, 200, 0.2)';
           joystickBall.style.backgroundColor = 'rgba(199, 198, 201, 0.8)';
           Minimap.lightMode = false;
+        //#endregion
+        //#region Server menu
+        ServerMenu.lightMode = false;
+          serverHeader.style.backgroundColor = '#272727';
+          serverListContainer.style.backgroundColor = 'black';
+          serverListTitle.style.backgroundColor = 'black';
+          for(let i = 0; i < itemTitles.length; i++){
+            itemTitle = <HTMLImageElement>itemTitles[i];
+            itemTitle.style.color = '#bbbbbb';
+          }
+          for(let i = 0; i < serverItemRows.length; i++){
+            serverItemRow = <HTMLImageElement>serverItemRows[i];
+            serverItemRow.style.backgroundColor = '#2b2829';
+            console.log(serverItemRow);
+            serverRowCells = serverItemRow.getElementsByClassName('cell');
+            for(let j = 0; j < serverRowCells.length; j++){
+              serRowCell = <HTMLImageElement>serverRowCells[j];
+              serRowCell.style.color = 'white';
+            }
+          }
+        //#endregion
+        //#region Menu
+        tag.style.backgroundColor = '#222222';
+        nick.style.backgroundColor = '#222222';
         //#endregion
       }
     }
