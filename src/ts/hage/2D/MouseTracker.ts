@@ -10,7 +10,8 @@ class MouseTracker {
     if (!Player.isAlive) return;
     if (<string>Settings.directionMarkerType !== 'lines') return;
 
-    ctx.strokeStyle = <string>Settings.directionLinesColor;
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = <string>(Settings.lightMode ? 'black' : 'white');
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';

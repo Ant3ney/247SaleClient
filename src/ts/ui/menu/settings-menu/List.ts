@@ -314,7 +314,6 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           for(let i = 0; i < serverItemRows.length; i++){
             serverItemRow = <HTMLImageElement>serverItemRows[i];
             serverItemRow.style.backgroundColor = 'white';
-            console.log(serverItemRow);
             serverRowCells = serverItemRow.getElementsByClassName('cell');
             for(let j = 0; j < serverRowCells.length; j++){
               serRowCell = <HTMLImageElement>serverRowCells[j];
@@ -382,7 +381,6 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           for(let i = 0; i < serverItemRows.length; i++){
             serverItemRow = <HTMLImageElement>serverItemRows[i];
             serverItemRow.style.backgroundColor = '#2b2829';
-            console.log(serverItemRow);
             serverRowCells = serverItemRow.getElementsByClassName('cell');
             for(let j = 0; j < serverRowCells.length; j++){
               serRowCell = <HTMLImageElement>serverRowCells[j];

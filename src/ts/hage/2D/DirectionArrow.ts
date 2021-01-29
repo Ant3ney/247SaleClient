@@ -41,7 +41,7 @@ class DirectionArrow {
   render(ctx: CanvasRenderingContext2D) {
     if (<string>Settings.directionMarkerType !== 'arrow') return;
     if (!Player.isAlive) return;
-    
+
     if (<string>Settings.directionArrowColor !== this.color) {
       this.color = <string>Settings.directionArrowColor;
       this.renderArrow();
