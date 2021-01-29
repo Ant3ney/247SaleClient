@@ -613,3 +613,10 @@ $small-Max: 170px;
         }
     }
 }
+
+.black-text{
+    color: black;
+}
+.black-text::placeholder{
+    color: black !important;
+}
