@@ -219,11 +219,18 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       let settingItemTitle: HTMLDivElement;
 
       //Hud and canvas elements
+      let lightTextShadow = '1px 1px 0 rgba(112,112,112,0.4), -1px 1px 0 rgba(112,112,112,0.4), -1px -1px 0 rgba(112,112,112,0.4), 1px -1px 0 rgba(112,112,112,0.4)';
+      let hudLightBorderSettings = '2px solid rgba(99, 98, 101, 0.8)';
+      let hudLightBackgroundColor = 'rgba(111,111,111,0.3)';
+      let hudDarkBorderSettings = '2px solid  rgba(144, 152, 173, 0.4)';
       let canvas: HTMLDivElement = <HTMLDivElement>document.getElementById('screen');
       let pauseButton: HTMLDivElement = <HTMLDivElement>document.querySelector('#back-to-menu i');
       let mapToggle: HTMLDivElement = <HTMLDivElement>document.querySelector('#minimap-toggle i');
       let leaderbordButton: HTMLDivElement = <HTMLDivElement>document.querySelector('#leaderboard-toggle .lBord-icon');
+      let leaderbordButtonContainer: HTMLDivElement = <HTMLDivElement>document.querySelector('#leaderboard-toggle .lBord-icon-container');
       let innerLeaderbordLogo: HTMLDivElement = <HTMLDivElement>document.querySelector('#lBord .lBord-icon');
+      let leaderbordHeader: HTMLDivElement = <HTMLDivElement>document.querySelector('#lBord .header-container');
+      let leaderBordContentBG: HTMLDivElement = <HTMLDivElement>document.querySelector('#leaderboard-hud');
       let zoomInHud: HTMLDivElement = <HTMLDivElement>document.querySelector('#zoom-in i');
       let zoomOutHud: HTMLDivElement = <HTMLDivElement>document.querySelector('#zoom-out i');
       let dPadA: HTMLImageElement = <HTMLImageElement>document.querySelector('#d-pad-a img');
@@ -271,12 +278,25 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
         //#endregion
         //#region HUD and Canvas
           canvas.style.backgroundColor = 'white';
-          pauseButton.style.color = 'black';
-          mapToggle.style.color = 'black';
+          pauseButton.style.textShadow = lightTextShadow;
+          pauseButton.style.border = hudLightBorderSettings;
+          pauseButton.style.backgroundColor = hudLightBackgroundColor;
+          mapToggle.style.textShadow = lightTextShadow;
+          mapToggle.style.backgroundColor = hudLightBackgroundColor;
+          mapToggle.style.textShadow = lightTextShadow;
+          leaderbordButtonContainer.style.textShadow = lightTextShadow;
+          leaderbordButtonContainer.style.backgroundColor = hudLightBackgroundColor;
+          leaderbordButtonContainer.style.textShadow = lightTextShadow;
+          zoomInHud.style.textShadow = lightTextShadow;
+          zoomInHud.style.backgroundColor = hudLightBackgroundColor;
+          zoomInHud.style.textShadow = lightTextShadow;
+          zoomOutHud.style.textShadow = lightTextShadow;
+          zoomOutHud.style.backgroundColor = hudLightBackgroundColor;
+          zoomOutHud.style.textShadow = lightTextShadow;
           leaderbordButton.classList.add('lBord-icon-dark');
           innerLeaderbordLogo.classList.add('lBord-icon-dark');
-          zoomInHud.style.color = 'black';
-          zoomOutHud.style.color = 'black';
+          leaderbordHeader.style.backgroundColor = hudLightBackgroundColor;
+          leaderBordContentBG.style.backgroundColor = 'rgba(50,50,50,0.3)';
           leaderboard.lightMode = true;
           joystickBG.style.backgroundColor = 'rgba(100, 100, 100, 0.2)';
           joystickBall.style.backgroundColor = 'rgba(99, 98, 101, 0.8)';
@@ -338,12 +358,14 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
         //#endregion
         //#region Hud and Canvas
           canvas.style.backgroundColor = 'black';
-          pauseButton.style.color = 'white';
           mapToggle.style.color = 'white';
           leaderbordButton.classList.remove('lBord-icon-dark');
           innerLeaderbordLogo.classList.remove('lBord-icon-dark');
+          leaderbordHeader.style.backgroundColor = 'transparent';
+          leaderBordContentBG.style.backgroundColor = 'transparent';
           zoomInHud.style.color = 'white';
           zoomOutHud.style.color = 'white';
+          leaderboard.lightMode = false;
           joystickBG.style.backgroundColor = 'rgba(200, 200, 200, 0.2)';
           joystickBall.style.backgroundColor = 'rgba(199, 198, 201, 0.8)';
           Minimap.lightMode = false;

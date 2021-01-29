@@ -52,16 +52,18 @@ class Leaderboard {
     let playerInLeaderBord = false;
     for (let i: number = 0; i < this.list.length; i++) {
       const slot = this.list[i];
+      const outline = this.lightMode ? 'text-shadow: 1px 2px 0 rgba(112,112,112,0.4), -1px 0px 0 rgba(112,112,112,0.4), 0px -1px 0 rgba(112,112,112,0.4), 0px 1px 0 rgba(112,112,112,0.4);' : '';
+      const fontWeight = this.lightMode ? 'font-weight: 600;' : 'font-weight: 300;';
       if(i < 5){
-        let color = this.lightMode ? "black" : "white";
+        let color = "white";
         if(slot.id == this.playerId){
           color = '#e8d589'; 
           playerInLeaderBord = true;
         }
-        html.push(`<div class="slot" style="color: ${color};">${i + 1}. ${slot.name}</div>`);
+        html.push(`<div class="slot" style="color: ${color}; ${outline}">${i + 1}. ${slot.name}</div>`);
       }
       if(slot.id == this.playerId && i >= 5){
-        html.push(`<div class="slot" style="color: #e8d589">${i + 1}. ${slot.name}</div>`);
+        html.push(`<div class="slot" style="color: #e8d589; ${outline}">${i + 1}. ${slot.name}</div>`);
         break;
       }
     }
