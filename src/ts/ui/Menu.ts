@@ -1,6 +1,7 @@
 import SettingsMenu from "./menu/SettingsMenu";
 import ServerMenu from "./menu/ServerMenu";
 import Profiles from "./menu/Profiles";
+import DeathMenu from './menu/DeathMenu';
 import Events from "../game/Events";
 import AccountData from "../entities/AccountData";
 import Account from "./Account";
@@ -24,6 +25,7 @@ class Menu {
     SettingsMenu.initialise();
     ServerMenu.initialise();
     Profiles.initialise();
+    DeathMenu.initialise();
     this.attachEvents();
 
     AccountData.onLogin = () => {

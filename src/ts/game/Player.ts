@@ -7,6 +7,7 @@ import { Point } from "../utilities/Structures";
 import Config from "./Config";
 import ClientData from "../entities/ClientData";
 import Huds from "../ui/Huds";
+import DeathMenu from '../ui/menu/DeathMenu';
 
 class Player {
   nick: string;
@@ -121,10 +122,9 @@ class Player {
 
   onDeath(): void {
     Huds.hide();
-    Menu.show();
+    DeathMenu.show();
     Joystick.resetBall();
     Joystick.hide();
-    // Socket.cleanUp();
     this.isTR = false;
   }
 }
