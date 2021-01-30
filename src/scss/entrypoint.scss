@@ -31,3 +31,11 @@ body {
   display: flex;
   margin: auto;
 }
+
+::-webkit-scrollbar-thumb {
+  background-color: #f765a3 !important;
+  border-radius: 50px !important;
+}
+::-webkit-scrollbar {
+  width: 4px !important;
+}
