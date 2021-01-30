@@ -277,7 +277,7 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           }
         //#endregion
         //#region HUD and Canvas
-          canvas.style.backgroundColor = 'white';
+          canvas.style.backgroundColor = '#F2FBFF';
           pauseButton.style.textShadow = lightTextShadow;
           pauseButton.style.border = hudLightBorderSettings;
           pauseButton.style.backgroundColor = hudLightBackgroundColor;
