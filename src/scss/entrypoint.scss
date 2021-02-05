@@ -39,3 +39,7 @@ body {
 ::-webkit-scrollbar {
   width: 4px !important;
 }
+
+::-webkit-scrollbar {
+  display: none !important;
+}
