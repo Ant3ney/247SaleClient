@@ -32,14 +32,33 @@ body {
   margin: auto;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: #f765a3 !important;
-  border-radius: 50px !important;
-}
-::-webkit-scrollbar {
-  width: 4px !important;
-}
-
 ::-webkit-scrollbar {
   display: none !important;
+}
+
+.scroll-holder{
+  display: flex;
+  width: 5px;
+  margin-right: 5px;
+  height: 100%;
+  position: absolute;
+  right: 5px;
+}
+
+.scroll-track{
+  background-color: #272727;
+  width: 5px;
+  height: 100%;
+  margin-right: 4px;
+  display: flex;
+  position: absolute;
+  border-radius: 20px;
+}
+
+.scroll-thumb{
+  width: 5px;
+  height: 5px;
+  background-color: pink;
+  position: absolute;
+  border-radius: 20px;
 }
