@@ -1,5 +1,6 @@
 import List, { ToggleInfo, SettingInfo, ColorpickerInfo, ChoiceBoxInfo, RangeInfo } from "./settings-menu/List";
 import Settings from "../../game/Settings";
+import Scrollbar from '../Scrollbar';
 
 class SettingsMenu {
   element: HTMLDivElement;
@@ -12,6 +13,7 @@ class SettingsMenu {
     range: HTMLTemplateElement
   };
   isOpen: boolean;
+  scrollbar: any;
 
   constructor() {
     this.element = <HTMLDivElement>document.getElementById('settings-menu');
@@ -24,12 +26,21 @@ class SettingsMenu {
       range: <HTMLTemplateElement>document.getElementById('settings-range')
     };
     this.isOpen = false;
+    this.scrollbar = new Scrollbar({
+      scrollTrack: this.element.querySelector('.container .scroll-track'),
+      scrollThumb: this.element.querySelector('.container .scroll-thumb'),
+      scrollHolder: this.element.querySelector('.container .scroll-holder')
+    }, this.container);
   }
 
   initialise(): void {
     this.attachEvents();
     this.createElements();
     this.loadSaved();
+    this.scrollbar.initialise({
+      direction: 'vertical',
+      notch: 40
+    })
   }
 
   attachEvents(): void {
@@ -56,6 +67,10 @@ class SettingsMenu {
         categoryBtn.classList.add('active');
       }, { passive: true });
     }
+
+    this.container.addEventListener('scroll', () => {
+      this.scrollbar.onScroll()
+    });
   }
 
   createElements(): void {
@@ -283,6 +298,9 @@ class SettingsMenu {
   show(): void {
     this.element.style.display = 'flex';
     this.isOpen = true;
+    this.scrollbar.show({
+      reConnectParrent: true
+    });
   }
 
   hide(): void {

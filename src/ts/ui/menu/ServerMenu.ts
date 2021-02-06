@@ -1,5 +1,6 @@
 import ServerList from "./server-menu/ServerList";
 import { ServerListEntry } from "../../utilities/Structures";
+import Scrollbar from '../Scrollbar';
 
 class ServerMenu {
   element: HTMLDivElement;
@@ -13,6 +14,8 @@ class ServerMenu {
 
   onServerChanged: any;
   lightMode: boolean;
+
+  scrollbar: any;
 
   scrollTrack: HTMLDivElement;
   scrollThumb: HTMLDivElement;
@@ -31,6 +34,11 @@ class ServerMenu {
     this.scrollTrack = <HTMLDivElement>document.querySelector('#server-menu .scroll-track');
     this.scrollThumb = <HTMLDivElement>document.querySelector('#server-menu .scroll-thumb');
     this.scrollHolder = <HTMLDivElement>document.querySelector('#server-menu .scroll-holder');
+    this.scrollbar = new Scrollbar({
+      scrollTrack: <HTMLDivElement>document.querySelector('#server-menu .scroll-track'),
+      scrollThumb: <HTMLDivElement>document.querySelector('#server-menu .scroll-thumb'),
+      scrollHolder: <HTMLDivElement>document.querySelector('#server-menu .scroll-holder')
+    }, this.listContainer);
   }
 
   get serverName(): string {
@@ -77,6 +85,9 @@ class ServerMenu {
     if (this.onServerChanged !== null){
       this.onServerChanged();
     }
+    this.scrollbar.initialise({
+        direction: 'vertical'
+    });
   }
 
   attachEvents(): void {
@@ -85,11 +96,7 @@ class ServerMenu {
 
     this.listContainer.addEventListener('scroll', () => {
       this.isScrolling = true;
-      let loacationRatio = this.listContainer.scrollTop / (this.listContainer.scrollHeight - 0);
-      let thumbLocation = (this.scrollTrack.offsetHeight * loacationRatio);
-      thumbLocation < 0 ? thumbLocation = 0 : thumbLocation = thumbLocation;
-      this.scrollTrack.offsetHeight - (thumbLocation + this.updateScrollThumbHeight()) < 0 ? thumbLocation = this.scrollTrack.offsetHeight - this.updateScrollThumbHeight() : thumbLocation = thumbLocation;
-      this.scrollThumb.style.top = (thumbLocation + 'px');
+      this.scrollbar.onScroll();
     }, { passive: true });
 
     this.listContainer.addEventListener('touchend', () => {
@@ -105,7 +112,7 @@ class ServerMenu {
       regionBtn.addEventListener('touchend', () => {
         localStorage.setItem('senpa-mob:region', region);
         this.selectedRegion = region;
-        this.updateScrollThumbHeight();
+        this.scrollbar.setThumbHeight();
       }, { passive: true });
     }
   }
@@ -114,11 +121,6 @@ class ServerMenu {
     let height = ((this.listContainer.offsetHeight / this.listContainer.scrollHeight) * this.scrollTrack.offsetHeight);
     this.scrollThumb.style.height = height + 'px';
     return height;
-  }
-  initScrollBar(): void{
-    this.scrollHolder.style.height = (this.listContainer.offsetHeight * 0.95) + 'px';
-    this.scrollHolder.style.marginTop = (this.listContainer.offsetHeight * 0.025) + 'px';
-    this.scrollHolder.style.marginBottom = (this.listContainer.offsetHeight * 0.025) + 'px';
   }
   
   updateServerList(): void {
@@ -182,8 +184,7 @@ class ServerMenu {
   show(): void {
     this.element.style.display = 'flex';
     this.isOpen = true;
-    this.initScrollBar();
-    this.updateScrollThumbHeight();
+    this.scrollbar.show('null');
   }
 
   hide(): void {
