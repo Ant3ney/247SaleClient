@@ -1,6 +1,7 @@
 import PerfectScrollbar from 'perfect-scrollbar';
 import Experience from '../game/Experience';
 import AccountData from "../entities/AccountData";
+import Scrollbar from './Scrollbar';
 
 import { SkinConfig, SkinData, TabData } from '../utilities/Structures';
 
@@ -30,6 +31,8 @@ class SkinModal {
     submitTemplate: HTMLElement;
 
     lightMode: boolean;
+
+    scrollbar: any;
 
     constructor() {
         this.pageData = null;
@@ -62,6 +65,11 @@ class SkinModal {
             TAB_FAVORITES: 4,
             TAB_SUBMITSKIN: 5
         }
+        this.scrollbar = new Scrollbar({
+            scrollTrack: document.querySelector('#skinView .scroll-track'),
+            scrollThumb: document.querySelector('#skinView .scroll-thumb'),
+            scrollHolder: document.querySelector('#skinView .scroll-holder')
+        }, document.querySelector('#skinView'));
     }
 
     onSkinUpdate(unit: number, name: string) {
@@ -186,6 +194,9 @@ class SkinModal {
         });
 
         this.setupPaginatorBtns();
+        this.scrollbar.initialise({
+            direction: 'horizontal'
+        });
     }
 
     loadSubmitPage() {
@@ -224,6 +235,7 @@ class SkinModal {
         }
 
         this.setPage(1, true);
+        this.scrollbar.show();
     }
 
     setTabColor(index) {
@@ -234,7 +246,6 @@ class SkinModal {
             else{
                 $("#skinBtn" + i).css('background-color', i === index ? '#444444' :'#2b2b2b');
             }
-            console.log($("#skinBtn" + i));
         }
     }
 
@@ -383,7 +394,7 @@ class SkinModal {
 
         if (json.results && !json.error) {
             this.setPageResults(json.results);
-            console.log(json.results);
+            this.scrollbar.show();
         } else if(!json.results) {
             console.error("json.results dosent exzist", json);
         }else{
@@ -418,6 +429,7 @@ class SkinModal {
         } else {
             alert("You must be logged in to use this feature!")
         }
+        this.scrollbar.show('null');
     }
 
     doUpload(e) {
@@ -477,7 +489,6 @@ class SkinModal {
         }
         xhr.onerror = (e) => {
             doFallbackToApiUpload();
-            // console.log(e);
             // this.setSubmitPageState(5);
         }
 
@@ -536,8 +547,6 @@ class SkinModal {
 
         const requirementMetMsg = this.validateSkinRequirements(skin);
 
-        console.log(requirementMetMsg);
-
         if (requirementMetMsg === '') {
             if (this.getSelectedSkinURL() == skinUrl) {
                 $(el.querySelector("button")).text("Remove");
@@ -562,7 +571,6 @@ class SkinModal {
                     el.val(skinUrl);
                     $(el).addClass("has-image");
                     el.change();
-                    console.log('Changed skin');
                     this.onSkinUpdate(this.selectedSkinUnit, skinUrl);
 
                     this.rebuildPageResults();
@@ -593,7 +601,6 @@ class SkinModal {
             if (this.tab === this.tabs.TAB_FAVORITES) this.setPage(this.page, true);
             const icon = this.getSkinIconByIdSkinId(skinId);
             if (icon) $(icon).show();
-            console.log(icon);
         } else {
             console.log("error", json);
         }
