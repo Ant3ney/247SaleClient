@@ -34,6 +34,8 @@ class SkinModal {
 
     scrollbar: any;
 
+    deviceSize: string;
+
     constructor() {
         this.pageData = null;
         this.selectedSkinUnit = 0;
@@ -197,11 +199,25 @@ class SkinModal {
 
 
         this.scrollbar.initialise({
-            direction: 'horizontal'
+            direction: 'horizontal',
+            variant: 'skinmodal'
         });
         document.querySelector('#skinView').addEventListener('scroll', () => {
             this.scrollbar.onScroll();
         });
+
+        if(window.innerHeight <= 350){
+            this.deviceSize = 'small-phone';
+        }
+        else if(window.innerHeight > 350 && window.innerHeight <= 450){
+            this.deviceSize = 'smart-phone';
+        }
+        else if(window.innerHeight > 450 && window.innerHeight < 1000){
+            this.deviceSize = 'generic-phone';
+        }
+        else if(window.innerHeight >= 1000){
+            this.deviceSize = 'tablet';
+        }
     }
 
     loadSubmitPage() {
@@ -503,7 +519,7 @@ class SkinModal {
 
     spawnNewSkinGridItem(skin: SkinData) {
         const skinUrl = !skin.skinRoute.includes("http") ? this.config.skinBase + skin.skinRoute : skin.skinRoute;
-
+        //16
         const cleanedName = skin.skinName
             .replace(/-/g, " ") // replace hyphens with spaces
             .replace(/[0-9]+/, ""); // remove numbers
@@ -529,6 +545,11 @@ class SkinModal {
 
         element.style.backgroundColor = this.lightMode ? 'white' : '#282828';
         titleEl.css('color', this.lightMode ? 'black' : 'white');
+        console.log('titleEl.text: ' + titleEl.text);
+        if(this.deviceSize === 'smart-phone' && titleEl.text().length >= 16){
+            titleEl.css("font-size","15px");
+        }
+        
 
         $(icon)[0].addEventListener('touchend', () => {
             const currentIndex = AccountData.profile.favorites.indexOf(skin.id);

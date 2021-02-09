@@ -6,6 +6,7 @@ class Scrollbar{
     direction: string;
     thumbHeight: number;
     thumbWidth: number;
+    variant: string;
 
     constructor(scrollData: any, scrollParrent: HTMLDivElement){
         this.scrollTrack = <HTMLDivElement>scrollData.scrollTrack;
@@ -30,6 +31,9 @@ class Scrollbar{
                 this.scrollHolder.style.bottom = '5px';
                 this.scrollHolder.style.width = '100%';
             }
+        }
+        if(settings && settings.variant){
+            this.variant = settings.variant;
         }
         this.show('null');
     }
@@ -63,14 +67,8 @@ class Scrollbar{
         }
         if(this.direction === 'horizontal'){
             this.setTrackWidth();
-            this.setThumbWidth()
-            let tabEle = <HTMLElement>document.querySelector('.tabs');
-            let tabOffset = tabEle ? tabEle.offsetTop : 0;
-            let tabHeight = tabEle ? tabEle.offsetHeight : 0;
-            let searchEle = <HTMLElement>document.querySelector('.search-container');
-            let searchOffset = searchEle ? (searchEle.offsetTop ? (searchEle.offsetTop - (tabHeight + tabOffset)) : 0) : 0;
-            let searchHeight = searchEle ? searchEle.offsetHeight : 0;
-            let offset = this.scrollParrent.offsetHeight + tabHeight + tabOffset + searchOffset + searchHeight + 5;
+            this.setThumbWidth();
+            let offset = this.variant === 'skinmodal' ? this.getSkinModalOffset() : 0;
             this.scrollHolder.style.top = offset + 'px';
         }
         else{
@@ -100,6 +98,17 @@ class Scrollbar{
     }
     getThumbWidth(): number{
         return this.thumbWidth;
+    }
+    
+    getSkinModalOffset(): number{
+        let tabEle = <HTMLElement>document.querySelector('.tabs');
+        let tabOffset = tabEle ? tabEle.offsetTop : 0;
+        let tabHeight = tabEle ? tabEle.offsetHeight : 0;
+        let searchEle = <HTMLElement>document.querySelector('.search-container');
+        let searchOffset = searchEle ? (searchEle.offsetTop ? (searchEle.offsetTop - (tabHeight + tabOffset + 10)) : 0) : 0;
+        let searchHeight = searchEle ? searchEle.offsetHeight : 0;
+        let offset = this.scrollParrent.offsetHeight + tabHeight + tabOffset + searchOffset + searchHeight + 5;
+        return offset;
     }
 }
 
