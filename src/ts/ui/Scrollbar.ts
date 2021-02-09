@@ -43,6 +43,14 @@ class Scrollbar{
             this.scrollTrack.offsetHeight - (thumbLocation + thumbHeght) < 0 ? thumbLocation = this.scrollTrack.offsetHeight - thumbHeght : thumbLocation = thumbLocation;
             this.scrollThumb.style.top = (thumbLocation + 'px');
         }
+        else if(this.direction === 'horizontal'){
+            let thumbWidth = this.getThumbWidth();
+            let loacationRatio = this.scrollParrent.scrollLeft / (this.scrollParrent.scrollWidth - 0);
+            let thumbLocation = (this.scrollTrack.offsetWidth * loacationRatio);
+            thumbLocation < 0 ? thumbLocation = 0 : thumbLocation = thumbLocation;
+            this.scrollTrack.offsetWidth - (thumbLocation + thumbWidth) < 0 ? thumbLocation = this.scrollTrack.offsetWidth - thumbWidth : thumbLocation = thumbLocation;
+            this.scrollThumb.style.left = (thumbLocation + 'px');
+        }
     }
     getThumbHeight(): number{
         return this.thumbHeight;
@@ -64,12 +72,6 @@ class Scrollbar{
             let searchHeight = searchEle ? searchEle.offsetHeight : 0;
             let offset = this.scrollParrent.offsetHeight + tabHeight + tabOffset + searchOffset + searchHeight + 5;
             this.scrollHolder.style.top = offset + 'px';
-
-            //console.log('tabOffset: ' + tabOffset);
-            //console.log('tabHeight: ' + tabHeight);
-            //console.log('searchOffset: ' + searchOffset);
-            //console.log('searchHeight: ' + searchHeight);
-            //console.log('this.scrollParrent.offsetHeight: ' + this.scrollParrent.offsetHeight);   
         }
         else{
             this.setTrackHeight();
@@ -95,9 +97,9 @@ class Scrollbar{
         let width = ((this.scrollParrent.offsetWidth / this.scrollParrent.scrollWidth) * this.scrollTrack.offsetWidth);
         this.thumbWidth = width;
         this.scrollThumb.style.width = width + 'px';
-        console.log('this.scrollParrent.offsetWidth: ' + this.scrollParrent.offsetWidth);
-        console.log('this.scrollParrent.scrollWidth: ' + this.scrollParrent.scrollWidth);
-        console.log('document.querySelector("#skinView").scrollWidth: ' + document.querySelector("#skinView").scrollWidth);
+    }
+    getThumbWidth(): number{
+        return this.thumbWidth;
     }
 }
 

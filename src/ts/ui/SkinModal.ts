@@ -194,8 +194,13 @@ class SkinModal {
         });
 
         this.setupPaginatorBtns();
+
+
         this.scrollbar.initialise({
             direction: 'horizontal'
+        });
+        document.querySelector('#skinView').addEventListener('scroll', () => {
+            this.scrollbar.onScroll();
         });
     }
 
