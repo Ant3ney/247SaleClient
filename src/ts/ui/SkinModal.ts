@@ -22,6 +22,7 @@ class SkinModal {
 
     prevSearchVal: string = "";
 
+    content: any;
     nodeImgs: Array<HTMLElement> = [];
     nodeItems: Array<HTMLElement> = [];
     nodeBtns: Array<HTMLElement> = [];
@@ -50,6 +51,7 @@ class SkinModal {
         //         fallbackUploadUrl: "http://localhost/skins/fallback-upload",
         //     }
         // } else {
+        this.content = <any>$("#skin-modal .content");
         this.config = <SkinConfig>{
             listUrl: "https://auth.senpa.io/skins/list",
             searchUrl: "https://auth.senpa.io/skins/search",
@@ -154,7 +156,7 @@ class SkinModal {
     initialise() {
         this.setSubmitPageState(1);
         $("#skin-modal").click(() => this.hide())
-        $("#skin-modal .content").click(e => e.stopPropagation())
+        this.content.click(e => e.stopPropagation())
         $("#skin-modal .exit-button").click(() => this.hide())
 
         $("#skinBtn1").click(() => this.loadTab(1));
@@ -256,6 +258,8 @@ class SkinModal {
         }
 
         this.setPage(1, true);
+        this.adjustStyles();
+        this.adjustStyles();
         this.scrollbar.show();
     }
 
@@ -450,7 +454,8 @@ class SkinModal {
         } else {
             alert("You must be logged in to use this feature!")
         }
-        this.scrollbar.show('null');
+        this.adjustStyles();
+        this.scrollbar.show('null'); 
     }
 
     doUpload(e) {
@@ -545,11 +550,12 @@ class SkinModal {
 
         element.style.backgroundColor = this.lightMode ? 'white' : '#282828';
         titleEl.css('color', this.lightMode ? 'black' : 'white');
-        console.log('titleEl.text: ' + titleEl.text);
         if(this.deviceSize === 'smart-phone' && titleEl.text().length >= 16){
             titleEl.css("font-size","15px");
         }
-        
+        else if(this.deviceSize === 'small-phone' && titleEl.text().length > 14){
+            titleEl.css("font-size","12px");
+        }
 
         $(icon)[0].addEventListener('touchend', () => {
             const currentIndex = AccountData.profile.favorites.indexOf(skin.id);
@@ -611,6 +617,43 @@ class SkinModal {
 
         this.currentlyDisplayedSkins.push(skin)
         $("#skinGrid").append(el);
+    }
+
+    adjustStyles(){
+        console.log('this.tab: ' + this.tab);
+        console.log('this.deviceSize: ' + this.deviceSize);
+        if(this.tab === 1){
+            this.content.css('padding-bottom', '7px');
+        }
+        else{
+            this.content.css('padding-bottom', 0);
+        }
+        this.setGridViewSpacing();
+    }
+
+    setGridViewSpacing(){
+        const scrollbarHeight = 5;
+        const paginationHeight = 40;
+        let offset;
+        let headerEle: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .header-container');
+        let headerHeight = headerEle.offsetHeight;
+        let tabEle: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .tabs');
+        let tabOffset = tabEle.offsetTop;
+        let tabHeight = tabEle.offsetHeight;
+        let searchEle: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .search-container');
+        let searchHeight = searchEle.style.display !== 'none' ? searchEle.offsetHeight : 0;
+        let searchOffset = searchEle.style.display !== 'none' ? (searchEle.offsetTop - (tabHeight + tabOffset)) : 0;
+        console.log('headerHeight: ' + headerHeight);
+        console.log('tabOffset: ' + tabOffset);
+        console.log('tabHeight:' + tabHeight);
+        console.log('searchHeight' + searchHeight);
+        console.log('searchOffset' + searchOffset);
+        offset = (headerHeight + tabOffset + tabHeight + searchHeight + searchOffset + scrollbarHeight + paginationHeight);
+        console.log('Not grid space: ' + offset);
+
+        let gridParrent: HTMLDivElement = <HTMLDivElement>document.querySelector('#skinView');
+        let paginationEle: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .pagination');
+        console.log('paginationEle.style.marginTop: ' + paginationEle.style.marginTop);
     }
 
     async sendFavorite(skinId, method) {

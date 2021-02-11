@@ -76,7 +76,7 @@ $small-Max: 170px;
         height: 100%;
         width: 100vw;
         padding: 0 20px 20px;
-        padding-bottom: 0px !important;
+        padding-bottom: 0px;
         z-index: 1;
         position: relative;
         display: flex;
@@ -190,7 +190,6 @@ $small-Max: 170px;
                 height: auto;
                 flex: 1;
                 overflow: scroll;
-                max-height: $default-Max;
                 .grid-container {
                     padding-bottom: 15px;
                     margin-top: 15px;
@@ -225,7 +224,6 @@ $small-Max: 170px;
                     position: relative;
                     flex: 1;
                     height: 100%;
-                    max-height: $default-Max;
                     border: 2px solid#707070;
 
                     .fa-times{
@@ -319,7 +317,7 @@ $small-Max: 170px;
             .pagination {
                 display: flex;
                 justify-content: center;
-                margin-top: auto;
+                margin-top: 10px;
               }
               
               .pagination a {
@@ -440,14 +438,11 @@ $small-Max: 170px;
                 }
 
                 .scrollview{
-                    max-height: $large-Max;
                     .grid-container {
                         margin-top: 30px !important;
                         margin-bottom: 30px !important;
                         padding-bottom: 30px;
-                        max-height: $large-Max;
                         .grid-item{
-                            max-height: $large-Max;
                         }
                     }
                 }
@@ -488,16 +483,13 @@ $small-Max: 170px;
                 }
 
                 .scrollview{
-                    max-height: $med-Max;
                     .grid-container {
                         padding-bottom: 0px;
                         margin-top: 10px !important;
                         margin-bottom: 10px !important; 
-                        max-height: $med-Max;
                         .grid-item{
                             padding-top: 10px;
                             padding-bottom: 10px;
-                            max-height: $med-Max;
                             img{
                                 margin-top: 0px;
                                 margin-bottom: 0px;
@@ -574,17 +566,14 @@ $small-Max: 170px;
                 }
 
                 .scrollview{
-                    max-height: $small-Max;
                     .grid-container {
                         padding-bottom: 7px;
                         margin-top: 7px !important;
                         margin-bottom: 7px !important;
-                        max-height: $small-Max;
                         .grid-item{
                             padding-top: 5px;
                             padding-bottom: 5px;
                             width: 24vw;
-                            max-height: $small-Max;
                             img{
                                 margin-top: 0px;
                             }
@@ -600,12 +589,19 @@ $small-Max: 170px;
                 }
 
                 .pagination{
+                    margin-top: 2px;
                     a{
                         padding-top: 6px;
                         width: 35px;
                         height: 35px;
                     }
                 }
+            }
+        }
+        #skin-submit{
+            .submit-page{
+                padding: 0;
+                padding-top: 10px;
             }
         }
     }

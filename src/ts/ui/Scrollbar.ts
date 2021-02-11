@@ -12,9 +12,7 @@ class Scrollbar{
         this.scrollTrack = <HTMLDivElement>scrollData.scrollTrack;
         this.scrollThumb = <HTMLDivElement>scrollData.scrollThumb;
         this.scrollHolder = <HTMLDivElement>scrollData.scrollHolder;
-        console.log('scrollParrent below');
         this.scrollParrent = scrollParrent;
-        console.log(this.scrollParrent)
     }
 
     initialise(settings): void{

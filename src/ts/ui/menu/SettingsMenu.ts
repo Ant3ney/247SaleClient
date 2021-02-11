@@ -114,7 +114,6 @@ class SettingsMenu {
       toggleBox.classList.add('offPadding');
       toggleBox.classList.remove('onPadding');
     }
-    console.log(setting.default);
 
     // define setting
     let value: boolean = setting.default;
