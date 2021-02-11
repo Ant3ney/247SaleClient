@@ -491,12 +491,11 @@ $small-Max: 170px;
                             padding-top: 10px;
                             padding-bottom: 10px;
                             img{
-                                margin-top: 0px;
-                                margin-bottom: 0px;
+                                margin: auto;
                             }
                             button{
-                                margin-bottom: 0px;
-                                margin-top: 10px;
+                                margin-bottom: 10px;
+                                margin-top: auto;
                                 font-size: 18px;
                             }
                             .title{
@@ -575,10 +574,10 @@ $small-Max: 170px;
                             padding-bottom: 5px;
                             width: 24vw;
                             img{
-                                margin-top: 0px;
+                                margin: auto;
                             }
                             button{
-                                margin-bottom: 0px;
+                                margin-bottom: 10px;
                                 font-size: 16px;
                             }
                             .title{
