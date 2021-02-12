@@ -259,8 +259,6 @@ class SkinModal {
 
         this.setPage(1, true);
         this.adjustStyles();
-        this.adjustStyles();
-        this.scrollbar.show();
     }
 
     setTabColor(index) {
@@ -419,7 +417,7 @@ class SkinModal {
 
         if (json.results && !json.error) {
             this.setPageResults(json.results);
-            this.scrollbar.show();
+            this.adjustStyles();
         } else if(!json.results) {
             console.error("json.results dosent exzist", json);
         }else{
@@ -455,7 +453,6 @@ class SkinModal {
             alert("You must be logged in to use this feature!")
         }
         this.adjustStyles();
-        this.scrollbar.show('null'); 
     }
 
     doUpload(e) {
@@ -620,8 +617,6 @@ class SkinModal {
     }
 
     adjustStyles(){
-        console.log('this.tab: ' + this.tab);
-        console.log('this.deviceSize: ' + this.deviceSize);
         if(this.tab === 1){
             this.content.css('padding-bottom', '7px');
         }
@@ -629,11 +624,13 @@ class SkinModal {
             this.content.css('padding-bottom', 0);
         }
         this.setGridViewSpacing();
+        this.scrollbar.show('null'); 
     }
 
     setGridViewSpacing(){
         const scrollbarHeight = 5;
         const paginationHeight = 40;
+        const extraOffset = 25;
         let offset;
         let headerEle: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .header-container');
         let headerHeight = headerEle.offsetHeight;
@@ -643,17 +640,15 @@ class SkinModal {
         let searchEle: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .search-container');
         let searchHeight = searchEle.style.display !== 'none' ? searchEle.offsetHeight : 0;
         let searchOffset = searchEle.style.display !== 'none' ? (searchEle.offsetTop - (tabHeight + tabOffset)) : 0;
-        console.log('headerHeight: ' + headerHeight);
-        console.log('tabOffset: ' + tabOffset);
-        console.log('tabHeight:' + tabHeight);
-        console.log('searchHeight' + searchHeight);
-        console.log('searchOffset' + searchOffset);
-        offset = (headerHeight + tabOffset + tabHeight + searchHeight + searchOffset + scrollbarHeight + paginationHeight);
-        console.log('Not grid space: ' + offset);
+        offset = (headerHeight + tabOffset + tabHeight + searchHeight + searchOffset + scrollbarHeight + paginationHeight + extraOffset);
 
-        let gridParrent: HTMLDivElement = <HTMLDivElement>document.querySelector('#skinView');
-        let paginationEle: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .pagination');
-        console.log('paginationEle.style.marginTop: ' + paginationEle.style.marginTop);
+        let newHeight = (window.innerHeight - offset);
+        let gridItems = document.querySelectorAll('#skinView .grid-item');
+        let gridItem: HTMLDivElement;
+        for(let i = 0; i < gridItems.length; i++){
+            gridItem = <HTMLDivElement>gridItems[i];
+            gridItem.style.height = newHeight + 'px';
+        } 
     }
 
     async sendFavorite(skinId, method) {
