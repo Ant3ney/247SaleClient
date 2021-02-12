@@ -162,7 +162,6 @@ class Account {
 		this.setStatus(true);
 		this.setSmallLv(level);
 		this.setSmallRealName(AccountData.profile.realName);
-		console.log(AccountData.profile.avatarURL);
 		this.setSmallProfilePicture(AccountData.profile.avatarURL || avatarImg);
 
 		const xpText = document.getElementById('xp-text');

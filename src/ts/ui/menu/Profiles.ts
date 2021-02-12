@@ -179,7 +179,6 @@ class Profiles {
 	}
 
 	loadData(profileData: any): void {
-		console.log(profileData);
 		if (!profileData.skinProfiles || !profileData.skinRoutes)
 			return;
 
@@ -191,8 +190,6 @@ class Profiles {
 			this.list[parseInt(profileId)].skin1 = this.config.skinBase + skinRoutes[profile.skinId1];
 			this.list[parseInt(profileId)].skin2 = this.config.skinBase + skinRoutes[profile.skinId2];
 		}
-
-		console.log(this.list);
 
 		const savedTag: string | null = localStorage.getItem('senpa-mob:tag');
 		if (savedTag !== null) {
@@ -290,8 +287,6 @@ class Profiles {
 	}
 
 	saveProfileToAccount(body) {
-		console.log("packet to send:", body);
-
 		fetch(this.config.saveProfile, {
 			method: "POST",
 			headers: { auth: AccountData.authToken, 'Content-Type': 'application/json' },
@@ -299,7 +294,7 @@ class Profiles {
 		})
 			.then((data) => data.json())
 			.then(data => {
-				console.log("save result: ", data);
+				//?
 			})
 	}
 }

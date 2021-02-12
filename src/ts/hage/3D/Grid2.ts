@@ -20,8 +20,6 @@ class Border {
         this.width = innerWidth;
 
         this.sprite = new TilingSprite(getBackgroundTexture(), this.width + tileWidth, this.height + tileHeight);
-        console.log('rendering', this.sprite);
-
     }
 
     initialise(): void {
@@ -65,7 +63,6 @@ function getBackgroundTexture() {
         gridSpacing: 50,              // spacing of grid lines
         gridLine: 1,                  // thickness of a grid line
     };
-    console.log(config);
     var ret = document.createElement('canvas'),
         c2d = ret.getContext('2d');
     ret.width = 40;
