@@ -1,4 +1,5 @@
 import UI from "../../../UI";
+import Settings from "../../../game/Settings";
 import leaderboard from '../../huds/Leaderboard';
 import Minimap from '../../huds/Minimap';
 import ServerMenu from '../ServerMenu';
@@ -208,6 +209,19 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
     displayName: 'Light mode',
     default: false,
     onChange: (lightMode: boolean) => {
+      //Ingame settiings config
+      /*Object.defineProperty(Settings, 'lightMode', {
+        get() {
+          return lightMode;
+        },
+        set(newValue: boolean) {
+          input.value = newValue;
+          self.saveSetting(name, newValue);
+          value = newValue;
+          if (setting.onChange) setting.onChange(newValue);
+        }
+      });*/
+
       //Settings elements
       let settingsHeaderEle: HTMLDivElement = <HTMLDivElement>document.getElementsByClassName('header')[1];
       let settingTitle: HTMLDivElement = <HTMLDivElement>settingsHeaderEle.getElementsByTagName('span')[0];
