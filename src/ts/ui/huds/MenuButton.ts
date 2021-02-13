@@ -4,9 +4,11 @@ import Huds from "../Huds";
 
 class MenuButton {
   warningContainer: HTMLDivElement;
+  element: HTMLDivElement;
 
   constructor() {
     this.warningContainer = <HTMLDivElement>document.getElementById('menu-return-warning');
+    this.element = <HTMLDivElement>document.getElementById('huds');
   }
 
   initialise(): void {

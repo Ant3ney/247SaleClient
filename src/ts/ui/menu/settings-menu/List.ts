@@ -260,6 +260,7 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       let skinModelTab: HTMLButtonElement;
       let skinModelSearchBG: HTMLDivElement = <HTMLDivElement>document.querySelector('#skinSearch');
       let skinModelSearchIcon: HTMLDivElement = <HTMLDivElement>document.querySelector('#skin-modal .search-icon');
+      let skinModelPTags = document.querySelectorAll('#skin-submit p');
 
       if(lightMode){
         //#region setting changes

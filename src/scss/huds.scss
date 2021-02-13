@@ -91,28 +91,30 @@ $border-color: rgba(144, 152, 173, 0.4);
       }
 
       button {
+        background-color: transparent;
         color: #ffffff;
         border: none;
         outline: none;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 42px;
-        height: 42px;
+        width: 46px;
+        height: 46px;
         margin: 2px;
-        border-radius: 10px;
+        margin-top: 10px;
         font-size: 20px;
         outline: none;
         user-select: none;
         padding: 0px;
-        background-color: transparent;
+        display: flex;
+        box-sizing: border-box;
 
         i {
           border: 2px solid $border-color !important;
-          width: 100%;
-          height: 100%;
-          display: flex;
           border-radius: 8px;
+          width: 42px;
+          height: 42px;
+          display: flex;
         }
         i::before{
           margin: auto;
@@ -159,8 +161,8 @@ $border-color: rgba(144, 152, 173, 0.4);
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 42px;
-        height: 42px;
+        width: 46px;
+        height: 46px;
         margin: 2px;
         margin-top: 10px;
         font-size: 20px;
@@ -168,6 +170,7 @@ $border-color: rgba(144, 152, 173, 0.4);
         user-select: none;
         padding: 0px;
         display: flex;
+        box-sizing: border-box;
 
         i{
           border: 2px solid $border-color !important;

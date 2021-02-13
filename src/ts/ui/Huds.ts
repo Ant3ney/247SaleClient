@@ -20,6 +20,7 @@ class Huds {
   }
   show(): void {
     this.element.style.display = 'block';
+    this.adjustStyles();
   }
   hideControls(): void {
     const controls = <HTMLElement>document.getElementById('d-pad');
@@ -67,6 +68,32 @@ class Huds {
     if (Time.now - this.lastUpdate < 1E3) return;
     this.lastUpdate = Time.now;
     Leaderboard.update();
+  }
+
+  adjustStyles(): void {
+    let buttons = [
+      document.getElementById('back-to-menu'),
+      document.getElementById('minimap-toggle'),
+      document.getElementById('zoom-in'),
+      document.getElementById('zoom-out')
+    ];
+    let leaderbordButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById('leaderboard-toggle');
+    let leaderbordIcon: HTMLDivElement = <HTMLDivElement>leaderbordButton.getElementsByTagName('span')[0];
+    let button: HTMLButtonElement;
+    let icon: HTMLDivElement;
+    leaderbordButton.style.width = '46px';
+    leaderbordButton.style.height = '46px';
+    leaderbordIcon.style.width = '28px';
+    leaderbordIcon.style.height = '30px';
+    console.log(leaderbordIcon);
+    for(let i = 0; i < buttons.length; i++){
+      button = <HTMLButtonElement>buttons[i];
+      icon = <HTMLDivElement>button.getElementsByTagName('i')[0];
+      button.style.width = '46px';
+      button.style.height = '46px';
+      icon.style.width = '42px';
+      icon.style.height = '42px';
+    }
   }
 }
 
