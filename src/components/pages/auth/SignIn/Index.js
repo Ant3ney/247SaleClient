@@ -1,16 +1,19 @@
 import React, { useContext } from 'react';
 import { GlobalContext } from '../../../../utilities/GlobalContext';
-import SignUpForm from './SignUpForm';
+import SignInForm from './SignInForm';
 import Title from './Title';
 import authStyles from '../authStyles';
 
-export default function SignUpPage(props){
+export default function SingInPage(props){
     const size = useContext(GlobalContext).size;
     const bodyMargin = useContext(GlobalContext).bodyXMargin;
-
     return(<div
+     className='at-least-full-screen'
      style={{
-         ...authStyles.authPageContainerStyle(size, bodyMargin, props.variant)
+         ...authStyles.authPageContainerStyle(size, bodyMargin, props.variant),
+         ...{
+             paddingBottom: '2rem'
+         }
      }}
     >
         <div
@@ -21,7 +24,7 @@ export default function SignUpPage(props){
             <Title 
              variant={props.variant}
             />
-            <SignUpForm 
+            <SignInForm 
              variant={props.variant}
             />
         </div>

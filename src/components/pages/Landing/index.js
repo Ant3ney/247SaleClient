@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import LandScreen from './LandScreen';
-import { GlobalContext } from '../../../utilities/GlobalContext';
 import PopularDealsScreen from './PopularDealsScreen';
 import SignUpScreen from '../auth/SignUp/Index';
+import FreshDealsScreen from './FreshDealsScreen';
 
 export default function LandingPage(){
-    const bodyMargin = useContext(GlobalContext).bodyXMargin;
-
-    
 
     return(<div style={{
             
@@ -18,5 +15,6 @@ export default function LandingPage(){
             <SignUpScreen 
              variant={'landingPage'}
             />
+            <FreshDealsScreen />
         </div>);
 }

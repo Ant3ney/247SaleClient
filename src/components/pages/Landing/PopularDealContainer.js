@@ -1,28 +1,30 @@
 import React, { useContext } from 'react';
 import { GlobalContext } from '../../../utilities/GlobalContext';
 import globalCostants from '../../../utilities/GlobalConstants';
+import GameThumbnail from '../../GameThumbnail';
+import StoreLogo from '../../StoreLogo';
 
-export default function PopularDealContainer(){
+export default function PopularDealContainer(props){
     const size = useContext(GlobalContext).size;
+    const setCurrentNav = useContext(GlobalContext).setCurrentNav;
+    const setTrackedDeal = useContext(GlobalContext).setTrackedDeal;
+    let dealName = props.deal.internalName;
+    if(dealName.length > (getNameCutoffSize(size) + 3)){
+        dealName =  dealName = dealName.substr(0, getNameCutoffSize(size)) + "\u2026";
+    }
 
     return(<div
      style={{
         ...popularDealContainerStyle(size)
      }}
     >
-        <div
-         style={{
-            ...imageContainer(size)
+        <GameThumbnail 
+         deal={props.deal}
+         borderRadius={globalCostants.buttonBorderRadius}
+         addStyle={{
+             ...addThumbnailStyle(size)
          }}
-        >
-            <img 
-             src={process.env.PUBLIC_URL + 'RustImage.jpg'}
-             style={{
-                ...dealImage(size)
-             }}
-            >
-            </img>
-        </div>
+        />
         <div
          style={{
             ...gameInfoContainer(size)
@@ -44,7 +46,7 @@ export default function PopularDealContainer(){
                     }
                  }}
                 >
-                    Rust: The complete edition
+                    {dealName}
                 </p>
             </div>
             <div
@@ -73,7 +75,7 @@ export default function PopularDealContainer(){
                             }
                          }}
                         >
-                            -33%
+                            {'-' + props.deal.savings.split('.')[0] + '%'}
                         </p>
                     </div>
                 </div>
@@ -91,7 +93,7 @@ export default function PopularDealContainer(){
                         }
                      }}
                     >
-                        $29.99
+                        {props.deal.normalPrice}
                     </p>
                     <p
                      style={{
@@ -102,7 +104,7 @@ export default function PopularDealContainer(){
                         }
                      }}
                     >
-                        $9.99
+                        {props.deal.salePrice}
                     </p>
                 </div>
             </div>
@@ -119,24 +121,10 @@ export default function PopularDealContainer(){
             >
                 Get it on
             </p>
-            <div
-             style={{
-                ...storeImageContainer(size),
-                ...{
-                    marginLeft: '0.25em'
-                }
-             }}
-            >
-                <img 
-                 style={{
-                     ...storeImage(size),
-                     ...{
-
-                     }
-                 }}
-                 src={process.env.PUBLIC_URL + 'GreenManLogo.png'}
-                ></img>
-            </div>
+            <StoreLogo 
+             id={props.deal.storeID}
+             maxHeight={'1.5em'}
+            />
         </div>
         <div
          style={{
@@ -150,6 +138,9 @@ export default function PopularDealContainer(){
                      marginRight: 'auto'
                  }
              }}
+             onClick={() => {
+                window.open("https://www.cheapshark.com/redirect?dealID=" + props.deal.dealID);
+             }}
             >
                 Visit Store
             </button>
@@ -159,6 +150,10 @@ export default function PopularDealContainer(){
                  ...{
                      marginLeft: 'auto'
                  }
+             }}
+             onClick={() => {
+                setTrackedDeal(props.deal);
+                setCurrentNav('TrackGame');
              }}
             >
                 Track Game
@@ -171,6 +166,13 @@ let popularDealContainerStyle = (size) => {
 
     return({
         width: '100%'
+    })
+}
+let addThumbnailStyle = size => {
+
+    return({
+        width: '100%',
+        borderRadius: globalCostants.buttonBorderRadius
     })
 }
 let imageContainer = (size) => {
@@ -222,7 +224,7 @@ let gameInfoRow = (size) => {
 }
 let gameInfoText = (size) => {
     let fontSize
-    if(size == 'small'){
+    if(size === 'small'){
         fontSize = '0.75em';
     }
     else{
@@ -275,7 +277,7 @@ let storeImageContainer = (size) => {
 }
 let storeImage = (size) => {
     let maxHeight;
-    if(size == 'small'){
+    if(size === 'small'){
         maxHeight = '1.5em'
     }
     else{
@@ -306,4 +308,12 @@ let actionButton = size => {
         border: 0,
         borderRadius: globalCostants.buttonBorderRadius
     })
+}
+let getNameCutoffSize = size => {
+    if(size === 'extrasmall' || size === 'extralarge' || size === 'large'){
+        return 20;
+    }
+    else{
+        return 39;
+    }
 }

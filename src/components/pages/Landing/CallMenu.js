@@ -4,6 +4,7 @@ import { GlobalContext } from '../../../utilities/GlobalContext';
 
 export default function CallMenu(){
     const size = useContext(GlobalContext).size;
+    const setCurrentNav = useContext(GlobalContext).setCurrentNav;
 
     return(<div
      style={{
@@ -39,6 +40,9 @@ export default function CallMenu(){
                      backgroundColor: '#278D8A'
                  }
              }}
+             onClick={() => {
+                setCurrentNav('Home');
+             }}
             >
                 Brous Deals
             </button>
@@ -51,6 +55,9 @@ export default function CallMenu(){
                     backgroundColor: '#FCD399',
                     color: '#DA0A18'
                 }
+             }}
+             onClick={() => {
+                setCurrentNav('InDevelopment');
              }}
             >
                 Get alerts
@@ -71,7 +78,7 @@ let callMenuStyle={
 }
 let titleStyle = (size) => {
     let fontSize;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         fontSize='2em'
     }
     else{
@@ -88,7 +95,7 @@ let titleStyle = (size) => {
 let subTitleStyle = (size) => {
     let marginTop;
     let fontSize;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         marginTop = '1em';
         fontSize = '0.75em';
     }
@@ -107,7 +114,7 @@ let subTitleStyle = (size) => {
 }
 let callButtonRowStyle= (size) => {
     let marginTop;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         marginTop = '0.5em'
     }
     else{
@@ -123,7 +130,7 @@ let callButtonRowStyle= (size) => {
 }
 let callButtonStyle = (size) => {
     let padding;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         padding = '0.37em';
     }
     else{
@@ -140,7 +147,7 @@ let callButtonStyle = (size) => {
 let creditStyle = (size) => {
     let marginTop;
     let fontSize;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         marginTop = '0.5em';
         fontSize = '0.5em';
     }

@@ -1,13 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import GlobalContextPro from './utilities/GlobalContext';
 import NavBar from './components/NavBar';
 import BodyNav from './components/BodyNav'
 import OrginSetter from './components/TestComps/OrginSetter';
 
 function App() {
-  const [devmode, setDevMode] = useState(false);
+  const devmode = false;
   return (
     <div>
         <GlobalContextPro>

@@ -13,14 +13,22 @@ export default function SignUpForm(props){
     const serverOrigin = useContext(GlobalContext).serverOrigin;
     const setCurrentNav = useContext(GlobalContext).setCurrentNav;
     const size = useContext(GlobalContext).size;
-    
+
+    let labelMarginTop;
+    if(size === 'wide'){
+        labelMarginTop = '0.5em'
+    }
+    else{
+        labelMarginTop = '1em'
+    }
+
     return(<div
      style={{
          ...authStyles.authFormContainer(size, props.variant)
      }}
     >
         <label 
-         for='nameInput'
+         htmlFor='nameInput'
          style={{
              ...authStyles.authFormLabel(size)
          }}
@@ -39,11 +47,11 @@ export default function SignUpForm(props){
         >
         </input>
         <label 
-         for='nameInput'
+         htmlFor='nameInput'
          style={{
              ...authStyles.authFormLabel(size),
              ...{
-                 marginTop: '1em'
+                 marginTop: labelMarginTop
              }
          }}
         >
@@ -62,11 +70,11 @@ export default function SignUpForm(props){
         >
         </input>
         <label 
-         for='nameInput'
+         htmlFor='nameInput'
          style={{
              ...authStyles.authFormLabel(size),
              ...{
-                 marginTop: '1em'
+                 marginTop: labelMarginTop
              }
          }}
         >

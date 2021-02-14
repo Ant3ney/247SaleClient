@@ -1,12 +1,19 @@
 import React, { useEffect, useContext } from 'react';
+import StoreLogo from '../../StoreLogo';
 import globalCostants from '../../../utilities/GlobalConstants';
 import { GlobalContext } from '../../../utilities/GlobalContext';
 
-export default function BigFeatured(){
+export default function BigFeatured(props){
     useEffect(() => {
         
     }, []);
     const size = useContext(GlobalContext).size;
+    const setCurrentNav = useContext(GlobalContext).setCurrentNav;
+    const setTrackedDeal = useContext(GlobalContext).setTrackedDeal;
+    let deal = props.deal.gameInfo;
+    if(!deal){
+        return(<>Loading</>);
+    }
     return(<div
      style={{
          ...bigFeaturedStyle
@@ -19,10 +26,11 @@ export default function BigFeatured(){
          }}
         >
             <img 
-             src={process.env.PUBLIC_URL + 'FeaturedPlaceholder.jpg'}
+             src={props.deal.picture}
              style={{
                 ...featuredImage
              }}
+             alt='Featured game'
             >
             </img>
         </div>
@@ -41,7 +49,7 @@ export default function BigFeatured(){
                      ...infoText(size)
                  }}
                 >
-                    Deus Ex: Standard edition
+                    {deal.name}
                 </p>
             </div>
             <div
@@ -63,7 +71,7 @@ export default function BigFeatured(){
                          }
                      }}
                     >
-                        $29.99
+                        {`$${deal.retailPrice}`}
                     </p>
                     <p
                      style={{
@@ -71,7 +79,7 @@ export default function BigFeatured(){
                          marginLeft: '0.3em'
                      }}
                     >
-                        $9.99
+                        {`$${deal.salePrice}`}
                     </p>
                     <div
                      style={{
@@ -87,7 +95,7 @@ export default function BigFeatured(){
                             ...percentOffText(size)
                          }}
                         >
-                            -33%
+                            {getPercentOff(deal.retailPrice, deal.salePrice)}
                         </p>
                         
                     </div>
@@ -107,21 +115,9 @@ export default function BigFeatured(){
                     >
                         Get it on
                     </p>
-                    <div
-                     style={{
-                         ...storeImageContainer
-                     }}
-                    >
-                        <img 
-                         style={{
-                             ...storeImage(size),
-                             ...{
- 
-                             }
-                         }}
-                         src={process.env.PUBLIC_URL + 'GreenManLogo.png'}
-                        ></img>
-                    </div>
+                    <StoreLogo 
+                     id={deal.storeID}
+                    />
                 </div>
             </div>
         </div>
@@ -137,6 +133,9 @@ export default function BigFeatured(){
                      marginRight: 'auto'
                  }
              }}
+             onClick={() => {
+                window.open("https://www.cheapshark.com/redirect?dealID=" + props.deal.dealID);
+             }}
             >
                 Visit Store
             </button>
@@ -146,6 +145,10 @@ export default function BigFeatured(){
                  ...{
                      marginLeft: 'auto'
                  }
+             }}
+             onClick={() => {
+                setTrackedDeal(formatedDeal(props.deal));
+                setCurrentNav('TrackGame');
              }}
             >
                 Track Game
@@ -180,7 +183,7 @@ let featuredImage={
 }
 let featuredInfoContainer = (size) => {
     let padding;
-    if(size == 'small'){
+    if(size === 'small' || size === 'extrasmall'){
         padding = '0.2em'
     }
     else{
@@ -200,7 +203,7 @@ let featuredInfoRow={
 }
 let featuredInfoBottomRow = (size) => {
     let marginTop;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         marginTop = '0.15em';
     }
     else{
@@ -220,8 +223,11 @@ let rightInfo={
 }
 let infoText = (size) => {
     let fontSize;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         fontSize = '0.75em';
+    }
+    else if(size === 'medium'){
+        fontSize = '1em';
     }
     else{
         fontSize = '1.2em';
@@ -230,7 +236,6 @@ let infoText = (size) => {
     return({
         color: '#BAC165',
         padding: 0,
-        marginBottom: 0,
         marginTop: 'auto',
         marginBottom: 'auto',
         fontSize: fontSize,
@@ -240,7 +245,6 @@ let infoText = (size) => {
 let percentOff={
     color: 'white',
     backgroundColor: '#DA0A18',
-    padding: 0,
     margin: 0,
     borderRadius: globalCostants.thumbnailBorderRadius,
     padding: '0.2em',
@@ -249,7 +253,7 @@ let percentOff={
 }
 let percentOffText = (size) => {
     let fontSize;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         fontSize = '0.75em'
     }
     else{
@@ -268,7 +272,7 @@ let storeImageContainer={
 }
 let storeImage = (size) => {
     let maxHeight;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         maxHeight = '1em'
     }
     else{
@@ -289,7 +293,7 @@ let featureActionContainer={
 }
 let featureButton = (size) => {
     let padding;
-    if(size == 'small' || size == 'wide'){
+    if(size === 'small' || size === 'wide' || size === 'extrasmall'){
         padding = '0.37em';
     }
     else{
@@ -303,4 +307,27 @@ let featureButton = (size) => {
         padding: padding,
         backgroundColor: '#BAC165'
     });
+}
+let getPercentOff = (normal, sale) => {
+    if(normal <= 0){
+        return('-100%');
+    }
+    let decimal = (sale / normal);
+    if(decimal === 0){
+        return('-100%');
+    }
+    return('-' + (decimal * 100 + '').split('.')[0] + '%')
+}
+let formatedDeal = (featuredDeal) => {
+    let innerDeal = featuredDeal.gameInfo;
+    let newDeal = {
+        internalName: innerDeal.internalName,
+        featuredDeal: innerDeal.retailPrice,
+        salePrice: innerDeal.salePrice,
+        thumb: featuredDeal.picture,
+        storeID: innerDeal.storeID,
+        dealID: featuredDeal.dealID
+    }
+
+    return newDeal;
 }

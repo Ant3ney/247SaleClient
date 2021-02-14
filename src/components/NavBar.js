@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { GlobalContext } from '../utilities/GlobalContext';
 import signOut from '../utilities/auth/signOut';
-import MediaQuery from 'react-responsive'
-import GlobalConstants from '../utilities/GlobalConstants';
 
 export default function Nav(){
     const [navPressed, setNavPressed] = useState(false)
@@ -13,7 +11,7 @@ export default function Nav(){
     const bodyMargin = useContext(GlobalContext).bodyXMargin;
     const size = useContext(GlobalContext).size;
 
-    if(size == 'small'){
+    if(size === 'small' || size === 'extrasmall'){
         if(navPressed){
             return(<nav
              style={{
@@ -44,12 +42,17 @@ export default function Nav(){
                             marginRight: 'auto'
                         }
                      }}
+                     onClick={() => {
+                        setCurrentNav('Landing');
+                        setNavPressed(false);
+                     }}
                     >
                         <img 
                          style={{
                                 ...imageStyle(size)
                             }}
                          src={process.env.PUBLIC_URL + '/SiteLogo.png'} 
+                         alt='Site Logo'
                         />
                     </li>
                     <li
@@ -87,6 +90,10 @@ export default function Nav(){
                          ...hamburgerLi(size),
                          ...hamburgerBorder
                      }}
+                     onClick={() => {
+                         setCurrentNav('Home');
+                         setNavPressed(false);
+                     }}
                     >
                         Home
                     </li>
@@ -95,13 +102,21 @@ export default function Nav(){
                          ...hamburgerLi(size),
                          ...hamburgerBorder
                      }}
+                     onClick={() => {
+                     setCurrentNav('InDevelopment');
+                     setNavPressed(false);
+                     }}
                     >
-                        Contact
+                        Contact US
                     </li>
                     <li
                      style={{
                          ...hamburgerLi(size),
                          ...hamburgerBorder
+                     }}
+                     onClick={() => {
+                         setCurrentNav('SignIn');
+                         setNavPressed(false);
                      }}
                     >
                         SignIn
@@ -114,6 +129,10 @@ export default function Nav(){
                             borderBottom: '1px solid #FCD399',
                             marginBottom: '0.5em'
                          }
+                     }}
+                     onClick={() => {
+                         setCurrentNav('SignUp');
+                         setNavPressed(false);
                      }}
                     >
                         SignUp
@@ -141,12 +160,16 @@ export default function Nav(){
                             marginRight: 'auto'
                         }
                      }}
+                     onClick={() => {
+                        setCurrentNav('Landing');
+                     }}
                     >
                         <img 
                          style={{
                                 ...imageStyle(size)
                             }}
                          src={process.env.PUBLIC_URL + '/SiteLogo.png'} 
+                         alt='Site Logo'
                         />
                     </li>
                     <li
@@ -194,6 +217,7 @@ export default function Nav(){
                                 ...imageStyle(size)
                             }}
                          src={process.env.PUBLIC_URL + '/SiteLogo.png'} 
+                         alt='Site Logo'
                         />
                     </li>
                         <li style={{
@@ -212,7 +236,7 @@ export default function Nav(){
                                 marginLeft: '3em'
                             }
                          }}
-                         onClick={()=>{setCurrentNav('Home')}}
+                         onClick={()=>{setCurrentNav('InDevelopment')}}
                         >
                             Contact US
                         </li>
@@ -273,9 +297,14 @@ export default function Nav(){
 }
 
 let navStyle = (size) => {
+    let paddingTop;
     let marginTop;
-    if(size == 'wide'){
-        marginTop = '6vh';
+    if(size === 'wide'){
+        marginTop = 0;
+    }
+    else if(size === 'small' || size === 'extrasmall'){
+        paddingTop = '3vh';
+        marginTop = 0;
     }
     else{
         marginTop = '3vh';
@@ -285,7 +314,8 @@ let navStyle = (size) => {
         display: "flex",
         position: 'absolute',
         width: '100%',
-        height: '7vh',
+        height: 'fit-content',
+        paddingTop: paddingTop,
         marginTop: marginTop
     });
 }
@@ -298,7 +328,7 @@ let ulStyle={
 
 let liStyle = (size) => {
     let fontSize;
-    if(size == 'wide'){
+    if(size === 'wide'){
         fontSize = '0.75em';
     }
     else{
@@ -317,10 +347,10 @@ let hamburgerStyle={
 
 let imageStyle = (size) => {
     let width;
-    if(size == 'wide'){
+    if(size === 'wide'){
         width = '5em';
     }
-    else if(size == 'small'){
+    else if(size === 'small' || size === 'extrasmall'){
         width = '4em';
     }
     else{

@@ -16,7 +16,7 @@ export default function Title(props){
              ...authStyles.authTitle(size, props.variant)
          }}
         >
-            Register and Never miss another Deal!
+            Welcome Back! We missed you
         </h1>
         <p
          style={{

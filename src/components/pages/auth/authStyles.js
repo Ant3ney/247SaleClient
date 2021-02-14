@@ -1,23 +1,52 @@
 import GlobalConstants from '../../../utilities/GlobalConstants';
 
-export default {
+let authStyles =  {
     authPageContainerStyle: (size, marginX, variant) => {
         let backgroundColor;
-        if(variant == 'authPage'){
+        let padding;
+        let paddingTop;
+        let height;
+        let paddingBottom;
+        
+        if(variant === 'authPage'){
             backgroundColor = '#278D8A';
         }
         else{
-            backgroundColor = '#112123'
+            backgroundColor = '#112123';
+        }
+
+        if(size === 'extrasmall'){
+            padding = '1rem';
+            paddingTop = '6.5vh';
+            height = '100vh';
+        }
+        else if(size === 'wide'){
+            padding = '15%';
+            height = 'auto';
+            if(variant === 'authPage'){
+                paddingTop = '8vh';
+            }
+            else{
+                paddingTop = '2rem';
+                paddingBottom = '2rem';
+            }
+        }
+        else{
+            padding = (marginX * 3) + 'rem';
+            paddingTop = 'unset';
+            height = '100vh';
         }
 
         return({
             width: '100%',
-            height: '100vh',
+            height: height,
             backgroundColor: backgroundColor,
-            paddingLeft: (marginX * 3) + 'em',
-            paddingRight: (marginX * 3) + 'em',
+            paddingLeft: padding,
+            paddingRight: padding,
             display: 'flex',
-            flexDirection: 'column'     
+            flexDirection: 'column',
+            paddingTop: paddingTop,
+            paddingBottom: paddingBottom
         });
     },
     authContentContainer: (size) => {
@@ -33,7 +62,8 @@ export default {
     authTitleContainer: (size, variant) => {
         let paddingLeft;
         let paddingRight;
-        if(variant == 'authPage'){
+        let fontSize;
+        if(variant === 'authPage'){
             paddingLeft = '2rem';
             paddingRight = '2rem';
         }
@@ -54,50 +84,86 @@ export default {
     },
     authTitle: (size, variant) => {
         let textShadow;
-        if(variant == 'authPage'){
+        let fontSize;
+        if(variant === 'authPage'){
             textShadow = GlobalConstants.shadowSettings
         }
         else{
             textShadow = 'unset'
+        }
+
+        if(size === 'extrasmall'){
+            fontSize = '2.25em';
+        }
+        else if(size === 'wide'){
+            fontSize = '2em';
+        }
+        else{
+            fontSize = '3.5em';
         }
 
         return({
             color: 'white',
             fontFamily: 'SHOWG',
             marginBottom: 0,
-            fontSize: '3.5em',
-            textShadow: GlobalConstants.shadowSettings
+            fontSize: fontSize,
+            textShadow: textShadow
         })
     },
     authSubTitle: (size, variant) => {
         let textShadow;
-        if(variant == 'authPage'){
+        let marginTop;
+        if(variant === 'authPage'){
             textShadow = GlobalConstants.shadowSettings
         }
         else{
             textShadow = 'unset'
         }
 
+        if(size === 'wide'){
+            marginTop = '0.5em';
+        }
+        else{
+            marginTop = '1em';
+        }
+
         return({
             color: 'white',
             textShadow: textShadow,
             marginBottom: 0,
-            marginTop: '1em'
+            marginTop: marginTop
         });
     },
     authFormContainer: (size, variant) => {
         let backgroundColor;
         let padding;
         let borderRadius;
-        if(variant == 'authPage'){
+        let marginTop;
+        let marginBottom;
+        if(variant === 'authPage'){
             backgroundColor = '#112123';
-            padding = '2em';
             borderRadius = GlobalConstants.thumbnailBorderRadius;
+            if(size === 'wide'){
+                padding = '1.5em';
+                marginBottom = '1.5em';
+            }
+            else{
+                padding = '2em';
+                marginBottom = 0;
+            }
         }
         else{
             backgroundColor = 'unset'
             padding = 0;
             borderRadius = 0;
+            marginBottom = 0;
+        }
+
+        if(size === 'wide'){
+            marginTop = '0.5em';
+        }
+        else{
+            marginTop = '1em';
         }
 
         return({
@@ -107,7 +173,8 @@ export default {
             flexDirection: 'column',
             padding: padding,
             borderRadius: borderRadius,
-            marginTop: '1em'
+            marginTop: marginTop,
+            marginBottom: marginBottom
         })
     },
     authFormLabel: size => {
@@ -121,7 +188,7 @@ export default {
     },
     authInput: (size, variant) => {
         let backgroundColor;
-        if(variant == 'authPage'){
+        if(variant === 'authPage'){
             backgroundColor =  '#278D8A'
         }
         else{
@@ -141,16 +208,24 @@ export default {
     },
     authButtons: (size, variant) => {
         let backgroundColor;
-        if(variant == 'authPage'){
+        let width;
+        if(variant === 'authPage'){
             backgroundColor =  '#278D8A'
         }
         else{
             backgroundColor = '#278D8A'
         }
 
+        if(size === 'extrasmall'){
+            width = '40%';
+        }
+        else{
+            width = '20%';
+        }
+
         return({
             backgroundColor: backgroundColor,
-            width: '20%',
+            width: width,
             outline: 'none',
             color: 'white',
             border: 0,
@@ -159,3 +234,5 @@ export default {
         });
     }
 }
+
+export default authStyles;

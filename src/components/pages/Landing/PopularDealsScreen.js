@@ -31,7 +31,7 @@ let transitionBlock = {
 }
 let popularDealsText = (size, bodyMargin) => {
     let fontSize;
-    if(size == 'small'){
+    if(size === 'small'){
         fontSize = '1.8em';
     }
     else{

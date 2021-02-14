@@ -6,13 +6,21 @@ import BigFeatured from './BigFeatured';
 export default function LandScreen(){
     const bodyMargin = useContext(GlobalContext).bodyXMargin;
     const size = useContext(GlobalContext).size;
+    const featuredDeal = useContext(GlobalContext).featuredDeal;
     let paddingTop;
+    let paddingX;
 
-    if(size == 'small'){
-        paddingTop = '5vh'
+    if(size === 'small'){
+        paddingTop = '5vh';
+        paddingX = (bodyMargin + 1) + 'em';
+    }
+    else if(size === 'extrasmall'){
+        paddingTop = '5vh';
+        paddingX = 1  + 'em';
     }
     else{
-        paddingTop = '10vh'
+        paddingTop = '10vh';
+        paddingX = (bodyMargin + 1) + 'em';
     }
 
     let landingScreenStyle={
@@ -22,8 +30,8 @@ export default function LandScreen(){
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        paddingLeft: bodyMargin + 'em',
-        paddingRight: bodyMargin + 'em',
+        paddingLeft: paddingX,
+        paddingRight: paddingX,
         display: 'flex'
     }
 
@@ -39,7 +47,7 @@ export default function LandScreen(){
              }}
             >
                 <div 
-                 className={size == 'wide' ? "col-6" : "col-md-6"}
+                 className={size === 'wide' ? "col-6" : "col-md-6"}
                  style={{
                      ...callMenuHolderStyle(size)
                  }}
@@ -47,32 +55,27 @@ export default function LandScreen(){
                     <CallMenu />
                 </div>
                 <div 
-                 className={size == 'wide' ? "col-6" : "col-md-6"}
+                 className={size === 'wide' ? "col-6" : "col-md-6"}
                  style={{
                      ...bigFeaturedMenuHolderStyle(size)
                  }}
                 >
-                    <BigFeatured />
+                    {featuredDeal ? 
+                    <BigFeatured 
+                     deal={featuredDeal}
+                    /> : 'loading'}
                 </div>
             </div>
         </div>);
 }
 
-let titleStyle = {
-    fontFamily: "SHOWG",
-    color: 'white'
-}
-let subTitleStyle = {
-    fontFamily: 'Segoe UI',
-    color: 'white'
-}
 let landScreenContentStyle = (size) => {
     let alignItems;
     let flexDirection;
     let flexWrap;
     let height;
     let margin;
-    if(size == 'small'){
+    if(size === 'small'  || size === 'extrasmall'){
         alignItems = 'unset';
         flexDirection = 'column';
         flexWrap = 'unset';
@@ -97,7 +100,7 @@ let landScreenContentStyle = (size) => {
 }
 let callMenuHolderStyle = (size) => {
     let height;
-    if(size == 'small'){
+    if(size === 'small' || size === 'extrasmall'){
         height = 'fit-content'
     }
     else{
@@ -110,7 +113,7 @@ let callMenuHolderStyle = (size) => {
 }
 let bigFeaturedMenuHolderStyle = (size) => {
     let marginTop;
-    if(size == 'small'){
+    if(size === 'small' || size === 'extrasmall'){
         marginTop = '0.75em'
     }
     else{

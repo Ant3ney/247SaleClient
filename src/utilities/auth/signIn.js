@@ -1,4 +1,4 @@
-export default function(email, password, setUser, serverOrigin){
+export default function SignIn(email, password, setUser, serverOrigin){
     return new Promise((resolve, reject) => {
         let body = JSON.stringify({
             email: email,

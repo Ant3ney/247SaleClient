@@ -1,4 +1,4 @@
-export default function(setUser, serverOrigin){
+export default function SignOut(setUser, serverOrigin){
     return new Promise((resolve, reject) => {
         fetch(serverOrigin + '/logout', {
             method: 'get',

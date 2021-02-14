@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+.input::placeholder{
+  color: white;
+}
+.at-least-full-screen{
+  height: max(100vh, 390px) !important;
+}
