@@ -11,11 +11,15 @@
   background-color: #111111;
   opacity: 1;
   transition: opacity 1s;
-  background-image: url('../resources/images/food-bg-light.png');
-  background-image: url('../resources/images/food-bg.png');
+
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  .hold{
+    background-image: url('../resources/images/food-bg-light.png');
+    background-image: url('../resources/images/food-bg.png');
+  }
 
   .senpaio-logo {
     width: 280px;
