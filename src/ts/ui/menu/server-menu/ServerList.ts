@@ -19,6 +19,7 @@ class ServerList {
   initialise(): void {
     this.fetchServers();
     this.findRegion();
+    SplashScreen.initialise();
   }
 
   fetchServers(): void {

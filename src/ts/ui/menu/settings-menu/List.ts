@@ -210,17 +210,9 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
     default: false,
     onChange: (lightMode: boolean) => {
       //Ingame settiings config
-      /*Object.defineProperty(Settings, 'lightMode', {
-        get() {
-          return lightMode;
-        },
-        set(newValue: boolean) {
-          input.value = newValue;
-          self.saveSetting(name, newValue);
-          value = newValue;
-          if (setting.onChange) setting.onChange(newValue);
-        }
-      });*/
+
+      //Splash screen elements
+      let splashScreen: HTMLDivElement = <HTMLDivElement>document.querySelector('#splash-screen');
 
       //Settings elements
       let settingsHeaderEle: HTMLDivElement = <HTMLDivElement>document.getElementsByClassName('header')[1];
@@ -234,7 +226,7 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
 
       //Hud and canvas elements
       let lightTextShadow = '1px 1px 0 rgba(112,112,112,0.4), -1px 1px 0 rgba(112,112,112,0.4), -1px -1px 0 rgba(112,112,112,0.4), 1px -1px 0 rgba(112,112,112,0.4)';
-      let hudLightBorderSettings = '2px solid rgba(99, 98, 101, 0.8)';
+      let hudLightBorderSettings = '2px solid rgba(140, 140, 145, 0.5)';
       let hudLightBackgroundColor = 'rgba(111,111,111,0.3)';
       let hudDarkBorderSettings = '2px solid  rgba(144, 152, 173, 0.4)';
       let canvas: HTMLDivElement = <HTMLDivElement>document.getElementById('screen');
@@ -250,6 +242,8 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       let dPadA: HTMLImageElement = <HTMLImageElement>document.querySelector('#d-pad-a img');
       let joystickBG: HTMLImageElement = <HTMLImageElement>document.querySelector('#joystick');
       let joystickBall: HTMLImageElement = <HTMLImageElement>document.querySelector('#joystick-ball');
+      let leaderBordHeaderContainer: HTMLImageElement = <HTMLImageElement>document.querySelector('#lBord .header-container');
+      let leaderBordContainer: HTMLImageElement = <HTMLImageElement>document.querySelector('#lBord');
       
       //Server menu elements
       let serverHeader: HTMLImageElement = <HTMLImageElement>document.querySelector('#server-menu .header');
@@ -277,6 +271,9 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
       let skinModelPTags = document.querySelectorAll('#skin-submit p');
 
       if(lightMode){
+        //#region Splash screen
+        splashScreen.style.backgroundImage = 'url("src/resources/images/food-bg-light.png")';
+        //#endregion
         //#region setting changes
           settingsHeaderEle.style.backgroundColor = 'white';
           settingTitle.style.color = 'black';
@@ -316,6 +313,8 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           joystickBG.style.backgroundColor = 'rgba(100, 100, 100, 0.2)';
           joystickBall.style.backgroundColor = 'rgba(99, 98, 101, 0.8)';
           Minimap.lightMode = true;
+          leaderBordHeaderContainer.style.borderBottom = hudLightBorderSettings;
+          leaderBordContainer.style.border = hudLightBorderSettings;
         //#endregion
         //#region Server menu
           serverHeader.style.backgroundColor = 'white';
@@ -383,6 +382,24 @@ const List: { [key: string]: ToggleInfo | ColorpickerInfo | ChoiceBoxInfo | Rang
           joystickBG.style.backgroundColor = 'rgba(200, 200, 200, 0.2)';
           joystickBall.style.backgroundColor = 'rgba(199, 198, 201, 0.8)';
           Minimap.lightMode = false;
+          pauseButton.style.textShadow = 'unset';
+          pauseButton.style.border = hudDarkBorderSettings;
+          pauseButton.style.backgroundColor = 'transparent';
+          mapToggle.style.textShadow = 'unset';
+          mapToggle.style.backgroundColor = 'transparent';
+          mapToggle.style.textShadow = 'unset';
+          leaderbordButtonContainer.style.textShadow = 'unset';
+          leaderbordButtonContainer.style.backgroundColor = 'transparent';
+          leaderbordButtonContainer.style.textShadow = 'unset';
+          zoomInHud.style.textShadow = 'unset';
+          zoomInHud.style.backgroundColor = 'transparent';
+          zoomInHud.style.textShadow = 'unset';
+          zoomOutHud.style.textShadow = 'unset';
+          zoomOutHud.style.backgroundColor = 'transparent';
+          zoomOutHud.style.textShadow = 'unset';
+          leaderBordHeaderContainer.style.borderBottom = 'none';
+          leaderBordContainer.style.border = hudDarkBorderSettings;
+          
         //#endregion
         //#region Server menu
         ServerMenu.lightMode = false;
