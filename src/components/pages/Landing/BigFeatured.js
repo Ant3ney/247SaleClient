@@ -318,7 +318,8 @@ let getFormatedDealOf = (featuredDeal) => {
         salePrice: innerDeal.salePrice,
         thumb: featuredDeal.picture,
         storeID: innerDeal.storeID,
-        dealID: featuredDeal.dealID
+        dealID: featuredDeal.dealID,
+        gameID: innerDeal.gameID
     }
 
     return newDeal;

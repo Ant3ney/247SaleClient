@@ -6,10 +6,11 @@ import StoreLogo from '../../StoreLogo';
 
 export default function SelectedGameContainer(){
     const size = useContext(GlobalContext).size;
+    const user = useContext(GlobalContext).user;
     const freshDeals = useContext(GlobalContext).freshDeals;
     const trackedDeal = useContext(GlobalContext).trackedDeal
 
-    const [targetPrice, setTargetPrice] = useState(null);
+    const [targetPrice, setTargetPrice] = useState(10);
 
     let dealName = trackedDeal.internalName;
     if(dealName && dealName.length > (getNameCutoffSize(size) + 3)){
@@ -189,11 +190,42 @@ export default function SelectedGameContainer(){
                     fontSize: fontSize
                  }
              }}
+             onClick={
+                 () => {
+                     onTrackPrice(user, targetPrice, trackedDeal)
+                }
+             }
             >
                 Track price
             </button>
         </div>
     </div>);
+}
+
+function onTrackPrice(user, price, deal){
+    if(!user){
+        alert('You must be signed in to use this feature');
+    }
+    let gameID = deal.gameID;
+    let email = user.email;
+
+    fetch(`https://www.cheapshark.com/api/1.0/alerts?action=set&email=${email}&gameID=${gameID}&price=${price}`, {
+        method: 'get',
+    })
+    .then(() => {
+        fetch(`https://www.cheapshark.com/api/1.0/alerts?action=manage&email=${email}`, {
+            method: 'get',
+        })
+        .then(() => {
+            alert('Email notification set')
+        }).catch(err => {
+            alert('Email notification faild')
+        });
+        
+    })
+    .catch(err => {
+      alert('Email notification faild')
+    });
 }
 
 let selectedGameContainer = size => {
