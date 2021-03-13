@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { GlobalContext } from '../../../utilities/GlobalContext';
 import GlobalConstants from '../../../utilities/GlobalConstants';
 import StoreLogo from '../../StoreLogo';
+import TrackGame from '../../Deal/TrackGame';
 
 export default function FreshDealLandscape(props){
     const size = useContext(GlobalContext).size;
@@ -97,22 +98,16 @@ export default function FreshDealLandscape(props){
                             Visit Store
                         </p>
                     </button>
-                    <button
-                     style={{
-                         ...actionButton(size)
+                    <TrackGame 
+                     deal={props.deal}
+                     addStyle={{
+                        ...actionButton(size)
                      }}
-                     onClick={() => {
-                        setCurrentNav('TrackGame');
+                     addStyleText={{
+                         ...actionText(size)
                      }}
-                    >
-                        <p
-                         style={{
-                             ...actionText(size)
-                         }}
-                        >
-                            Track Game
-                        </p>
-                    </button>
+                    />
+                    
                 </div>
             </div>
             <div
@@ -342,7 +337,6 @@ let actionButton = size => {
         display: 'flex',
         backgroundColor: '#BAC165',
         borderRadius: GlobalConstants.buttonBorderRadius,
-        height: '90%',
         padding: '5px',
         marginTop: 'auto',
         marginBottom: 'auto',
@@ -371,7 +365,8 @@ let actionText = size => {
     return({
         margin: 'auto',
         height: 'fit-content',
-        fontSize: fontSize
+        fontSize: fontSize,
+        width: 'max-content'
     })
 }
 let dealInfoRightSide = size => {

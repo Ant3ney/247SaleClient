@@ -3,6 +3,7 @@ import { GlobalContext } from '../../../utilities/GlobalContext';
 import globalConstants from '../../../utilities/GlobalConstants';
 import StoreLogo from '../../StoreLogo';
 import GameThumbnail from '../../GameThumbnail';
+import TrackGame from '../../Deal/TrackGame';
 
 export default function FreshDealSide(props){
     const size = useContext(GlobalContext).size;
@@ -138,26 +139,15 @@ export default function FreshDealSide(props){
                     Visit Store
                 </p>
             </button>
-            <button
-             style={{
-                 ...actionButton(size),
-                 ...{
-                     marginLeft: 'auto'
-                 }
+            <TrackGame 
+             deal={props.deal}
+             addStyle={{
+                ...actionButton(size)
              }}
-             onClick={() => {
-                setTrackedDeal(props.deal);
-                setCurrentNav('TrackGame');
+             addStyleText={{
+                 ...actionText(size)
              }}
-            >
-                <p
-                 style={{
-                     ...actionText(size)
-                 }}
-                >
-                   Teack Game
-                </p>
-            </button>
+            />
         </div>
     </div>)
 }
@@ -293,6 +283,7 @@ let actionButton = size => {
         color: 'black',
         textAlign: 'center',
         height: '1.5rem',
+        padding: 0,
         textShadow: globalConstants.shadowSettings
     });
 }
@@ -302,7 +293,8 @@ let actionText = size => {
         width: 'fit-content',
         margin: 'auto',
         color: 'black',
-        fontSize: '12px'
+        fontSize: '12px',
+        width: 'max-content'
     });
 }
 let getNameCutoffSize = size => {

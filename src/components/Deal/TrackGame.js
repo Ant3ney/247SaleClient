@@ -20,7 +20,11 @@ export default function TrackGame(props){
             onTrack(user, setCurrentNav, setTrackedDeal, props.deal);
         }}
        >
-           Track Game
+           <span
+            style={{...props.addStyleText}}
+           >
+               Track Game
+           </span>
        </button>);
 }
 

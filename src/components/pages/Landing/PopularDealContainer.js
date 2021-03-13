@@ -3,6 +3,7 @@ import { GlobalContext } from '../../../utilities/GlobalContext';
 import globalCostants from '../../../utilities/GlobalConstants';
 import GameThumbnail from '../../GameThumbnail';
 import StoreLogo from '../../StoreLogo';
+import TrackGame from '../../Deal/TrackGame';
 
 export default function PopularDealContainer(props){
     const size = useContext(GlobalContext).size;
@@ -144,20 +145,13 @@ export default function PopularDealContainer(props){
             >
                 Visit Store
             </button>
-            <button
-             style={{
-                 ...actionButton(size),
-                 ...{
-                     marginLeft: 'auto'
-                 }
-             }}
-             onClick={() => {
-                setTrackedDeal(props.deal);
-                setCurrentNav('TrackGame');
-             }}
-            >
-                Track Game
-            </button>
+            <TrackGame 
+                deal={props.deal}
+                addStyle={{...actionButton(size),
+                         ...{
+                             marginLeft: 'auto'
+                         }}}
+            />
         </div>
     </div>)
 }
