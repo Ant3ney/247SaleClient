@@ -304,7 +304,7 @@ let getPercentOff = (normal, sale) => {
     if(normal <= 0){
         return('-100%');
     }
-    let decimal = (sale / normal);
+    let decimal = (1 - (sale / normal));
     if(decimal === 0){
         return('-100%');
     }
