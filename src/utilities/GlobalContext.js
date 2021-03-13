@@ -15,7 +15,7 @@ export default function GlobalProvider({ children }){
     const [freshDeals, setFreshDeals] = useState(null);
     const [trackedDeal, setTrackedDeal] = useState(null);
     const [featuredDeal, setFeaturedDeal] = useState(null);
-    const [popularDeals, setPopularDeals] = useState(null)
+    const [popularDeals, setPopularDeals] = useState(null);
 
     useEffect(() => {
       console.log('serverOrigin: ' + serverOrigin);
@@ -36,6 +36,7 @@ export default function GlobalProvider({ children }){
             setIsSmall(isSmallCheck());
             setSize(sizeCheck());
             sizeUpdate();
+            //alert('isWideCheck(): ' + isWideCheck());
           });
           getFreshDeals(setFreshDeals);
           getSpecialDeals(setFeaturedDeal, setPopularDeals, serverOrigin);
@@ -89,7 +90,9 @@ function isWideCheck(){
   let width = window.innerWidth;
   let height = window.innerHeight;
   let ratio = (height / width);
-  if(ratio <= 0.57338028169 && height <= 540){
+  //alert('window.orientation: ' + window.orientation);
+  if(((ratio <= 0.57338028169) || (window.orientation === 0)) && (height <= 540)){
+    //alert('Here');
     return true;
   }
   else{

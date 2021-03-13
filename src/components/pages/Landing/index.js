@@ -7,7 +7,6 @@ import FreshDealsScreen from './FreshDealsScreen';
 export default function LandingPage(){
 
     return(<div style={{
-            
          }}
         >
             <LandScreen />

@@ -27,11 +27,19 @@ export default function StoreLogo(props){
 
 let StoreImageContainer = (size, variant) => {
     let marginRight;
+    let maxWidth;
     if(variant === 'freshlandscape'){
         marginRight = '0.4em';
     }
     else{
         marginRight = 'unset';
+    }
+
+    if(size === 'extrasmall'){
+        maxWidth = '68px'
+    }
+    else{
+        maxWidth = 'unset'
     }
     return({
         display: 'flex',
@@ -40,7 +48,8 @@ let StoreImageContainer = (size, variant) => {
         marginTop: 'auto',
         marginBottom: 'auto',
         height: '90%',
-        marginRight: marginRight
+        marginRight: marginRight,
+        maxWidth: maxWidth
     });
 }
 
@@ -51,7 +60,7 @@ let storeImage = (size, props) => {
     if(size === 'extrasmall'){
         maxHeight = '1em';
         padding = '0.12em';
-        maxWidth = '61px';
+        maxWidth = '100%';
     }
     else{
         maxHeight = '1.5em';

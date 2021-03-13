@@ -1,3 +1,18 @@
+html{
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+}
+body{
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+}
+.root{
+  width: -webkit-fill-available;
+}
 .App {
   text-align: center;
 }

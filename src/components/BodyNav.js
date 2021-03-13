@@ -11,7 +11,11 @@ export default function BodyNav(){
     const currentNav = useContext(GlobalContext).currentNav;
 
     if(currentNav === 'Landing'){
-        return <LandingPage />;
+        return <div 
+         style={{
+         }}>
+             <LandingPage />
+         </div>;
     }
     else if(currentNav === 'Home'){
         return <HomePage />;

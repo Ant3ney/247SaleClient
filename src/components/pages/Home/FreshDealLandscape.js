@@ -7,7 +7,7 @@ export default function FreshDealLandscape(props){
     const size = useContext(GlobalContext).size;
     const setCurrentNav = useContext(GlobalContext).setCurrentNav;
     const [orientation, setOrientation] = useState('horizontal');
-    let dealName = props.deal.internalName;
+    let dealName = props.deal.title;
 
     if(dealName.length > 30){
         dealName = dealName.substr(0, getCutOffNumber(size)) + "\u2026";
@@ -58,7 +58,11 @@ export default function FreshDealLandscape(props){
                      style={{
                         ...infoText(size),
                         ...{
-                            color: '#BAC165'
+                            color: '#BAC165',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            maxWidth: '100%'
                         }
                      }}
                     >
@@ -164,15 +168,19 @@ export default function FreshDealLandscape(props){
 let freshDealLandscape = (size, notTop) => {
     let notTopMarginTop;
     let marginRight;
+    let height;
 
     if(size === 'extralarge'){
         notTopMarginTop = 'auto';
+        height = 'auto';
     }
     else if(size !== 'extrasmall'){
         notTopMarginTop = '2rem';
+        height = '100%';
     }
     else{
         notTopMarginTop = '1rem';
+        height = '100%';
     }
 
     if(size === 'extralarge'){
@@ -180,12 +188,14 @@ let freshDealLandscape = (size, notTop) => {
     }
     else{
         marginRight = '0rem';
+        height = '100%';
     }
 
     return({
         display: 'flex',
         marginTop: notTop ? notTopMarginTop : 'unset',
-        marginRight: marginRight
+        marginRight: marginRight,
+        height: height
     })
 }
 let freshDealImageContainer = size => {
@@ -258,6 +268,10 @@ let dealInfoContainer = size => {
         paddingTop = '0.2rem';
         paddingBottom = '0.2rem';
     }
+    else if(size === 'wide'){
+        paddingTop = '0.5rem';
+        paddingBottom = '0.5rem';
+    }
     else{
         paddingTop = '0.5rem';
         paddingBottom = '0.5rem';
@@ -271,7 +285,8 @@ let dealInfoContainer = size => {
         paddingLeft: '0.5rem',
         paddingRight: '0.5rem',
         paddingTop: paddingTop,
-        paddingBottom: paddingBottom
+        paddingBottom: paddingBottom,
+        minHeight: '100%'
     })
 }
 let dealLeftSide = size => {

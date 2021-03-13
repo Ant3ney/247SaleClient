@@ -37,11 +37,14 @@ export default function FreshDealSide(props){
              style={{
                  ...textStyle(size),
                  ...{
-                     color: '#BAC165'
+                     color: '#BAC165',
+                     whiteSpace: 'nowrap',
+                     overflow: 'hidden',
+                     textOverflow: 'ellipsis'
                  }
              }}
             >
-                {dealName}
+                {props.deal.title}
             </p>
             <div
              style={{

@@ -1,13 +1,16 @@
 import React, { useEffect, useContext } from 'react';
 import StoreLogo from '../../StoreLogo';
+import trackGameButton from '../../../utilities/trackDealButton';
 import globalCostants from '../../../utilities/GlobalConstants';
 import { GlobalContext } from '../../../utilities/GlobalContext';
+import TrackGame from '../../Deal/TrackGame';
 
 export default function BigFeatured(props){
     useEffect(() => {
         
     }, []);
     const size = useContext(GlobalContext).size;
+    const user = useContext(GlobalContext).user;
     const setCurrentNav = useContext(GlobalContext).setCurrentNav;
     const setTrackedDeal = useContext(GlobalContext).setTrackedDeal;
     let deal = props.deal.gameInfo;
@@ -139,20 +142,9 @@ export default function BigFeatured(props){
             >
                 Visit Store
             </button>
-            <button
-             style={{
-                 ...featureButton(size),
-                 ...{
-                     marginLeft: 'auto'
-                 }
-             }}
-             onClick={() => {
-                setTrackedDeal(formatedDeal(props.deal));
-                setCurrentNav('TrackGame');
-             }}
-            >
-                Track Game
-            </button>
+            <TrackGame
+             deal={getFormatedDealOf(props.deal)}
+            />
         </div>
     </div>);
 }
@@ -318,7 +310,7 @@ let getPercentOff = (normal, sale) => {
     }
     return('-' + (decimal * 100 + '').split('.')[0] + '%')
 }
-let formatedDeal = (featuredDeal) => {
+let getFormatedDealOf = (featuredDeal) => {
     let innerDeal = featuredDeal.gameInfo;
     let newDeal = {
         internalName: innerDeal.internalName,
