@@ -288,7 +288,11 @@ export default function Nav(){
                         >
                             Welcome {user ? user.name : 'Error'}
                         </li>
-                        <li onClick={() => {signOut(setUser, serverOrigin)}}>Logout</li>
+                        <li 
+                         style={{
+                            ...liStyle(size)
+                         }}
+                         onClick={() => {signOut(setUser, serverOrigin)}}>Logout</li>
                     </ul>
                 }
                 
