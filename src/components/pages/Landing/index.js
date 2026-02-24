@@ -11,9 +11,6 @@ export default function LandingPage(){
         >
             <LandScreen />
             <PopularDealsScreen />
-            <SignUpScreen 
-             variant={'landingPage'}
-            />
             <FreshDealsScreen />
         </div>);
 }

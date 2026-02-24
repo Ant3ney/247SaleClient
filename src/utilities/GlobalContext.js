@@ -8,7 +8,7 @@ export default function GlobalProvider({ children }) {
    const [serverOrigin, setServerOrigin] = useState(
       ReactIsInDevelomentMode()
          ? 'http://localhost:3005'
-         : 'https://twentyfourseven-sale-67425.herokuapp.com'
+         : 'https://247saleserver.host.anthonycavuoti.com/'
    );
    const [user, setUser] = useState(null);
    const [currentNav, setCurrentNav] = useState('Landing');
