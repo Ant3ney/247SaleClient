@@ -35,6 +35,8 @@ export default function LandScreen(){
         display: 'flex'
     }
 
+	console.log({featuredDeal});
+
     return(<div 
          style={{
              ...landingScreenStyle
