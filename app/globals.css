@@ -20,7 +20,46 @@
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@font-face {
+  font-family: "SHOWG";
+  src: url("/fonts/SHOWG.TTF") format("truetype");
+}
+
+.auth-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.removeGutterX {
+  --bs-gutter-x: 0 !important;
+}
+
+.input::placeholder {
+  color: white;
+}
+
+.at-least-full-screen {
+  height: max(100vh, 390px) !important;
 }
